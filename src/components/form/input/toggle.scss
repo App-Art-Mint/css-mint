@@ -1,0 +1,47 @@
+@use '../../util' as *;
+
+:root {
+	@include css-var(check-size, 1);
+	@include css-var(check-p, 0.25rem);
+	@include css-var(check-h, 1.5rem);
+	@include css-var(check-bw, 0.125rem);
+	@include css-var(check-br, $border-radius);
+	@include css-var(check-fs, 0.5rem);
+}
+
+#{class(toggle)} {
+	@for $i from 1 through 10 {
+		&#{class(#{$i})} {
+			@include css-var(check-size, #{$i});
+		}
+	}
+}
+
+#{class(check)} {
+	height: calc((css-var(check-h) + css-var(check-bw) * 2) * css-var(check-size));
+	width: calc((css-var(check-h) - css-var(check-p) + css-var(check-bw)) * css-var(check-size) * 2);
+	border: calc(css-var(check-bw) * css-var(check-size)) solid css-var(brand-2);
+	border-radius: calc(css-var(check-br) * css-var(check-size));
+
+	[type="checkbox"] {
+		&:checked {
+			& + span {
+				left: calc(100% - (css-var(check-h) - css-var(check-p)) * css-var(check-size));
+			}
+		}
+
+		& + span {
+			$handle-size: calc((css-var(check-h) - css-var(check-p) * 2) * css-var(check-size));
+			top: calc(css-var(check-p) * css-var(check-size));
+			left: calc(css-var(check-p) * css-var(check-size));
+			transform: translateX(0);
+			width: $handle-size;
+			height: $handle-size;
+			border-radius: calc(css-var(check-br) * css-var(check-size));
+
+			i {
+				font-size: calc(css-var(check-fs) * css-var(check-size));
+			}
+		}
+	}
+}
