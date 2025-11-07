@@ -1,4 +1,4 @@
-@use '../../util' as *;
+@use '../../../util' as *;
 
 :root {
 	@include css-var(check-size, 1);
