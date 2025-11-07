@@ -15,6 +15,6 @@
 	@include css-var(c-info, #bada55);
 
 	/// App Colors
-	@include css-var(c-fg, color.adjust(c-black, $lightness: 10%));
-	@include css-var(c-bg, color.adjust(c-white, $lightness: -10%));
+	@include css-var(c-fg, color.adjust(black, $lightness: 10%));
+	@include css-var(c-bg, color.adjust(white, $lightness: -10%));
 }
