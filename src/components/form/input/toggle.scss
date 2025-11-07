@@ -5,8 +5,8 @@
 	@include css-var(check-p, 0.25rem);
 	@include css-var(check-h, 1.5rem);
 	@include css-var(check-bw, 0.125rem);
-	@include css-var(check-br, $border-radius);
 	@include css-var(check-fs, 0.5rem);
+	@include css-var-ref(check-br, br);
 }
 
 #{class(toggle)} {
