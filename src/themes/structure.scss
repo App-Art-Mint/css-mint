@@ -1,0 +1,16 @@
+@use '../util' as *;
+
+:root {
+	/// Borders
+	@include css-var(br, 1rem);
+	@include css-var(bw, 0.125rem);
+
+	/// Spacing
+	@include css-var(gap, 0.25rem);
+	@include css-var-ref(p-min, gap);
+	@include css-var(p-max, calc(css-var(gap) * 8));
+	@include css-var(p-val, 1vw);
+	@include css-var(p-clamp, clamp(css-var(p-min), css-var(p-val), css-var(p-max)));
+	@include css-var(p-exit, clamp(calc(css-var(p-min) * -1), calc(css-var(p-val) * -1), calc(css-var(p-max) * -1)));
+	@include css-var(p-exit-width, clamp(calc(100% + css-var(p-min) * 2), calc(100% + css-var(p-val) * 2), calc(100% + css-var(p-max) * 2)));
+}

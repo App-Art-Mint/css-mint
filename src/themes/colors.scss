@@ -1,0 +1,19 @@
+@use '../util' as *;
+
+:root {
+	/// Colors
+	@include css-var(c-black, #000);
+	@include css-var(c-white, #fff);
+
+	/// Brand Colors
+	@include css-var(c-brand, #bada55);
+	@include css-var(c-accent, #483d8b);
+	@include css-var(c-success, #208a20);
+	@include css-var(c-danger, #ff4d4d);
+	@include css-var(c-warning, #ffaa22);
+	@include css-var(c-info, #bada55);
+
+	/// App Colors
+	@include css-var(c-fg, color.adjust(c-black, $lightness: 10%));
+	@include css-var(c-bg, color.adjust(c-white, $lightness: -10%));
+}

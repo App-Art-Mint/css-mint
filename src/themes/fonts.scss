@@ -1,0 +1,10 @@
+@use '../util' as *;
+
+:root {
+	/// Fonts
+	@include css-var(c-font-text, sans-serif);
+	@include css-var(c-font-title, serif);
+	@include css-var(c-font-backups, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
+	@include css-var(c-font-title-backups, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
+	@include css-var(c-font-h, 1.25);
+}

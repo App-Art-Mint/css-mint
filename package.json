@@ -1,0 +1,50 @@
+{
+	"name": "@appartmint/css-mint",
+	"author": "App Art Mint LLC",
+	"version": "0.0.1",
+	"type": "module",
+	"license": "MIT",
+	"description": "Styles by App Art Mint",
+	"keywords": [
+		"styles",
+		"css",
+		"sass",
+		"scss",
+		"app art mint",
+		"appartmint"
+	],
+	"homepage": "https://github.com/App-Art-Mint/css-mint#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/App-Art-Mint/css-mint.git"
+	},
+	"bugs": {
+		"url": "https://github.com/App-Art-Mint/css-mint/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"src/**/*.scss",
+		"dist/**/*.{css,map}"
+	],
+	"exports": {
+		".": "./src/index.scss",
+		"./*": "./src/*.scss",
+		"./*/": "./src/*/index.scss"
+	},
+	"scripts": {
+		"version": "npm i && git add -A",
+		"postversion": "git push && git push --tags && cross-replace gh release create \"v$npm_package_version\" --generate-notes",
+		"clean": "rimraf dist"
+	},
+	"devDependencies": {
+		"@types/node": "^24.10.0",
+		"cross-replace": "^0.2.0",
+		"glob": "^11.0.3",
+		"npm-run-all2": "^8.0.4",
+		"rimraf": "^6.1.0",
+		"sass": "^1.93.3",
+		"typescript": "^5.9.3"
+	}
+}

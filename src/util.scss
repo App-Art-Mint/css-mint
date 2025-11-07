@@ -1,0 +1,883 @@
+/// _util.scss - Variables, Functions, and Mixins to import elsewhere
+/// @author App Art Mint LLC
+///
+/// @group Util
+
+/// Imports
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
+
+/// Library name
+/// @group Variables
+/// @type String
+$lib: mint !default;
+
+/// Dash - variable name separator
+/// @group Variables
+/// @type String
+$dash: #{'-'};
+
+/// Prefix added to selectors
+/// @group Variables
+/// @type String
+$pre: #{$lib}#{$dash};
+
+/// Dot - added to classes
+/// @group Variables
+/// @type String
+$dot: #{'.'};
+
+/// Hash - added to ids
+/// @group Variables
+/// @type String
+$hash: #{'#'};
+
+/// CSS-selector for disabled elements
+/// @group Variables
+/// @type String
+$disabled: #{'[disabled]'};
+
+/// CSS-selector for elements with an aria-controls attribute
+/// @group Variables
+/// @type String
+$has-controls: #{'[aria-controls]'};
+
+/// CSS-selector for elements with an aria-expanded attribute
+/// @group Variables
+/// @type String
+$has-expanded: #{'[aria-expanded]'};
+
+/// CSS-selector for elements with an aria-hidden attribute
+/// @group Variables
+/// @type String
+$has-hidden: #{'[aria-hidden]'};
+
+/// CSS-selector for elements with an href attribute
+/// @group Variables
+/// @type String
+$has-link: #{'[href]'};
+
+/// CSS-selector for elements with a routerLink attribute
+/// @group Variables
+/// @type String
+$has-router-link: #{'[routerLink]'};
+
+/// CSS-selector for elements with an id attribute
+/// @group Variables
+/// @type String
+$has-id: #{'[id]'};
+
+/// CSS-selector for elements that aren't tabbable (i.e. tabindex is negative)
+/// @group Variables
+/// @type String
+$not-tabbable: #{'[tabindex^="-"]'};
+
+/// CSS-selector for elements that are tabbable (i.e. tabindex isn't negative)
+/// @group Variables
+/// @type String
+$tabbable: #{'[tabindex]'}#{neg($not-tabbable)};
+
+/// CSS-selector for submenu buttons
+/// @group Variables
+/// @type String
+$sub-menu-buttons: #{'button'}#{$has-controls};
+
+/// CSS-selector for submenus
+/// @group Variables
+/// @type String
+$sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};
+
+/// Value added to all delay variables
+/// @group Variables
+/// @type Number
+$delay-base: 0 !default;
+
+/// Value added to all delay variables
+/// @group Variables
+/// @type Number
+$delay-step: 100 !default;
+
+/// Delay variables
+/// @group Maps
+/// @prop {Number} $delay.instant [0] - Instant: the quickest delay; close or equal to 0
+/// @prop {Number} $delay.fast [100] - Fast: delays that happen quickly
+/// @prop {Number} $delay.med-fast [200] - Med-Fast: delays that happen faster
+/// @prop {Number} $delay.default [300] - Default: delays that are average
+/// @prop {Number} $delay.med-slow [400] - Med-Slow: delays that happen slower
+/// @prop {Number} $delay.slow [500] - Slow: delays that happen slowly
+$delay: (
+	instant: $delay-base + $delay-step * 0,
+	fast: $delay-base + $delay-step * 1,
+	med-fast: $delay-base + $delay-step * 2,
+	default: $delay-base + $delay-step * 3,
+	med-slow: $delay-base + $delay-step * 4,
+	slow: $delay-base + $delay-step * 5
+) !default;
+
+/// Breakpoint variables
+/// @group Maps
+/// @prop {Number} $break.xs [480] - Extra-Small: mobile devices
+/// @prop {Number} $break.sm [768] - Small: small tablets, landscape mobiles
+/// @prop {Number} $break.md [1024] - Medium: small desktops, large tablets
+/// @prop {Number} $break.lg [1200] - Large: large desktops, landscape tablets
+/// @prop {Number} $break.xl [1440] - Extra-Large: larger desktops
+$break: (
+	xs: 480,
+	sm: 768,
+	md: 1024,
+	lg: 1200,
+	xl: 1440
+) !default;
+
+/// True if Bootstrap5 is used in the project
+/// @group Variables
+/// @type Boolean
+$bootstrap5: false !default;
+
+@if ($bootstrap5) {
+	$break: (
+		sm: 576,
+		md: 768,
+		lg: 992,
+		xl: 1200,
+		xxl: 1400
+	) !default;
+}
+
+/// Prefixes the provided string with the library name if it isn't already
+/// @group Functions
+///
+/// @example scss - prefix function
+///     prefix(header) // -> sun-header
+///
+/// @param {String} $base - the string to be prefixed
+/// @return {String} - a prefixed string
+@function prefix ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The prefix function requires a string value.';
+	}
+
+	$base: string.to-lower-case($base);
+
+	@if (string.index($base, $pre) != 1) {
+		$base: #{$pre}#{$base};
+	}
+
+	@return $base;
+}
+
+/// Prefixes the provided string with two dashes and the library name if it isn't already
+/// @group Functions
+///
+/// @example scss - css-prefix function
+///     css-prefix(background) // -> --sun-background
+///
+/// @param {String} $base - the string to be prefixed
+/// @return {String} - a prefixed string
+@function css-prefix ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The css-prefix function requires a string value.';
+	}
+
+	@while (string.index($base, $dash) == 1) {
+		$base: string.slice($base, 2);
+	}
+
+	@return #{$dash}#{$dash}#{prefix($base)};
+}
+
+/// Creates a CSS-var call for the prefixed `$base`
+/// @group Functions
+///
+/// @example scss - css-var function
+///     css-var(background) // -> var(--sun-background)
+///
+/// @param {String} $base - the CSS-var to create a call for
+/// @return {String} - a CSS-var call
+@function css-var ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The css-var function requires a string value.';
+	}
+
+	@if (string.index($base, '--') != 1) {
+		$base: css-prefix($base);
+	}
+
+	@return var(#{$base});
+}
+
+/// Creates a class selector with the library prefix
+/// @group Functions
+///
+/// @example scss - class function
+///     class(open) // -> .sun-open
+///
+/// @param {String} $base - the name of the class
+/// @return {String} - a class selector
+@function class($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The class function requires a string value.';
+	}
+
+	@return #{$dot}#{prefix($base)};
+}
+
+/// Creates an id selector with the library prefix
+/// @group Functions
+///
+/// @example scss - id function
+///     id(header) // -> #sun-header
+///
+/// @param {String} $base - the name of the id
+/// @param {String} $op - the comparison operator
+/// @return {String} - an id selector
+@function id ($base, $op: '=') {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The id function requires a string value.';
+	}
+
+	@if (meta.type-of($op) != 'string') {
+		@error 'The controls function requires a string value for param 2.';
+	}
+
+	@if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {
+		@error 'The controls function requires a valid attribute comparison operator for param 2.';
+	}
+
+	@if ($op == '=') {
+		@return #{$hash}#{prefix($base)};
+	}
+
+	@return '[id#{$op}#{prefix($base)}]';
+}
+
+/// Creates an aria-controls selector with the library prefix
+/// @group Functions
+///
+/// @example scss - controls function
+///     controls(header) // -> [aria-controls=sun-header]
+///
+/// @param {String} $id - the id of the controlled element
+/// @param {String} $op - the comparison operator
+/// @return {String} - an aria-controls selector
+@function controls ($id, $op: '=') {
+	@if (meta.type-of($id) != 'string') {
+		@error 'The controls function requires a string value for param 1.';
+	}
+
+	@if (meta.type-of($op) != 'string') {
+		@error 'The controls function requires a string value for param 2.';
+	}
+
+	@if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {
+		@error 'The controls function requires a valid attribute comparison operator for param 2.';
+	}
+
+	@return '[aria-controls#{$op}#{prefix($id)}]';
+}
+
+/// Creates an aria-expanded selector
+/// @group Functions
+///
+/// @example scss - expanded function
+///     expanded(true) // -> [aria-expanded=true]
+///
+/// @param {Bool} $bool - the value of the selector
+/// @return {String} - an aria-expanded selector
+@function expanded ($bool) {
+	@if (meta.type-of($bool) == 'string') {
+		$bool: string.to-lower-case($bool);
+
+		@if not($bool == 'true' or $bool == 'false') {
+			@error 'The expanded function requires a boolean value.';
+		}
+	}
+
+	@else if (meta.type-of($bool) != 'bool') {
+		@error 'The expanded function requires a boolean value.';
+	}
+
+	@return '[aria-expanded=#{$bool}]';
+}
+
+/// Creates an aria-hidden selector
+/// @group Functions
+///
+/// @example scss - hidden function
+///     hidden(true) // -> [aria-hidden=true]
+///
+/// @param {Bool} $bool - the value of the selector
+/// @return {String} - an aria-hidden selector
+@function hidden ($bool) {
+	@if (meta.type-of($bool) == 'string') {
+		$bool: string.to-lower-case($bool);
+
+		@if not($bool == 'true' or $bool == 'false') {
+			@error 'The hidden function requires a boolean value. Received: #{$bool}';
+		}
+	}
+
+	@else if (meta.type-of($bool) !='bool') {
+		@error 'The hidden function requires a boolean value. Received: #{$bool}';
+	}
+
+	@return '[aria-hidden=#{$bool}]';
+}
+
+/// Converts a number to ms
+/// @group Functions
+///
+/// @example scss - ms function
+///     ms(100) // -> 100ms
+///
+/// @param {Number} $val - the number of ms to return
+/// @return {Number} the number as ms
+@function ms ($val) {
+	@if (meta.type-of($val) != 'number') {
+		@error 'The ms function requires a number value.';
+	}
+
+	@return $val * 1ms;
+}
+
+/// Converts a number to px
+/// @group Functions
+///
+/// @example scss - px function
+///     px(100) // -> 100px
+///
+/// @param {Number} $val - the number of px to return
+/// @return {Number} - the number as px
+@function px ($val) {
+	@if (meta.type-of($val) != 'number') {
+		@error 'The px function requires a number value.';
+	}
+
+	@return $val * 1px;
+}
+
+/// Removes the unit from the given value
+/// @group Functions
+///
+/// @example scss - strip-unit function
+///     strip-unit(100px) // -> 100
+///
+/// @param {Number} $val - the value to strip
+/// @return {Number} - the number without units
+@function strip-unit($val) {
+	@if (meta.type-of($val) != 'number') {
+		@error 'The strip-unit function requires a number value.';
+	}
+
+	@return math.div($val, $val * 0 + 1);
+}
+
+/// Returns the percentage of the given values
+/// @group Functions
+///
+/// @example scss - percent function
+///    percent(100, 200) // -> 50%
+///
+/// @param {Number} $dividend - the value that will be devided
+/// @param {Number} $divisor - the value that will devided by
+/// @return {Number} - the percentage of the given values
+/// @throws {Error} - if the values are not numbers
+/// @throws {Error} - if the divisor is 0
+@function percent($dividend, $divisor, $padding: 0) {
+	@if (meta.type-of($dividend) != 'number' or meta.type-of($divisor) != 'number' or meta.type-of($padding) != 'number') {
+		@error 'The percent function requires number parameters.';
+	}
+
+	@if ($divisor == 0) {
+		@error 'The percent function requires a non-zero value for param 2.';
+	}
+
+	@if (strip-unit($padding) != 0) {
+		@return #{calc((($dividend * 100%) - $padding) / $divisor)}#{'%'};
+	}
+
+	@return math.div($dividend * 100%, $divisor);
+}
+
+/// Returns the requested delay value as ms
+/// @group Functions
+///
+/// @example scss - delay function
+///     delay(default) // -> 300ms
+///
+/// @param {Number} $key - the key of the delay to use
+/// @return {Number} - the delay value as ms
+@function delay($key) {
+	@if not(map.has-key($delay, $key)) {
+		@error 'The delay function requires one of the following values: #{map-keys($delay)}';
+	}
+
+	@return ms(map.get($delay, $key));
+}
+
+/// Returns the requested breakpoint value as px
+/// @group Functions
+///
+/// @example scss - break function
+///     break(md) // -> 1024px
+///
+/// @param {Number} $key - the key of the breakpoint to use
+/// @return {Number} - the breakpoint value as px
+@function break($key) {
+	@if not(map.has-key($break, $key)) {
+		@error 'The break function requires one of the following values: #{map-keys($break)}';
+	}
+
+	@return px(map.get($break, $key));
+}
+
+/// Creates a prefixed CSS var definition
+/// @group Mixins
+///
+/// @example scss - css-var mixin
+///     @include css-var(bg, black) // -> --sun-bg: black;
+///
+/// @param {String} $key - the key of the CSS var
+/// @param {Any} $val - the value of the CSS var
+/// @output a prefixed CSS var definition
+@mixin css-var ($key, $val) {
+	@if (meta.type-of($key) != 'string') {
+		@error 'The css-var mixin requires a string for the $key argument.';
+	}
+
+	@if (string.index($key, '--') != 1) {
+		$key: css-prefix($key);
+	}
+
+	#{$key}: #{$val};
+}
+
+/// Creates a prefixed CSS var reference
+/// @group Mixins
+///
+/// @example scss - css-var-ref mixin
+///     @include css-var-ref(fill, bg) // -> --sun-fill: var(--sun-bg);
+///
+/// @param {String} $key1 - the key of the new CSS var to define
+/// @param {String} $key2 - the key of the referenced CSS var
+/// @output a prefixed CSS var reference
+@mixin css-var-ref ($key1, $key2) {
+	@if (meta.type-of($key1) != 'string' or meta.type-of($key2) != 'string') {
+		@error 'The css-var-ref mixin requires string values for both parameters.';
+	}
+
+	@include css-var($key1, css-var($key2));
+}
+
+/// Wraps the provided content in a media query
+/// @group Mixins
+///
+/// @example scss - break mixin
+///     @include break(md) {    // ->   @media (min-width: 1024px) {
+///         display: none;      //          display: none;
+///     }                       //      }
+///
+/// @param {String} $min - the key of the breakpoint to use with min-width
+/// @param {String} $max - the key of the breakpoint to use with max-width
+/// @output the provided content wrapped in a media query
+@mixin break ($min, $max: null) {
+	@if not(map.has-key($break, $min) and (meta.type-of($max) == 'null' or map.has-key($break, $max))) {
+		@error 'The break mixin requires one or two of the following values: #{map-keys($break)}';
+	}
+
+	@if (map.has-key($break, $max)) {
+		@media (min-width: break($min)) and (max-width: break($max)) {
+			@content;
+		}
+	}
+
+	@else {
+		@media (min-width: break($min)) {
+			@content;
+		}
+	}
+}
+
+@mixin break-max ($max, $min: null) {
+	@if not(map.has-key($break, $max) and (meta.type-of($min) == 'null' or map.has-key($break, $min))) {
+		@error 'The break-max mixin requires one or two of the following values: #{map-keys($break)}';
+	}
+
+	$break-max: break($max) - 1px;
+	@if (map.has-key($break, $min)) {
+		@media (min-width: break($min)) and (max-width: $break-max) {
+			@content;
+		}
+	}
+
+	@else {
+		@media (max-width: $break-max) {
+			@content;
+		}
+	}
+}
+
+/// Creates utility selectors for a given property at each breakpoint
+/// @group Mixins
+///
+/// @example scss- break-util mixin
+///     @include break-util(display, flex);     // ->   & {
+///                                             //          display: flex;
+///                                             //
+///                                             //          &-xs {
+///                                             //              display: none;
+///                                             //              @include break(xs) {
+///                                             //                  display: flex;
+///                                             //              }
+///                                             //          }
+///                                             //          &-to-xs {
+///                                             //              display: flex;
+///                                             //              @include break(xs) {
+///                                             //                  display: none;
+///                                             //              }
+///                                             //          }
+///                                             //          ...
+///                                             //          &-xl {
+///                                             //              display: none;
+///                                             //              @include break(xl) {
+///                                             //                  display: flex;
+///                                             //              }
+///                                             //          }
+///                                             //          &-to-xl {
+///                                             //              display: flex;
+///                                             //              @include break(xl) {
+///                                             //                  display: none;
+///                                             //              }
+///                                             //          }
+///                                             //      }
+///
+/// @param {String} $prop - the property to toggle
+/// @param {Any} $val - the active value of the property
+/// @param {Any} $none - the inactive value of the property
+/// @output utility selectors for the given property at each breakpoint
+@mixin break-util ($prop, $val, $none: "none") {
+	@if (meta.type-of($prop) !='string') {
+		@error 'The break-util mixin requires a string for the $prop argument.';
+	}
+
+	& {
+		#{$prop}: #{$val};
+
+		@each $key,
+		$width in $break {
+			&-#{$key} {
+				#{$prop}: #{$none};
+
+				@include break($key) {
+					#{$prop}: #{$val};
+				}
+			}
+
+			&-to-#{$key} {
+				#{$prop}: #{$val};
+
+				@include break($key) {
+					#{$prop}: #{$none};
+				}
+			}
+		}
+	}
+}
+
+/// Creates utility selectors for a box model property
+/// @group Mixins
+@mixin box-util ($prop, $val) {
+	@if (meta.type-of($prop) != 'string') {
+		@error 'The box-util mixin requires a string for the $prop argument.';
+	}
+
+	&-auto {
+		#{$prop}-left: auto;
+		#{$prop}-right: auto;
+
+		&-v {
+			#{$prop}: $val auto;
+
+			@for $i from 0 through 6 {
+				&#{$i} {
+					#{$prop}: $val * $i auto;
+				}
+			}
+		}
+
+		&-t {
+			#{$prop}-top: $val;
+			#{$prop}-left: auto;
+			#{$prop}-right: auto;
+
+			@for $i from 0 through 6 {
+				&#{$i} {
+					#{$prop}-top: $val * $i;
+					#{$prop}-left: auto;
+					#{$prop}-right: auto;
+				}
+			}
+		}
+
+		&-b {
+			#{$prop}-bottom: $val;
+			#{$prop}-left: auto;
+			#{$prop}-right: auto;
+
+			@for $i from 0 through 6 {
+				&#{$i} {
+					#{$prop}-bottom: $val * $i;
+					#{$prop}-left: auto;
+					#{$prop}-right: auto;
+				}
+			}
+		}
+	}
+
+	&-v {
+		#{$prop}-top: $val;
+		#{$prop}-bottom: $val;
+
+		@for $i from 0 through 6 {
+			&#{$i} {
+				#{$prop}-top: $val * $i;
+				#{$prop}-bottom: $val * $i;
+			}
+		}
+	}
+
+	&-t {
+		#{$prop}-top: $val;
+
+		@for $i from 0 through 6 {
+			&#{$i} {
+				#{$prop}-top: $val * $i;
+			}
+		}
+
+		&#{50} {
+			#{$prop}-top: 50vh;
+		}
+	}
+
+	&-b {
+		#{$prop}-bottom: $val;
+
+		@for $i from 0 through 6 {
+			&#{$i} {
+				#{$prop}-bottom: $val * $i;
+			}
+		}
+	}
+
+	&-h {
+		#{$prop}-left: $val;
+		#{$prop}-right: $val;
+
+		@for $i from 0 through 6 {
+			&#{$i} {
+				#{$prop}-left: $val * $i;
+				#{$prop}-right: $val * $i;
+			}
+		}
+	}
+
+	&-l {
+		#{$prop}-left: $val;
+
+		@for $i from 0 through 6 {
+			&#{$i} {
+				#{$prop}-left: $val * $i;
+			}
+		}
+	}
+
+	&-r {
+		#{$prop}-right: $val;
+
+		@for $i from 0 through 6 {
+			&#{$i} {
+				#{$prop}-right: $val * $i;
+			}
+		}
+	}
+}
+
+/// Generates css varibles for lighter, darker, or both variations
+/// @group Mixins
+///
+/// @param {String} $name - the name of the color
+/// @param {Color} $color - the color to generate variations for
+/// @param {String} $type - the type of variation to generate
+/// @param {Number} $number - the number of variations to geerate
+/// @param {String} $amount - the amount to vary the color by
+/// @param {Boolean} $alpha - whether to generate alpha variations
+/// @output css variables for different shades of the source color
+@mixin shades ($name, $color, $type: both, $number: 7, $amount: 10%, $alpha: false) {
+	@if (meta.type-of($name) != 'string') {
+		@error 'The shades mixin requires a string for the $name argument.';
+	}
+
+	@if (meta.type-of($color) != 'color') {
+		@error 'The shades mixin requires a color for the $colnor argument.';
+	}
+
+	@if not($type == lighten or $type == darken or $type == both) {
+		@error 'The shades mixin requires a string of "lighten", "darken", or "both" for the $type argument.';
+	}
+
+	@if (meta.type-of($number) != 'number') {
+		@error 'The shades mixin requires a number for the $number argument.';
+	}
+
+	@if (meta.type-of($alpha) == 'string') {
+		$bool: string.to-lower-case($bool);
+
+		@if not($bool == 'true' or $bool == 'false') {
+			@error 'The shades mixin requires a boolean value for the $alpha argument. Received: #{$bool}';
+		}
+	}
+
+	@else if (meta.type-of($alpha) != 'bool') {
+		@error 'The shades mixin requires a boolean value for the $alpha argument. Received: #{$bool}';
+	}
+
+	@include css-var(#{$name}, $color);
+
+	@if ($alpha) {
+		@if ($type == lighten) {
+			@for $i from 0 through $number - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));
+			}
+		}
+
+		@else if ($type == darken) {
+			@for $i from 0 through $number - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));
+			}
+		}
+
+		@else if ($type == both) {
+			$num-light: floor(math.div($number, 2));
+
+			@for $i from 0 through $num-light - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));
+			}
+
+			@include css-var(#{$name}-#{$num-light}, $color);
+
+			@for $i from $num-light + 1 through $number - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));
+			}
+		}
+	}
+
+	@else {
+		@if ($type == lighten) {
+			@for $i from 0 through $number - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: $i * $amount));
+			}
+		}
+
+		@else if ($type == darken) {
+			@for $i from 0 through $number - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: $i * -$amount));
+			}
+		}
+
+		@else if ($type == both) {
+			$num-light: math.floor(math.div($number, 2));
+
+			@for $i from 0 through $num-light - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: ($num-light - $i) * $amount));
+			}
+
+			@include css-var(#{$name}-#{$num-light}, $color);
+
+			@for $i from $num-light + 1 through $number - 1 {
+				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: ($i - $num-light) * -$amount));
+			}
+		}
+	}
+}
+
+/// TODO: Document this
+@mixin states ($states...) {
+	@each $state in $states {
+		@if (meta.type-of($state) != 'string') {
+			@error 'The states mixin requires a string for each state argument.';
+		}
+	}
+
+	@if (list.index($states, 'hover') != null) {
+		&:hover {
+			@content;
+		}
+	}
+
+	@if (list.index($states, 'focus') != null) {
+		&:focus-visible {
+			@content;
+		}
+	}
+
+	@if (list.index($states, 'active') != null) {
+
+		&:active {
+			@content;
+		}
+	}
+
+	@if (list.index($states, 'mint-active') != null) {
+		&#{class(active)} {
+			@content;
+		}
+	}
+
+	@if (list.index($states, 'visited') != null) {
+		&:visited {
+			@content;
+		}
+	}
+
+	@if (list.index($states, 'disabled') != null) {
+		&:disabled {
+			@content;
+		}
+	}
+
+	@if (list.index($states, 'expanded') != null) {
+		&#{expanded(true)} {
+			@content;
+		}
+	}
+}
+
+/// Selector for all headers
+/// @group Mixins
+@mixin headers () {
+	@for $i from 1 through 6 {
+		h#{$i},
+		#{class(h#{$i})} {
+			@content;
+		}
+	}
+}
+
+/// Background clip text
+/// @group Mixins
+@mixin background-clip ($color) {
+	color: $color;
+
+	@supports (-webkit-background-clip: text) and (-webkit-text-fill-color: transparent) {
+		background: $color;
+		@content;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
