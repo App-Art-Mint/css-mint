@@ -1,0 +1,119 @@
+/// tooltip.scss - Tooltip styles
+/// @author App Art Mint LLC
+///
+/// @group Ui
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+:root {
+	@include css-var-ref(tooltip-fg, fg);
+	@include css-var-ref(tooltip-bg, bg);
+	@include css-var-ref(tooltip-r, br);
+	@include css-var-ref(tooltip-shadow-c, shadow-c);
+	@include css-var-ref(tooltip-shadow-s, shadow-s);
+	@include css-var(tooltip-p, 0.5rem 1rem);
+	@include css-var(tooltip-dist, 0.5rem);
+	@include css-var(tooltip-max-w, 90vw);
+	@include css-var(tooltip-line-h, 1.5);
+	@include css-var(tooltip-font-s, 1rem);
+	@include css-var(tooltip-arrow-s, 0.5rem);
+}
+
+#{class(tooltip)} {
+    position: absolute;
+    max-width: css-var(tooltip-max-w);
+    border-radius: css-var(tooltip-r);
+    padding: css-var(tooltip-p);
+    opacity: 0;
+    color: css-var(tooltip-fg);
+    background: css-var(tooltip-bg);
+    box-shadow: css-var(tooltip-shadow-c) css-var(tooltip-shadow-s);
+    font-size: css-var(tooltip-font-s);
+    line-height: css-var(tooltip-line-h);
+    transition: opacity 0.3s;
+	user-select: none;
+	pointer-events: none;
+    white-space: nowrap;
+
+    &#{class(top)}, &#{class(bottom)} {
+        &::after {
+            border-left: solid css-var(tooltip-arrow-s) transparent;
+            border-right: solid css-var(tooltip-arrow-s) transparent;
+        }
+    }
+    &#{class(left)}, &#{class(right)} {
+        &::after {
+            border-top: solid css-var(tooltip-arrow-s) transparent;
+            border-bottom: solid css-var(tooltip-arrow-s) transparent;
+        }
+    }
+
+    &#{class(top)} {
+        bottom: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+        left: 50%;
+        transform: translateX(-50%);
+
+        &::after {
+            bottom: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+        }
+    }
+    &#{class(left)} {
+        right: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+        top: 50%;
+        transform: translateY(-50%);
+
+        &::after {
+            right: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+        }
+    }
+    &#{class(bottom)} {
+        top: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+        left: 50%;
+        transform: translateX(-50%);
+
+        &::after {
+            top: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+        }
+    }
+    &#{class(right)} {
+        left: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+        top: 50%;
+        transform: translateY(-50%);
+
+        &::after {
+            left: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+            top: 50%;
+            transform: translateY(-50%);
+            border-right: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
+
+    &ped {
+		display: inline-flex;
+        position: relative;
+
+        @include states(hover) {
+            #{class(tooltip)} {
+                opacity: 1;
+            }
+        }
+    }
+}
