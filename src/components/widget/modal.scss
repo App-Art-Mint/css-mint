@@ -7,13 +7,17 @@
 /// Imports
 @use '../../util' as *;
 
+:root {
+	@include css-var-ref(modal-w, max-sm);
+}
+
 #{class(modal)} {
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
-	max-width: break(sm);
+	max-width: css-var(modal-w);
 	height: auto;
 	max-height: calc(100% - css-var(p-clamp) * 4);
 	z-index: 99999999;
