@@ -17,4 +17,9 @@
 	/// Shadows
 	@include css-var-ref(shadow-c, glow-2);
 	@include css-var(shadow-s, 0 0 2rem -0.5rem);
+
+	/// Widths
+	@each $size, $value in $breakpoints {
+		@include css-var(max-#{$size}, $value);
+	}
 }
