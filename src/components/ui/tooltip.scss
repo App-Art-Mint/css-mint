@@ -109,6 +109,7 @@
     &ped {
 		display: inline-flex;
         position: relative;
+        width: fit-content;
 
         @include states(hover) {
             #{class(tooltip)} {
