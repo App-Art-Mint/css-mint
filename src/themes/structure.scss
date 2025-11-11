@@ -19,7 +19,7 @@
 	@include css-var(shadow-s, 0 0 2rem -0.5rem);
 
 	/// Widths
-	@each $size, $value in $breakpoints {
+	@each $size, $value in $break {
 		@include css-var(max-#{$size}, $value);
 	}
 }
