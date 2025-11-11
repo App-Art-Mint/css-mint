@@ -1,0 +1,14 @@
+/// mask.scss - Masks
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use '../util' as *;
+
+/// Masks
+#{class(circle)} {
+	border-radius: 50%;
+	overflow: hidden;
+}

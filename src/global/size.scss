@@ -1,0 +1,15 @@
+/// size.scss - Sizes
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use '../util' as *;
+
+/// Sizes
+#{class(half-w)} {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
