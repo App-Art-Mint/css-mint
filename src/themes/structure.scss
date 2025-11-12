@@ -20,6 +20,6 @@
 
 	/// Widths
 	@each $size, $value in $break {
-		@include css-var(max-#{$size}, $value);
+		@include css-var(max-#{$size}, #{$value}px);
 	}
 }
