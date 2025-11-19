@@ -10,31 +10,17 @@
 @use 'sass:math';
 @use 'sass:meta';
 @use 'sass:string';
+@use 'sass:selector';
 
 /// Library name
 /// @group Variables
 /// @type String
 $lib: mint !default;
 
-/// Dash - variable name separator
-/// @group Variables
-/// @type String
-$dash: #{'-'};
-
 /// Prefix added to selectors
 /// @group Variables
 /// @type String
-$pre: #{$lib}#{$dash};
-
-/// Dot - added to classes
-/// @group Variables
-/// @type String
-$dot: #{'.'};
-
-/// Hash - added to ids
-/// @group Variables
-/// @type String
-$hash: #{'#'};
+$pre: #{$lib}-;
 
 /// CSS-selector for disabled elements
 /// @group Variables
@@ -133,26 +119,8 @@ $break: (
 	xl: 1440
 ) !default;
 
-/// True if Bootstrap5 is used in the project
-/// @group Variables
-/// @type Boolean
-$bootstrap5: false !default;
-
-@if ($bootstrap5) {
-	$break: (
-		sm: 576,
-		md: 768,
-		lg: 992,
-		xl: 1200,
-		xxl: 1400
-	) !default;
-}
-
 /// Prefixes the provided string with the library name if it isn't already
 /// @group Functions
-///
-/// @example scss - prefix function
-///     prefix(header) // -> sun-header
 ///
 /// @param {String} $base - the string to be prefixed
 /// @return {String} - a prefixed string
@@ -173,9 +141,6 @@ $bootstrap5: false !default;
 /// Prefixes the provided string with two dashes and the library name if it isn't already
 /// @group Functions
 ///
-/// @example scss - css-prefix function
-///     css-prefix(background) // -> --sun-background
-///
 /// @param {String} $base - the string to be prefixed
 /// @return {String} - a prefixed string
 @function css-prefix ($base) {
@@ -183,18 +148,15 @@ $bootstrap5: false !default;
 		@error 'The css-prefix function requires a string value.';
 	}
 
-	@while (string.index($base, $dash) == 1) {
+	@while (string.index($base, '-') == 1) {
 		$base: string.slice($base, 2);
 	}
 
-	@return #{$dash}#{$dash}#{prefix($base)};
+	@return '--#{prefix($base)}';
 }
 
 /// Creates a CSS-var call for the prefixed `$base`
 /// @group Functions
-///
-/// @example scss - css-var function
-///     css-var(background) // -> var(--sun-background)
 ///
 /// @param {String} $base - the CSS-var to create a call for
 /// @return {String} - a CSS-var call
@@ -213,9 +175,6 @@ $bootstrap5: false !default;
 /// Creates a class selector with the library prefix
 /// @group Functions
 ///
-/// @example scss - class function
-///     class(open) // -> .sun-open
-///
 /// @param {String} $base - the name of the class
 /// @return {String} - a class selector
 @function class($base) {
@@ -223,14 +182,11 @@ $bootstrap5: false !default;
 		@error 'The class function requires a string value.';
 	}
 
-	@return #{$dot}#{prefix($base)};
+	@return '.#{prefix($base)}';
 }
 
 /// Creates an id selector with the library prefix
 /// @group Functions
-///
-/// @example scss - id function
-///     id(header) // -> #sun-header
 ///
 /// @param {String} $base - the name of the id
 /// @param {String} $op - the comparison operator
@@ -249,7 +205,7 @@ $bootstrap5: false !default;
 	}
 
 	@if ($op == '=') {
-		@return #{$hash}#{prefix($base)};
+		@return '##{prefix($base)}';
 	}
 
 	@return '[id#{$op}#{prefix($base)}]';
@@ -257,9 +213,6 @@ $bootstrap5: false !default;
 
 /// Creates an aria-controls selector with the library prefix
 /// @group Functions
-///
-/// @example scss - controls function
-///     controls(header) // -> [aria-controls=sun-header]
 ///
 /// @param {String} $id - the id of the controlled element
 /// @param {String} $op - the comparison operator
@@ -283,9 +236,6 @@ $bootstrap5: false !default;
 /// Creates an aria-expanded selector
 /// @group Functions
 ///
-/// @example scss - expanded function
-///     expanded(true) // -> [aria-expanded=true]
-///
 /// @param {Bool} $bool - the value of the selector
 /// @return {String} - an aria-expanded selector
 @function expanded ($bool) {
@@ -306,9 +256,6 @@ $bootstrap5: false !default;
 
 /// Creates an aria-hidden selector
 /// @group Functions
-///
-/// @example scss - hidden function
-///     hidden(true) // -> [aria-hidden=true]
 ///
 /// @param {Bool} $bool - the value of the selector
 /// @return {String} - an aria-hidden selector
@@ -331,9 +278,6 @@ $bootstrap5: false !default;
 /// Converts a number to ms
 /// @group Functions
 ///
-/// @example scss - ms function
-///     ms(100) // -> 100ms
-///
 /// @param {Number} $val - the number of ms to return
 /// @return {Number} the number as ms
 @function ms ($val) {
@@ -346,9 +290,6 @@ $bootstrap5: false !default;
 
 /// Converts a number to px
 /// @group Functions
-///
-/// @example scss - px function
-///     px(100) // -> 100px
 ///
 /// @param {Number} $val - the number of px to return
 /// @return {Number} - the number as px
@@ -363,9 +304,6 @@ $bootstrap5: false !default;
 /// Removes the unit from the given value
 /// @group Functions
 ///
-/// @example scss - strip-unit function
-///     strip-unit(100px) // -> 100
-///
 /// @param {Number} $val - the value to strip
 /// @return {Number} - the number without units
 @function strip-unit($val) {
@@ -378,9 +316,6 @@ $bootstrap5: false !default;
 
 /// Returns the percentage of the given values
 /// @group Functions
-///
-/// @example scss - percent function
-///    percent(100, 200) // -> 50%
 ///
 /// @param {Number} $dividend - the value that will be devided
 /// @param {Number} $divisor - the value that will devided by
@@ -406,9 +341,6 @@ $bootstrap5: false !default;
 /// Returns the requested delay value as ms
 /// @group Functions
 ///
-/// @example scss - delay function
-///     delay(default) // -> 300ms
-///
 /// @param {Number} $key - the key of the delay to use
 /// @return {Number} - the delay value as ms
 @function delay($key) {
@@ -422,9 +354,6 @@ $bootstrap5: false !default;
 /// Returns the requested breakpoint value as px
 /// @group Functions
 ///
-/// @example scss - break function
-///     break(md) // -> 1024px
-///
 /// @param {Number} $key - the key of the breakpoint to use
 /// @return {Number} - the breakpoint value as px
 @function break($key) {
@@ -437,9 +366,6 @@ $bootstrap5: false !default;
 
 /// Creates a prefixed CSS var definition
 /// @group Mixins
-///
-/// @example scss - css-var mixin
-///     @include css-var(bg, black) // -> --sun-bg: black;
 ///
 /// @param {String} $key - the key of the CSS var
 /// @param {Any} $val - the value of the CSS var
@@ -459,9 +385,6 @@ $bootstrap5: false !default;
 /// Creates a prefixed CSS var reference
 /// @group Mixins
 ///
-/// @example scss - css-var-ref mixin
-///     @include css-var-ref(fill, bg) // -> --sun-fill: var(--sun-bg);
-///
 /// @param {String} $key1 - the key of the new CSS var to define
 /// @param {String} $key2 - the key of the referenced CSS var
 /// @output a prefixed CSS var reference
@@ -475,11 +398,6 @@ $bootstrap5: false !default;
 
 /// Wraps the provided content in a media query
 /// @group Mixins
-///
-/// @example scss - break mixin
-///     @include break(md) {    // ->   @media (min-width: 1024px) {
-///         display: none;      //          display: none;
-///     }                       //      }
 ///
 /// @param {String} $min - the key of the breakpoint to use with min-width
 /// @param {String} $max - the key of the breakpoint to use with max-width
@@ -524,37 +442,6 @@ $bootstrap5: false !default;
 /// Creates utility selectors for a given property at each breakpoint
 /// @group Mixins
 ///
-/// @example scss- break-util mixin
-///     @include break-util(display, flex);     // ->   & {
-///                                             //          display: flex;
-///                                             //
-///                                             //          &-xs {
-///                                             //              display: none;
-///                                             //              @include break(xs) {
-///                                             //                  display: flex;
-///                                             //              }
-///                                             //          }
-///                                             //          &-to-xs {
-///                                             //              display: flex;
-///                                             //              @include break(xs) {
-///                                             //                  display: none;
-///                                             //              }
-///                                             //          }
-///                                             //          ...
-///                                             //          &-xl {
-///                                             //              display: none;
-///                                             //              @include break(xl) {
-///                                             //                  display: flex;
-///                                             //              }
-///                                             //          }
-///                                             //          &-to-xl {
-///                                             //              display: flex;
-///                                             //              @include break(xl) {
-///                                             //                  display: none;
-///                                             //              }
-///                                             //          }
-///                                             //      }
-///
 /// @param {String} $prop - the property to toggle
 /// @param {Any} $val - the active value of the property
 /// @param {Any} $none - the inactive value of the property
@@ -564,25 +451,22 @@ $bootstrap5: false !default;
 		@error 'The break-util mixin requires a string for the $prop argument.';
 	}
 
-	& {
-		#{$prop}: #{$val};
+	#{$prop}: #{$val};
 
-		@each $key,
-		$width in $break {
-			&-#{$key} {
-				#{$prop}: #{$none};
+	@each $key, $width in $break {
+		&-#{$key} {
+			#{$prop}: #{$none};
 
-				@include break($key) {
-					#{$prop}: #{$val};
-				}
-			}
-
-			&-to-#{$key} {
+			@include break($key) {
 				#{$prop}: #{$val};
+			}
+		}
 
-				@include break($key) {
-					#{$prop}: #{$none};
-				}
+		&-to-#{$key} {
+			#{$prop}: #{$val};
+
+			@include break($key) {
+				#{$prop}: #{$none};
 			}
 		}
 	}
@@ -805,53 +689,52 @@ $bootstrap5: false !default;
 	}
 }
 
-/// TODO: Document this
+/// Wrap the content in given states
+/// @group Mixins
+/// 
+/// @param {String[]} $states - a list of states
 @mixin states ($states...) {
+	@if (list.length($states) == 0) {
+		@error 'The states mixin requires at least one state parameter.';
+	}
 	@each $state in $states {
 		@if (meta.type-of($state) != 'string') {
-			@error 'The states mixin requires a string for each state argument.';
+			@error 'The states mixin requires a string for each state parameter.';
 		}
 	}
 
+	$selectors: ();
+
 	@if (list.index($states, 'hover') != null) {
-		&:hover {
-			@content;
-		}
+		$selectors: list.append($selectors, selector.append(&, ':hover'));
 	}
 
 	@if (list.index($states, 'focus') != null) {
-		&:focus-visible {
-			@content;
-		}
+		$selectors: list.append($selectors, selector.append(&, ':focus-visible'));
 	}
 
 	@if (list.index($states, 'active') != null) {
-
-		&:active {
-			@content;
-		}
+		$selectors: list.append($selectors, selector.append(&, ':active'));
 	}
 
 	@if (list.index($states, 'mint-active') != null) {
-		&#{class(active)} {
-			@content;
-		}
+		$selectors: list.append($selectors, selector.append(&, class(active)));
 	}
 
 	@if (list.index($states, 'visited') != null) {
-		&:visited {
-			@content;
-		}
+		$selectors: list.append($selectors, selector.append(&, ':visited'));
 	}
 
 	@if (list.index($states, 'disabled') != null) {
-		&:disabled {
-			@content;
-		}
+		$selectors: list.append($selectors, selector.append(&, ':disabled'));
 	}
 
 	@if (list.index($states, 'expanded') != null) {
-		&#{expanded(true)} {
+		$selectors: list.append($selectors, selector.append(&, expanded(true)));
+	}
+
+	@at-root {
+		#{$selectors} {
 			@content;
 		}
 	}

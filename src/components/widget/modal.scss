@@ -8,7 +8,7 @@
 @use '../../util' as *;
 
 :root {
-	@include css-var-ref(modal-w, max-sm);
+	@include css-var-ref(modal-w, sm);
 }
 
 #{class(modal)} {

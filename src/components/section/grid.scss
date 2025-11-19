@@ -1,0 +1,21 @@
+/// grid.scss - Grid styles
+/// @author App Art Mint LLC
+///
+/// @group Section
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+:root {
+	@include css-var-ref(grid-gap, gap);
+	@include css-var-ref(grid-fit-w, xs);
+}
+
+#{class(grid)} {
+	&-fit {
+		display: grid;
+		grid-template-columns: repeat(minmax(min(css-var(grid-fit-w), 100%), 1fr));
+		gap: css-var(grid-gap);
+	}
+}
