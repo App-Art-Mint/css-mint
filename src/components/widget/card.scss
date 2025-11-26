@@ -1,0 +1,336 @@
+/// card.scss - Card styles
+/// @author App Art Mint LLC
+///
+/// @group Widget
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:math';
+@use '../../util' as *;
+
+:root {
+	@include css-var-ref(card-r, br);
+	@include css-var-ref(card-shadow-s, shadow-s);
+	@include css-var-ref(card-shadow-c, shadow-c);
+}
+
+/// Card Styles
+#{class(card)} {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	height: 100%;
+	max-width: 100%;
+	margin: 0;
+	border-radius: css-var(card-r);
+	box-shadow: css-var(card-shadow-s) css-var(card-shadow-c);
+
+	@include break(sm) {
+		flex-direction: row;
+
+		&#{class(reverse)} {
+			flex-direction: row-reverse;
+		}
+	}
+
+	&:has(#{class(carousel)}) {
+		box-shadow: none;
+
+		#{class(content)} {
+			box-shadow: css-var(card-shadow-s) css-var(card-shadow-c);
+		}
+	}
+
+	&#{class(center)} {
+		@mixin title {
+			#{class(title)} {
+				justify-content: center;
+				text-align: center;
+
+				& > div {
+					width: auto;
+				}
+			}
+		}
+
+		@mixin content {
+			#{class(content)} {
+				& > * {
+					text-align: center;
+				}
+			}
+		}
+
+		@mixin buttons {
+			#{class(buttons)} {
+				justify-content: center;
+			}
+		}
+
+		@include title;
+		@include content;
+		@include buttons;
+
+		&-title {
+			@include title;
+		}
+
+		&-content {
+			@include content;
+		}
+
+		&-btns {
+			@include buttons;
+		}
+	}
+
+	&#{class(stagger)} {
+		position: relative;
+		width: 100%;
+
+		@include break(sm) {
+			flex-direction: row;
+			border-radius: 0;
+			box-shadow: none;
+			overflow: visible;
+
+			& > #{class(image)} {
+				width: calc(50% + css-var(card-padding));
+				height: fit-content;
+				margin-right: calc(css-var(card-padding) * -2);
+				border-radius: css-var(card-radius);
+
+				img {
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
+			& > #{class(content)} {
+				height: fit-content;
+				width: calc(50% + css-var(card-padding));
+				margin-top: calc(2 * css-var(card-padding));
+				border-radius: css-var(card-radius);
+				box-shadow: css-var(card-shadow-size) css-var(card-shadow-color);
+			}
+		}
+
+		&#{class(reverse)} {
+			@include break(sm) {
+				flex-direction: row-reverse;
+
+				& > #{class(image)} {
+					margin-right: 0;
+					margin-left: calc(css-var(card-padding) * -2);
+				}
+			}
+		}
+	}
+
+	& > #{class(image)} {
+		overflow: hidden;
+
+		@include break(sm) {
+			width: 50%;
+		}
+
+		&:only-child {
+			width: 100%;
+		}
+
+		& + #{class(content)} {
+			@include break(sm) {
+				width: 50%;
+			}
+		}
+	}
+
+	#{class(content)} {
+		display: flex;
+		flex-direction: column;
+		gap: math.div($grid-gap, 2);
+		position: relative;
+		padding: css-var(card-padding);
+		background: css-var(card-back);
+		width: 100%;
+		overflow: hidden;
+
+		& > * {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+
+	#{class(title)} {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: fit-content;
+		gap: css-var(card-padding);
+		text-align: center;
+		width: 100%;
+
+		@include break(xs) {
+			flex-direction: row;
+			text-align: left;
+		}
+
+		&:only-child {
+			height: 100%;
+		}
+
+		& > #{class(image)} {
+			width: 100%;
+			height: 100%;
+			max-width: css-var(card-logo-size);
+			max-height: css-var(card-logo-size);
+
+			&#{class(large)} {
+				max-width: calc(2 * css-var(card-logo-size));
+				max-height: calc(2 * css-var(card-logo-size));
+			}
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		}
+
+		i {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-width: css-var(card-logo-size);
+			max-width: css-var(card-logo-size);
+			margin: 0;
+			font-size: calc(css-var(card-logo-size) - 1rem);
+		}
+
+		& > div {
+			width: 100%;
+
+			& > * {
+				margin: 0;
+			}
+		}
+	}
+
+	#{class(date)} {
+		text-align: center;
+
+		@include break(xs) {
+			text-align: left;
+		}
+	}
+
+	&-grid {
+		position: relative;
+		background: css-var(card-back);
+
+		&:has(#{class(image)}) {
+			#{class(content)} {
+				margin-top: 25%;
+				padding-top: 25%;
+				background: none;
+				border: none;
+
+				&::before {
+					opacity: 0;
+				}
+
+				&::after {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					opacity: 0.75;
+					mask-image: none;
+					background: linear-gradient(0deg, black, rgba(0,0,0,70%) 66%, css-var(shadow-0));
+					transition: opacity delay(default) ease-in-out;
+					z-index: -1;
+				}
+			}
+		}
+	
+		@include states(hover) {
+			#{class(content)} {
+				&::after {
+					opacity: 1;
+				}
+			}
+		}
+	
+		#{class(image)} {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+			img {
+				height: 100%;
+				object-fit: contain;
+				object-position: top;
+			}
+		}
+	
+		#{class(content)} {
+			justify-content: flex-end;
+			background: css-var(shadow-0);
+
+			#{class(buttons)} {
+				margin-top: 0 !important;
+			}
+		}
+	}
+
+	&-actions {
+		#{class(content)} {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+}
+
+#{class(grid)}#{class('3')},
+#{class(grid)}#{class('4')} {
+	#{class(card)} {
+		flex-direction: column !important;
+
+		& > #{class(image)} {
+			overflow: hidden;
+
+			@include break(sm) {
+				width: 100%;
+			}
+
+			& + #{class(content)} {
+				@include break(sm) {
+					width: 100%;
+				}
+			}
+		}
+
+		#{class(content)} {
+			flex-grow: 1;
+		}
+
+		#{class(title)} {
+			@include break(xs) {
+				flex-direction: column;
+			}
+		}
+
+		#{class(buttons)} {
+			margin-top: auto;
+
+			#{class(btn)} {
+				width: 100%;
+			}
+		}
+	}
+}
