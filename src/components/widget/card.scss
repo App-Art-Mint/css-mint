@@ -148,7 +148,7 @@
 	#{class(content)} {
 		display: flex;
 		flex-direction: column;
-		gap: math.div($grid-gap, 2);
+		gap: calc(css-var(gap) * 2);
 		position: relative;
 		padding: css-var(card-padding);
 		background: css-var(card-back);
