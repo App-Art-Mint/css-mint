@@ -250,7 +250,7 @@
 					opacity: 0.75;
 					mask-image: none;
 					background: linear-gradient(0deg, black, rgba(0,0,0,70%) 66%, css-var(shadow-0));
-					transition: opacity delay(default) ease-in-out;
+					transition: opacity time(default) ease-in-out;
 					z-index: -1;
 				}
 			}

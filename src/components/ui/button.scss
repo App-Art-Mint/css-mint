@@ -1,0 +1,321 @@
+/// button.scss - Button styles
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+:root {
+	@include css-var(btn-pv, calc(css-var(gap) * 2));
+	@include css-var(btn-ph, calc(css-var(gap) * 4));
+	@include css-var-ref(btn-br, br);
+	@include css-var-ref(btn-bw, bw);
+	@include css-var-ref(btn-bc, brand-4);
+	@include css-var-ref(btn-fg, fg);
+	@include css-var-ref(btn-fg-hover, back);
+	@include css-var-ref(btn-fg-alt, btn-bc);
+	@include css-var-ref(btn-fg-alt-hover, btn-fg-hover);
+	@include css-var-ref(btn-bg, brand-2);
+	@include css-var-ref(btn-bg-hover, btn-bc);
+	@include css-var-ref(btn-bg-alt, clear);
+	@include css-var-ref(btn-bg-alt-hover, accent-2);
+
+	@include css-var(pill-pv, 0);
+	@include css-var(pill-ph, calc(css-var(gap) * 3));
+	@include css-var-ref(pill-br, br);
+}
+
+button,
+a[routerLink] {
+	cursor: pointer;
+}
+
+a,
+button,
+#{class(btn)},
+#{class(btn-icon)},
+#{class(pill)} {
+	font-size: inherit;
+
+	&[disabled] {
+		filter: grayscale(1) brightness(0.75) !important;
+		pointer-events: none !important;
+
+		&#{class(fall-in)}#{neg(class(show))} {
+			filter: grayscale(1) brightness(0.75) opacity(0%) !important;
+		}
+	}
+
+	i {
+		&:first-child {
+			margin-right: 0.5em;
+		}
+
+		&:last-child {
+			margin-left: 0.5em;
+		}
+
+		&:only-child {
+			margin: 0;
+		}
+	}
+}
+
+/// All buttons
+#{class(btn)},
+#{class(pill)},
+#{class(btn-group)},
+#{class(btn-icon)} {
+	flex-shrink: 0;
+}
+
+#{class(btn)},
+#{class(btn-group)} {
+    border-radius: css-var(btn-br);
+}
+
+#{class(btn)},
+#{class(pill)},
+#{class(btn-icon)} {
+	width: fit-content;
+	max-width: 100%;
+	text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+	user-select: none;
+    transition-property: color, background-color, border-color;
+	transition-duration: time(default);
+}
+
+#{class(btn)},
+#{class(pill)},
+#{class(btn-group)} {
+    display: inline-block;
+    color: css-var(btn-fg);
+    background: css-var(btn-bg);
+    border: css-var(btn-bw) solid css-var(btn-bc);
+    text-align: center;
+
+    @include break(xs) {
+        width: fit-content;
+    }
+
+    @include states(hover, focus, active, mint-active) {
+        color: css-var(btn-fg-hover);
+        background: css-var(btn-bg-hover);
+
+		i {
+			color: inherit !important;
+		}
+    }
+
+    &#{class(reverse)} {
+		color: css-var(btn-fg-hover);
+		background: css-var(btn-bg-hover);
+
+		@include states(hover, focus, active, mint-active) {
+			color: css-var(btn-fg);
+    		background: css-var(btn-bg);
+		}
+	}
+
+	&#{class(alt)} {
+        color: css-var(btn-fg-alt);
+        background: css-var(btn-bg-alt);
+
+        @include states(hover, focus, active, mint-active) {
+            color: css-var(btn-fg-alt-hover);
+            background: css-var(btn-bg-alt-hover);
+            border-color: css-var(btn-bg-alt-hover);
+        }
+
+		&#{class(reverse)} {
+			color: css-var(btn-fg-alt-hover);
+			background: css-var(btn-bg-alt-hover);
+			border-color: css-var(btn-bg-alt-hover);
+
+			@include states(hover, focus, active, mint-active) {
+				color: css-var(btn-bc);
+				background: css-var(btn-bg-alt);
+				border-color: css-var(btn-bg-alt);
+			}
+		}
+    }
+
+	/// Fix for browsers injecting their own tel links
+	a {
+		color: inherit;
+	
+		&:hover {
+			color: inherit;
+		}
+	
+		i {
+			display: none;
+		}
+	}
+}
+
+/// Default buttons
+#{class(btn)} {
+    padding: css-var(btn-pv) css-var(btn-ph);
+	cursor: pointer;
+
+	/// Icon buttons
+	&-icon {
+		display: block;
+		text-align: center;
+		background: none;
+		border: none;
+
+		@include states(hover, focus, active, mint-active) {
+			i {
+				color: css-var(btn-bg-alt-hover);
+			}
+		}
+
+		@include break(xs) {
+			display: inline-block;
+		}
+
+		&#{class(lg)} {
+			i {
+				font-size: 4rem;
+			}
+		}
+
+		i {
+			display: inline-flex;
+			align-items: center;
+			margin: 0 !important;
+			color: css-var(btn-bc);
+			font-size: 1.5rem;
+
+			&::before {
+				transition: color time(default);
+				padding: 2px;
+			}
+		}
+	}
+
+	/// Button groups
+	&-group {
+		display: flex;
+		width: fit-content;
+		max-width: 100%;
+		margin: auto;
+		padding: 0;
+		overflow: visible;
+		transition: all time(default);
+
+		& > * {
+			&:first-child {
+				&, & button {
+					padding: css-var(btn-pv) 0 css-var(btn-pv) css-var(btn-ph);
+					border-top-left-radius: css-var(btn-br);
+					border-bottom-left-radius: css-var(btn-br);
+				}
+			}
+
+			&:last-child {
+				&, & button {
+					padding: css-var(btn-pv) css-var(btn-ph) css-var(btn-pv) 0;
+					border-top-right-radius: css-var(btn-br);
+					border-bottom-right-radius: css-var(btn-br);
+				}
+			}
+		}
+
+		button {
+			width: 100%;
+			border: none;
+			color: inherit;
+			background: transparent;
+
+			@include states(hover, focus, active, mint-active) {
+				background: css-var(brand-5);
+			}
+		}
+	}
+
+	/// Submit buttons
+    &-submit {
+        &#{class(success)} {
+            &[disabled] {
+                filter: none !important;
+            }
+        }
+    }
+}
+
+/// Select button
+#{class(select)} {
+	@extend #{class(btn)};
+}
+
+/// Pill buttons
+#{class(pill)} {
+    padding: css-var(pill-pv) css-var(pill-ph);
+	border-radius: css-var(pill-br);
+    line-height: 2;
+}
+
+a, button {
+	&#{class(pill)} {
+		min-width: 5rem;
+	}
+}
+
+p {
+    #{class(pill)}, #{class(btn)} {
+        line-height: 1.5rem;
+        vertical-align: middle;
+    }
+}
+
+/// A list of buttons
+#{class(buttons)} {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+	overflow: hidden;
+
+	@include break(xs) {
+		justify-content: flex-start;
+	}
+
+    & > * {
+        width: 100%;
+
+        #{class(btn)}, #{class(pill)} {
+            display: block;
+        }
+
+        @include break(xs) {
+            width: auto;
+        }
+    }
+
+    #{class(buttons)} {
+        #{class(pill)} {
+            width: 100%;
+        }
+    }
+}
+
+#{class(grid)}#{class('3')},
+#{class(grid)}#{class('4')} {
+	#{class(buttons)} {
+		& > * {
+			@include break(xs) {
+				width: 100%;
+				margin: 0.5rem 0;
+			}
+		}
+	}
+}

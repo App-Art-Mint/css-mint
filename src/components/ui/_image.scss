@@ -1,0 +1,37 @@
+/// _image.scss - Image styles
+/// @author App Art Mint LLC
+///
+/// @group Widget
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+/// A basic image
+#{class(image)} {
+
+    /// A placeholder image warning
+    &#{class(error)} {
+        &::after {
+            content: '❌ Image failed to load. This is a placeholder.';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0 $image-shadow-size $image-shadow-size $image-shadow-size;
+            background: css-var($shadow-color);
+            box-shadow: 0 0 $image-shadow-size $image-shadow-size css-var($shadow-color);
+            text-align: center;
+        }
+    }
+
+    img {
+        display: block;
+    }
+}
+
+/// Banner images
+#{class(banner)} {
+	position: relative;
+	width: 100%;
+}

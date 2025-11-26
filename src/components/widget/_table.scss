@@ -1,0 +1,29 @@
+/// _table.scss - Table styles
+/// @author App Art Mint LLC
+///
+/// @group Widget
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+/// Table
+#{class(table)} {
+	&-wrap {
+		max-height: 50vh;
+		overflow-y: auto;
+	}
+
+	&.mat-mdc-table {
+		thead {
+			background: css-var(back);
+		}
+	}
+
+    #{class(actions)} {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+		gap: 1rem;
+    }
+}
