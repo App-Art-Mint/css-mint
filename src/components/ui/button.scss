@@ -13,7 +13,7 @@
 	@include css-var-ref(btn-br, br);
 	@include css-var-ref(btn-bw, bw);
 	@include css-var-ref(btn-bc, brand-4);
-	@include css-var-ref(btn-fg, fg);
+	@include css-var-ref(btn-fg, c-fg);
 	@include css-var-ref(btn-fg-hover, back);
 	@include css-var-ref(btn-fg-alt, btn-bc);
 	@include css-var-ref(btn-fg-alt-hover, btn-fg-hover);
