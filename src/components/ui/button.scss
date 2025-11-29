@@ -43,7 +43,7 @@ button,
 		filter: grayscale(1) brightness(0.75) !important;
 		pointer-events: none !important;
 
-		&#{class(fall-in)}#{neg(class(show))} {
+		&#{class(fall-in)}:not(#{class(show)}) {
 			filter: grayscale(1) brightness(0.75) opacity(0%) !important;
 		}
 	}
