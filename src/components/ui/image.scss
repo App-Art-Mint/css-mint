@@ -7,6 +7,11 @@
 /// Imports
 @use '../../util' as *;
 
+:root {
+    @include css-var-ref(img-shadow-c, shadow-c);
+    @include css-var-ref(img-shadow-s, shadow-s);
+}
+
 /// A basic image
 #{class(image)} {
 
@@ -18,9 +23,9 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 0 $image-shadow-size $image-shadow-size $image-shadow-size;
-            background: css-var($shadow-color);
-            box-shadow: 0 0 $image-shadow-size $image-shadow-size css-var($shadow-color);
+            padding: 0 css-var(img-shadow-s) css-var(img-shadow-s) css-var(img-shadow-s);
+            background: css-var(img-shadow-c);
+            box-shadow: 0 0 css-var(img-shadow-s) css-var(img-shadow-s) css-var(img-shadow-c);
             text-align: center;
         }
     }
