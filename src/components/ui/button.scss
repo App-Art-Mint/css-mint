@@ -27,6 +27,13 @@
 	@include css-var-ref(pill-br, br);
 }
 
+#{class(theme)} {
+	&-dark {
+		@include css-var(btn-bg, brand-5);
+		@include css-var(btn-bc, brand-2);
+	}
+}
+
 button,
 a[routerLink] {
 	cursor: pointer;
