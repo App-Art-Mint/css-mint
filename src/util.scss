@@ -607,7 +607,7 @@ $break: (
 	}
 
 	@if (meta.type-of($color) != 'color') {
-		@error 'The shades mixin requires a color for the $colnor argument.';
+		@error 'The shades mixin requires a color for the $color argument.';
 	}
 
 	@if not($type == lighten or $type == darken or $type == both) {

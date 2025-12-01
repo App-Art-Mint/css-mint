@@ -12,7 +12,13 @@
 	@include css-var-ref(card-r, br);
 	@include css-var-ref(card-shadow-s, shadow-s);
 	@include css-var-ref(card-shadow-c, shadow-c);
-	@include css-var-ref(card-bg, c-bg);
+	@include css-var-ref(card-bg, c-bg-3);
+}
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(card-bg, c-bg-5);
+	}
 }
 
 #{class(card)} {
