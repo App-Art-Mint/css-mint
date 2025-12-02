@@ -2,8 +2,8 @@
 @use '../util' as *;
 
 :root {
-	@include shades(glow, $trans-light, darken, 7, 10%, true);
-	@include shades(shadow, $trans-dark, darken, 7, 10%, true);
+	@include shades(glow, rgba(255, 255, 255, 0), darken, 7, 10%, true);
+	@include shades(shadow, rgba(0, 0, 0, 0), darken, 7, 10%, true);
 
 	/// Brand Colors
 	@include shades(c-brand, #C55);
