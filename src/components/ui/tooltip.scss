@@ -8,8 +8,8 @@
 @use '../../util' as *;
 
 :root {
-	@include css-var-ref(tooltip-fg, fg);
-	@include css-var-ref(tooltip-bg, bg);
+	@include css-var-ref(tooltip-fg, c-fg);
+	@include css-var-ref(tooltip-bg, c-bg);
 	@include css-var-ref(tooltip-r, br);
 	@include css-var-ref(tooltip-shadow-c, shadow-c);
 	@include css-var-ref(tooltip-shadow-s, shadow-s);
