@@ -17,7 +17,7 @@
 
 :root {
 	/// Black and White Shades
-	@include shades(c-bw, black);
+	/*@include shades(c-bw, black);
 	@include shades(glow, rgba(255, 255, 255, 0), 10, true);
 	@include shades(shadow, rgba(0, 0, 0, 0), 10, true);
 
@@ -31,7 +31,7 @@
 
 	/// App Colors
 	@include css-var-ref(c-fg, c-bw-8);
-	@include css-var-ref(c-bg, c-bw-1);
+	@include css-var-ref(c-bg, c-bw-1);*/
 }
 
 #{class(theme)} {
