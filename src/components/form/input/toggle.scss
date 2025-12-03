@@ -1,7 +1,7 @@
 @use '../../../util' as *;
 
 :root {
-	@include css-var(check-size, 1);
+	@include css-var(check-s, 1);
 	@include css-var(check-p, 0.25rem);
 	@include css-var(check-h, 1.5rem);
 	@include css-var(check-bw, 0.125rem);
@@ -12,35 +12,35 @@
 #{class(toggle)} {
 	@for $i from 1 through 10 {
 		&#{class(#{$i})} {
-			@include css-var(check-size, #{$i});
+			@include css-var(check-s, #{$i});
 		}
 	}
 }
 
 #{class(check)} {
-	height: calc((css-var(check-h) + css-var(check-bw) * 2) * css-var(check-size));
-	width: calc((css-var(check-h) - css-var(check-p) + css-var(check-bw)) * css-var(check-size) * 2);
-	border: calc(css-var(check-bw) * css-var(check-size)) solid css-var(brand-2);
-	border-radius: calc(css-var(check-br) * css-var(check-size));
+	height: calc((css-var(check-h) + css-var(check-bw) * 2) * css-var(check-s));
+	width: calc((css-var(check-h) - css-var(check-p) + css-var(check-bw)) * css-var(check-s) * 2);
+	border: calc(css-var(check-bw) * css-var(check-s)) solid css-var(brand-2);
+	border-radius: calc(css-var(check-br) * css-var(check-s));
 
 	[type="checkbox"] {
 		&:checked {
 			& + span {
-				left: calc(100% - (css-var(check-h) - css-var(check-p)) * css-var(check-size));
+				left: calc(100% - (css-var(check-h) - css-var(check-p)) * css-var(check-s));
 			}
 		}
 
 		& + span {
-			$handle-size: calc((css-var(check-h) - css-var(check-p) * 2) * css-var(check-size));
-			top: calc(css-var(check-p) * css-var(check-size));
-			left: calc(css-var(check-p) * css-var(check-size));
+			$handle-size: calc((css-var(check-h) - css-var(check-p) * 2) * css-var(check-s));
+			top: calc(css-var(check-p) * css-var(check-s));
+			left: calc(css-var(check-p) * css-var(check-s));
 			transform: translateX(0);
 			width: $handle-size;
 			height: $handle-size;
-			border-radius: calc(css-var(check-br) * css-var(check-size));
+			border-radius: calc(css-var(check-br) * css-var(check-s));
 
 			i {
-				font-size: calc(css-var(check-fs) * css-var(check-size));
+				font-size: calc(css-var(check-fs) * css-var(check-s));
 			}
 		}
 	}

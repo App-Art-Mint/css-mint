@@ -1,7 +1,7 @@
 {
 	"name": "@appartmint/css-mint",
 	"author": "App Art Mint LLC",
-	"version": "0.0.40",
+	"version": "0.1.0",
 	"type": "module",
 	"license": "MIT",
 	"description": "Styles by App Art Mint",
@@ -29,13 +29,17 @@
 		"dist/**/*.{css,map}"
 	],
 	"exports": {
-		".": "./src/index.scss",
+		".": "./dist/index.css",
 		"./*": "./src/*.scss",
 		"./*/": "./src/*/index.scss"
 	},
 	"scripts": {
 		"version": "npm i && git add -A",
 		"postversion": "git push && git push --tags && cross-replace gh release create \"v$npm_package_version\" --generate-notes",
+		"prepare": "run-s build",
+		"build": "run-p build:*",
+		"build:dev": "sass src/index.scss dist/index.css",
+		"build:prod": "sass src/index.scss dist/index.min.css --style compressed",
 		"clean": "rimraf dist"
 	},
 	"devDependencies": {
