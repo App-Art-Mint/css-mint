@@ -1,7 +1,7 @@
-@use 'box' as *;
-@use 'break' as *;
-@use 'color' as *;
-@use 'number' as *;
-@use 'selector' as *;
-@use 'text' as *;
-@use 'time' as *;
+@forward 'box';
+@forward 'break';
+@forward 'color';
+@forward 'number';
+@forward 'selector';
+@forward 'text';
+@forward 'time';
