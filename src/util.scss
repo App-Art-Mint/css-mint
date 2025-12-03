@@ -596,22 +596,17 @@ $break: (
 ///
 /// @param {String} $name - the name of the color
 /// @param {Color} $color - the color to generate variations for
-/// @param {String} $type - the type of variation to generate
 /// @param {Number} $number - the number of variations to geerate
-/// @param {String} $amount - the amount to vary the color by
 /// @param {Boolean} $alpha - whether to generate alpha variations
 /// @output css variables for different shades of the source color
-@mixin shades ($name, $color, $type: both, $number: 7, $amount: 10%, $alpha: false) {
+@mixin shades ($name, $color, $number: 10, $alpha: false) {
+	@error color.space($color);
 	@if (meta.type-of($name) != 'string') {
 		@error 'The shades mixin requires a string for the $name argument.';
 	}
 
 	@if (meta.type-of($color) != 'color') {
 		@error 'The shades mixin requires a color for the $color argument.';
-	}
-
-	@if not($type == lighten or $type == darken or $type == both) {
-		@error 'The shades mixin requires a string of "lighten", "darken", or "both" for the $type argument.';
 	}
 
 	@if (meta.type-of($number) != 'number') {
@@ -630,61 +625,15 @@ $break: (
 		@error 'The shades mixin requires a boolean value for the $alpha argument. Received: #{$bool}';
 	}
 
-	@include css-var(#{$name}, $color);
-
 	@if ($alpha) {
-		@if ($type == lighten) {
-			@for $i from 0 through $number - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));
-			}
+		@for $i from 0 through $number - 1 {
+			$amount: math.div($i, $number);
+			@include css-var(#{$name}-#{$i}, color.change($color, $alpha: $amount));
 		}
-
-		@else if ($type == darken) {
-			@for $i from 0 through $number - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));
-			}
-		}
-
-		@else if ($type == both) {
-			$num-light: floor(math.div($number, 2));
-
-			@for $i from 0 through $num-light - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));
-			}
-
-			@include css-var(#{$name}-#{$num-light}, $color);
-
-			@for $i from $num-light + 1 through $number - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));
-			}
-		}
-	}
-
-	@else {
-		@if ($type == lighten) {
-			@for $i from 0 through $number - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: $i * $amount));
-			}
-		}
-
-		@else if ($type == darken) {
-			@for $i from 0 through $number - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: $i * -$amount));
-			}
-		}
-
-		@else if ($type == both) {
-			$num-light: math.floor(math.div($number, 2));
-
-			@for $i from 0 through $num-light - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: ($num-light - $i) * $amount));
-			}
-
-			@include css-var(#{$name}-#{$num-light}, $color);
-
-			@for $i from $num-light + 1 through $number - 1 {
-				@include css-var(#{$name}-#{$i}, color.adjust($color, $lightness: ($i - $num-light) * -$amount));
-			}
+	} @else {
+		@for $i from 0 through $number - 1 {
+			$amount: math.div($i, $number);
+			@include css-var(#{$name}-#{$i}, color.change($color, $lightness: $amount));
 		}
 	}
 }
