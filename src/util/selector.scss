@@ -1,0 +1,313 @@
+/// selector.scss - Selector utilities
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:string';
+@use 'sass:meta';
+
+/// Library name
+/// @group Variables
+/// @type String
+$lib: mint !default;
+
+/// Prefix added to selectors
+/// @group Variables
+/// @type String
+$pre: #{$lib}-;
+
+/// CSS-selector for disabled elements
+/// @group Variables
+/// @type String
+$disabled: #{'[disabled]'};
+
+/// CSS-selector for elements with an aria-controls attribute
+/// @group Variables
+/// @type String
+$has-controls: #{'[aria-controls]'};
+
+/// CSS-selector for elements with an aria-expanded attribute
+/// @group Variables
+/// @type String
+$has-expanded: #{'[aria-expanded]'};
+
+/// CSS-selector for elements with an aria-hidden attribute
+/// @group Variables
+/// @type String
+$has-hidden: #{'[aria-hidden]'};
+
+/// CSS-selector for elements with an href attribute
+/// @group Variables
+/// @type String
+$has-link: #{'[href]'};
+
+/// CSS-selector for elements with a routerLink attribute
+/// @group Variables
+/// @type String
+$has-router-link: #{'[routerLink]'};
+
+/// CSS-selector for elements with an id attribute
+/// @group Variables
+/// @type String
+$has-id: #{'[id]'};
+
+/// CSS-selector for elements that aren't tabbable (i.e. tabindex is negative)
+/// @group Variables
+/// @type String
+$not-tabbable: #{'[tabindex^="-"]'};
+
+/// CSS-selector for elements that are tabbable (i.e. tabindex isn't negative)
+/// @group Variables
+/// @type String
+$tabbable: #{'[tabindex]'}#{neg($not-tabbable)};
+
+/// CSS-selector for submenu buttons
+/// @group Variables
+/// @type String
+$sub-menu-buttons: #{'button'}#{$has-controls};
+
+/// CSS-selector for submenus
+/// @group Variables
+/// @type String
+$sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};
+
+/// Prefixes the provided string with the library name if it isn't already
+/// @group Functions
+///
+/// @param {String} $base - the string to be prefixed
+/// @return {String} - a prefixed string
+@function prefix ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The prefix function requires a string value.';
+	}
+
+	$base: string.to-lower-case($base);
+
+	@if (string.index($base, $pre) != 1) {
+		$base: #{$pre}#{$base};
+	}
+
+	@return $base;
+}
+
+/// Prefixes the provided string with two dashes and the library name if it isn't already
+/// @group Functions
+///
+/// @param {String} $base - the string to be prefixed
+/// @return {String} - a prefixed string
+@function css-prefix ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The css-prefix function requires a string value.';
+	}
+
+	@while (string.index($base, '-') == 1) {
+		$base: string.slice($base, 2);
+	}
+
+	@return '--#{prefix($base)}';
+}
+
+/// Creates a CSS-var call for the prefixed `$base`
+/// @group Functions
+///
+/// @param {String} $base - the CSS-var to create a call for
+/// @return {String} - a CSS-var call
+@function css-var ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The css-var function requires a string value.';
+	}
+
+	@if (string.index($base, '--') != 1) {
+		$base: css-prefix($base);
+	}
+
+	@return var(#{$base});
+}
+
+/// Creates a class selector with the library prefix
+/// @group Functions
+///
+/// @param {String} $base - the name of the class
+/// @return {String} - a class selector
+@function class($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The class function requires a string value.';
+	}
+
+	@return '.#{prefix($base)}';
+}
+
+/// Creates an id selector with the library prefix
+/// @group Functions
+///
+/// @param {String} $base - the name of the id
+/// @param {String} $op - the comparison operator
+/// @return {String} - an id selector
+@function id ($base, $op: '=') {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The id function requires a string value.';
+	}
+
+	@if (meta.type-of($op) != 'string') {
+		@error 'The controls function requires a string value for param 2.';
+	}
+
+	@if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {
+		@error 'The controls function requires a valid attribute comparison operator for param 2.';
+	}
+
+	@if ($op == '=') {
+		@return '##{prefix($base)}';
+	}
+
+	@return '[id#{$op}#{prefix($base)}]';
+}
+
+/// Creates an aria-controls selector with the library prefix
+/// @group Functions
+///
+/// @param {String} $id - the id of the controlled element
+/// @param {String} $op - the comparison operator
+/// @return {String} - an aria-controls selector
+@function controls ($id, $op: '=') {
+	@if (meta.type-of($id) != 'string') {
+		@error 'The controls function requires a string value for param 1.';
+	}
+
+	@if (meta.type-of($op) != 'string') {
+		@error 'The controls function requires a string value for param 2.';
+	}
+
+	@if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {
+		@error 'The controls function requires a valid attribute comparison operator for param 2.';
+	}
+
+	@return '[aria-controls#{$op}#{prefix($id)}]';
+}
+
+/// Creates an aria-expanded selector
+/// @group Functions
+///
+/// @param {Bool} $bool - the value of the selector
+/// @return {String} - an aria-expanded selector
+@function expanded ($bool) {
+	@if (meta.type-of($bool) == 'string') {
+		$bool: string.to-lower-case($bool);
+
+		@if not($bool == 'true' or $bool == 'false') {
+			@error 'The expanded function requires a boolean value.';
+		}
+	}
+
+	@else if (meta.type-of($bool) != 'bool') {
+		@error 'The expanded function requires a boolean value.';
+	}
+
+	@return '[aria-expanded=#{$bool}]';
+}
+
+/// Creates an aria-hidden selector
+/// @group Functions
+///
+/// @param {Bool} $bool - the value of the selector
+/// @return {String} - an aria-hidden selector
+@function hidden ($bool) {
+	@if (meta.type-of($bool) == 'string') {
+		$bool: string.to-lower-case($bool);
+
+		@if not($bool == 'true' or $bool == 'false') {
+			@error 'The hidden function requires a boolean value. Received: #{$bool}';
+		}
+	}
+
+	@else if (meta.type-of($bool) !='bool') {
+		@error 'The hidden function requires a boolean value. Received: #{$bool}';
+	}
+
+	@return '[aria-hidden=#{$bool}]';
+}
+
+/// Creates a prefixed CSS var definition
+/// @group Mixins
+///
+/// @param {String} $key - the key of the CSS var
+/// @param {Any} $val - the value of the CSS var
+/// @output a prefixed CSS var definition
+@mixin css-var ($key, $val) {
+	@if (meta.type-of($key) != 'string') {
+		@error 'The css-var mixin requires a string for the $key argument.';
+	}
+
+	@if (string.index($key, '--') != 1) {
+		$key: css-prefix($key);
+	}
+
+	#{$key}: #{$val};
+}
+
+/// Creates a prefixed CSS var reference
+/// @group Mixins
+///
+/// @param {String} $key1 - the key of the new CSS var to define
+/// @param {String} $key2 - the key of the referenced CSS var
+/// @output a prefixed CSS var reference
+@mixin css-var-ref ($key1, $key2) {
+	@if (meta.type-of($key1) != 'string' or meta.type-of($key2) != 'string') {
+		@error 'The css-var-ref mixin requires string values for both parameters.';
+	}
+
+	@include css-var($key1, css-var($key2));
+}
+
+/// Wrap the content in given states
+/// @group Mixins
+/// 
+/// @param {String[]} $states - a list of states
+@mixin states ($states...) {
+	@if (list.length($states) == 0) {
+		@error 'The states mixin requires at least one state parameter.';
+	}
+	@each $state in $states {
+		@if (meta.type-of($state) != 'string') {
+			@error 'The states mixin requires a string for each state parameter.';
+		}
+	}
+
+	$selectors: ();
+
+	@if (list.index($states, 'hover') != null) {
+		$selectors: list.append($selectors, selector.append(&, ':hover'));
+	}
+
+	@if (list.index($states, 'focus') != null) {
+		$selectors: list.append($selectors, selector.append(&, ':focus-visible'));
+	}
+
+	@if (list.index($states, 'active') != null) {
+		$selectors: list.append($selectors, selector.append(&, ':active'));
+	}
+
+	@if (list.index($states, 'mint-active') != null) {
+		$selectors: list.append($selectors, selector.append(&, class(active)));
+	}
+
+	@if (list.index($states, 'visited') != null) {
+		$selectors: list.append($selectors, selector.append(&, ':visited'));
+	}
+
+	@if (list.index($states, 'disabled') != null) {
+		$selectors: list.append($selectors, selector.append(&, ':disabled'));
+	}
+
+	@if (list.index($states, 'expanded') != null) {
+		$selectors: list.append($selectors, selector.append(&, expanded(true)));
+	}
+
+	@at-root {
+		#{$selectors} {
+			@content;
+		}
+	}
+}

@@ -1,39 +1,35 @@
-@use 'sass:color';
+/// colors.scss - Color variables
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
 @use '../util' as *;
 
-@function get-luminance($color) {
-	@if (color.space($color) == 'rgb') {
-		@return math.sqrt(
-			0.299 * color.red($color) * color.red($color)
-			+ 0.587 * color.green($color) * color.green($color)
-			+ 0.114 * color.blue($color) * color.blue($color));
-	}
-	@else if (color.space($color) == 'hsl') {
-		@return color.lightness($color);
-	}
-
-	@error 'Invalid color space: #{color.space($color)}';
-}
-
+/// Color Variables
 :root {
 	/// Black and White Shades
-	/*@include shades(c-bw, black);
-	@include shades(glow, rgba(255, 255, 255, 0), 10, true);
-	@include shades(shadow, rgba(0, 0, 0, 0), 10, true);
+	@include shades(c-bw, black);
+	@include shades(c-glow, rgba(255, 255, 255, 0));
+	@include shades(c-shadow, rgba(0, 0, 0, 0));
 
 	/// Brand Colors
-	@include shades(c-brand, hsl(0, 54%, 50%));
+	@include shades(c-brand, hsl(220, 35%, 50%));
 	@include shades(c-accent, hsl(248, 39%, 50%));
 	@include shades(c-success, hsl(120, 62%, 50%));
-	@include shades(c-danger, hsl(0, 100%, 50%));
+	@include shades(c-danger, hsl(0, 54%, 50%));
 	@include shades(c-warning, hsl(37, 100%, 50%));
-	@include shades(c-info, hsl(201, 70%, 50%));
-
-	/// App Colors
-	@include css-var-ref(c-fg, c-bw-8);
-	@include css-var-ref(c-bg, c-bw-1);*/
+	@include shades(c-info, hsl(201, 50%, 50%));
 }
 
+/// App Colors
+:root {
+	@include css-var-ref(c-fg, c-bw-8);
+	@include css-var-ref(c-bg, c-bw-1);
+}
+
+/// App Themes
 #{class(theme)} {
 	&-dark {
 		@include css-var-ref(c-fg, c-bw-1);

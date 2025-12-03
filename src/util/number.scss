@@ -1,0 +1,22 @@
+/// number.scss - Number utilities
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:math';
+@use 'sass:meta';
+
+/// Removes the unit from the given value
+/// @group Functions
+///
+/// @param {Number} $val - the value to strip
+/// @return {Number} - the number without units
+@function strip-unit($val) {
+	@if (meta.type-of($val) != 'number') {
+		@error 'The strip-unit function requires a number value.';
+	}
+
+	@return math.div($val, $val * 0 + 1);
+}

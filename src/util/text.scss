@@ -1,0 +1,30 @@
+/// text.scss - Text utilities
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Selector for all headers
+/// @group Mixins
+@mixin headers () {
+	@for $i from 1 through 6 {
+		h#{$i},
+		#{class(h#{$i})} {
+			@content;
+		}
+	}
+}
+
+/// Background clip text
+/// @group Mixins
+@mixin background-clip ($color) {
+	color: $color;
+
+	@supports (-webkit-background-clip: text) and (-webkit-text-fill-color: transparent) {
+		background: $color;
+		@content;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}

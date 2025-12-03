@@ -1,0 +1,48 @@
+/// time.scss - Time utilities
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:map';
+
+/// Value added to all time variables
+/// @group Variables
+/// @type Number
+$time-base: 0 !default;
+
+/// Value added to all time variables
+/// @group Variables
+/// @type Number
+$time-step: 100 !default;
+
+/// Time variables
+/// @group Maps
+/// @prop {Number} $time.instant [0] - Instant: the quickest time; close or equal to 0
+/// @prop {Number} $time.faster [100] - Faster: times that happen faster
+/// @prop {Number} $time.fast [200] - Fast: times that happen quickly
+/// @prop {Number} $time.default [300] - Default: times that are average
+/// @prop {Number} $time.slow [400] - Slow: times that happen slower
+/// @prop {Number} $time.slower [500] - Slower: times that happen slowly
+$time: (
+	instant: $time-base + $time-step * 0,
+	faster: $time-base + $time-step * 1,
+	fast: $time-base + $time-step * 2,
+	default: $time-base + $time-step * 3,
+	slow: $time-base + $time-step * 4,
+	slower: $time-base + $time-step * 5
+) !default;
+
+/// Returns the requested time value as ms
+/// @group Functions
+///
+/// @param {Number} $key - the key of the time to use
+/// @return {Number} - the time value as ms
+@function time($key) {
+	@if not(map.has-key($time, $key)) {
+		@error 'The time function requires one of the following values: #{map.keys($time)}';
+	}
+
+	@return ms(map.get($time, $key));
+}

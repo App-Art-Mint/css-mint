@@ -1,0 +1,61 @@
+/// color.scss - Color utilities
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:color';
+@use 'sass:math';
+
+/// Get the luminance of a color
+/// @group Functions
+///
+/// @param {Color} $color - the color to get the luminance of
+/// @return {Number} the luminance of the color
+@function get-luminance($color) {
+	@if (color.space($color) == 'rgb') {
+		@return math.sqrt(
+			0.299 * color.red($color) * color.red($color)
+			+ 0.587 * color.green($color) * color.green($color)
+			+ 0.114 * color.blue($color) * color.blue($color));
+	}
+	@else if (color.space($color) == 'hsl') {
+		@return color.lightness($color);
+	}
+
+	@error 'Invalid color space: #{color.space($color)}';
+}
+
+/// Generates css varibles for lighter, darker, or both variations
+/// @group Mixins
+///
+/// @param {String} $name - the name of the color
+/// @param {Color} $color - the color to generate variations for
+/// @param {Number} $number - the number of variations to generate
+/// @output css variables for different shades of the source color
+@mixin shades ($name, $color, $number: 10) {
+	@if (meta.type-of($name) != 'string') {
+		@error 'The shades mixin requires a string for the $name argument.';
+	}
+
+	@if (meta.type-of($color) != 'color') {
+		@error 'The shades mixin requires a color for the $color argument.';
+	}
+
+	@if (meta.type-of($number) != 'number') {
+		@error 'The shades mixin requires a number for the $number argument.';
+	}
+
+	@if (color.alpha($color) != 1) {
+		@for $i from 0 through $number - 1 {
+			$amount: math.div($i, $number);
+			@include css-var(#{$name}-#{$i}, color.change($color, $alpha: $amount));
+		}
+	} @else {
+		@for $i from 0 through $number - 1 {
+			$amount: math.div($i, $number);
+			@include css-var(#{$name}-#{$i}, color.change($color, $lightness: $amount));
+		}
+	}
+}

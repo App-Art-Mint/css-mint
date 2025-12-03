@@ -1,0 +1,113 @@
+/// break.scss - Breakpoint utilities
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:map';
+@use 'sass:meta';
+
+/// Breakpoint variables
+/// @group Maps
+/// @prop {Number} $break.xs [480] - Extra-Small: mobile devices
+/// @prop {Number} $break.sm [768] - Small: small tablets, landscape mobiles
+/// @prop {Number} $break.md [1024] - Medium: small desktops, large tablets
+/// @prop {Number} $break.lg [1200] - Large: large desktops, landscape tablets
+/// @prop {Number} $break.xl [1440] - Extra-Large: larger desktops
+$break: (
+	xs: 30,
+	sm: 48,
+	md: 64,
+	lg: 75,
+	xl: 90,
+) !default;
+
+/// Returns the requested breakpoint value as rem
+/// @group Functions
+///
+/// @param {Number} $key - the key of the breakpoint to use
+/// @return {Number} - the breakpoint value as rem
+@function break($key) {
+	@if not(map.has-key($break, $key)) {
+		@error 'The break function requires one of the following values: #{map.keys($break)}';
+	}
+
+	@return map.get($break, $key) * 1rem;
+}
+
+/// Wraps the provided content in a media query
+/// @group Mixins
+///
+/// @param {String} $min - the key of the breakpoint to use with min-width
+/// @param {String} $max - the key of the breakpoint to use with max-width
+/// @output the provided content wrapped in a media query
+@mixin break ($min, $max: null) {
+	@if not(map.has-key($break, $min) and (meta.type-of($max) == 'null' or map.has-key($break, $max))) {
+		@error 'The break mixin requires one or two of the following values: #{map.keys($break)}';
+	}
+
+	@if (map.has-key($break, $max)) {
+		@media (min-width: break($min)) and (max-width: break($max)) {
+			@content;
+		}
+	}
+
+	@else {
+		@media (min-width: break($min)) {
+			@content;
+		}
+	}
+}
+
+@mixin break-max ($max, $min: null) {
+	@if not(map.has-key($break, $max) and (meta.type-of($min) == 'null' or map.has-key($break, $min))) {
+		@error 'The break-max mixin requires one or two of the following values: #{map.keys($break)}';
+	}
+
+	$break-max: break($max) - 1px;
+	@if (map.has-key($break, $min)) {
+		@media (min-width: break($min)) and (max-width: $break-max) {
+			@content;
+		}
+	}
+
+	@else {
+		@media (max-width: $break-max) {
+			@content;
+		}
+	}
+}
+
+/// Creates utility selectors for a given property at each breakpoint
+/// @group Mixins
+///
+/// @param {String} $prop - the property to toggle
+/// @param {Any} $val - the active value of the property
+/// @param {Any} $none - the inactive value of the property
+/// @output utility selectors for the given property at each breakpoint
+@mixin break-util ($prop, $val, $none: "none") {
+	@if (meta.type-of($prop) !='string') {
+		@error 'The break-util mixin requires a string for the $prop argument.';
+	}
+
+	#{$prop}: #{$val};
+
+	@each $key, $width in $break {
+		&-#{$key} {
+			#{$prop}: #{$none};
+
+			@include break($key) {
+				#{$prop}: #{$val};
+			}
+		}
+
+		&-to-#{$key} {
+			#{$prop}: #{$val};
+
+			@include break($key) {
+				#{$prop}: #{$none};
+			}
+		}
+	}
+}
