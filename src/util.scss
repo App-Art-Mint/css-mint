@@ -600,7 +600,7 @@ $break: (
 /// @param {Boolean} $alpha - whether to generate alpha variations
 /// @output css variables for different shades of the source color
 @mixin shades ($name, $color, $number: 10, $alpha: false) {
-	@error color.space($color);
+	@error color.alpha($color);
 	@if (meta.type-of($name) != 'string') {
 		@error 'The shades mixin requires a string for the $name argument.';
 	}
