@@ -283,7 +283,7 @@ body {
 		position: relative;
 		padding: css-var(menu-btn-p);
 		width: calc(css-var(menu-bar-w) + css-var(menu-btn-p) * 2);
-		height: calc(css-var(menu-btn-h) + css-var(menu-btn-p) * 2);
+		height: calc(css-var(menu-bar-w) + css-var(menu-btn-p) * 2);
 		border-radius: css-var(menu-btn-br);
 		background: css-var(menu-btn-bg);
 		box-shadow: css-var(menu-btn-shadow-s) css-var(menu-btn-shadow-c);
@@ -316,7 +316,7 @@ body {
 				left: 50%;
 				height: css-var(menu-bar-h);
 				width: css-var(menu-bar-w);
-				background-color: css-var(menu-bar-fg);
+				background-color: css-var(menu-btn-fg);
 				transition: time(default);
 			}
 

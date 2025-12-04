@@ -44,5 +44,5 @@ $time: (
 		@error 'The time function requires one of the following values: #{map.keys($time)}';
 	}
 
-	@return ms(map.get($time, $key));
+	@return map.get($time, $key) * 1ms;
 }
