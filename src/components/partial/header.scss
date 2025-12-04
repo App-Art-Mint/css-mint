@@ -1,0 +1,484 @@
+/// header.scss - Header styles
+/// @author App Art Mint LLC
+///
+/// @group Section
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
+@use '../../util/time' as *;
+
+$header-break: sm;
+
+:root {
+	@include css-var(header-h, 4rem);
+	@include css-var-ref(header-bg, c-brand-2);
+	@include css-var-ref(header-fg, c-fg);
+	@include css-var-ref(header-link-br, br);
+	@include css-var-ref(header-link-fg, c-fg);
+	@include css-var-ref(header-link-fg-hover, c-bg);
+	@include css-var-ref(header-link-bg-hover, c-shadow-5);
+
+	@include css-var(menu-bar-h, 0.4rem);
+	@include css-var(menu-bar-w, calc(css-var(menu-bar-h) * 8));
+	@include css-var(menu-btn-br, br);
+	@include css-var(menu-btn-p, calc(css-var(menu-bar-h) * 1.5));
+	@include css-var(menu-btn-fg, c-fg);
+	@include css-var(menu-btn-fg-hover, header-link-fg-hover);
+	@include css-var(menu-btn-bg, c-shadow-6);
+	@include css-var(menu-btn-bg-hover, header-link-bg-hover);
+	@include css-var(menu-btn-shadow-c, c-shadow-c);
+	@include css-var(menu-btn-shadow-s, c-shadow-s);
+}
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(header-bg, c-brand-4);
+		@include css-var-ref(header-link-bg-hover, c-glow-5);
+	}
+}
+
+body {
+	&#{class(fixed)} {
+		#{id(header)} {
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+	}
+}
+
+#{id(header)} {
+	position: relative;
+	width: 100%;
+	color: css-var(header-fg);
+	background-color: css-var(header-bg);
+	z-index: 1000;
+	height: css-var(header-h);
+
+	&#{class(expand)} {
+		@include break($header-break) {
+			#{class(buttons)} {
+				width: auto;
+
+				#{controls(wrapper)} {
+					display: none;
+				}
+			}
+
+			#{id(wrapper)} {
+				position: static;
+				display: flex !important;
+				height: 100%;
+				max-width: unset !important;
+				padding: 0;
+				z-index: 0;
+
+				&,
+				& nav {
+					height: css-var(header-h);
+					background: css-var(glow-0) !important;
+					overflow: visible;
+				}
+
+				nav {
+					border: none;
+
+					&::before {
+						display: none;
+					}
+
+					&>ul {
+						flex-direction: row !important;
+						justify-content: flex-end;
+						flex-wrap: nowrap;
+						overflow: visible;
+
+						&>li {
+							position: relative;
+							display: flex;
+							width: 100%;
+							max-width: 200px;
+							text-align: center;
+
+							button,
+							ul {
+								width: 100%;
+								max-width: 200px;
+							}
+
+							button {
+								font-size: 1.5rem;
+
+								$arrow-size: 1rem;
+								$arrow-margin: 1rem;
+								padding-right: $arrow-margin + $arrow-size;
+
+								&::after {
+									content: '\f054';
+									font-family: 'Font Awesome 6 Pro';
+									font-weight: 900;
+									font-size: $arrow-size;
+									position: absolute;
+									top: 50%;
+									transform: translateY(-50%);
+									margin-left: $arrow-margin;
+									transition: transform time(default);
+								}
+
+								@include states(hover, focus, expanded) {
+									&::after {
+										transform: translateY(-50%) rotate(90deg);
+									}
+								}
+							}
+
+							ul {
+								position: absolute;
+								top: 100%;
+								left: 50%;
+								transform: translateX(-50%);
+								background-color: css-var(header-bg);
+							}
+						}
+					}
+				}
+
+				a {
+					font-size: 1.25rem;
+				}
+
+				a, button {
+					margin: 0.25rem 0;
+				}
+			}
+		}
+	}
+
+	&#{class(spread)} {
+		@include break-max($header-break) {
+			#{id(wrapper)} {
+				#{$has-controls} {
+					display: none;
+	
+					&+ul {
+						display: flex !important;
+						height: auto !important;
+						margin-bottom: 3rem;
+
+						&>li:first-child {
+							font-size: 1.5em;
+						}
+					}
+				}
+			}
+		}
+
+		&:not(#{class(expand)}) {
+			#{id(wrapper)} {
+				#{$has-controls} {
+					display: none;
+	
+					&+ul {
+						display: flex !important;
+						height: auto !important;
+						margin-bottom: 3rem;
+						overflow: visible;
+
+						&>li:first-child {
+							font-size: 1.5em;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#{class(tray)} {
+		#{id(wrapper)} {
+
+			a, button {
+				padding: 0.75rem;
+				margin: 0.25rem 0;
+				line-height: 1;
+				font-size: 2em;
+				width: 100%;
+			}
+
+			button {
+				font-size: 3em;
+			}
+
+			nav {
+				&>ul {
+					flex-direction: column;
+					flex-wrap: nowrap;
+					justify-content: flex-start;
+				}
+				
+				li {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	&:not(#{class(border)}) {
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background: css-var(header-bg);
+		}
+	}
+
+	&::before {
+		height: css-var(header-h);
+		z-index: -1;
+	}
+
+	#{id(navbar)} {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		height: 100%;
+
+		& > :not(#{class(buttons)}) {
+			a {
+				color: css-var(header-link-fg);
+				text-decoration: none;
+			}
+		}
+	}
+
+	#{class(logo)} {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		width: auto;
+		height: css-var(header-h);
+		padding: 0.25rem;
+		text-decoration: none;
+		white-space: nowrap;
+
+		span {
+			display: none;
+			margin: 0;
+
+			@include break(xs) {
+				display: inline;
+			}
+		}
+
+		img {
+			width: auto;
+			height: 100%;
+		}
+	}
+
+	#{controls(wrapper)} {
+		display: inline-block;
+		position: relative;
+		padding: css-var(menu-btn-p);
+		width: calc(css-var(menu-bar-w) + css-var(menu-btn-p) * 2);
+		height: calc(css-var(menu-btn-h) + css-var(menu-btn-p) * 2);
+		border-radius: css-var(menu-btn-br);
+		background: css-var(menu-btn-bg);
+		box-shadow: css-var(menu-btn-shadow-s) css-var(menu-btn-shadow-c);
+		z-index: 1000;
+
+		@include states(hover) {
+			background: css-var(menu-btn-bg-hover);
+
+			#{class(menu-icon)} {
+
+				&,
+				&::before,
+				&::after {
+					background-color: css-var(menu-btn-fg-hover);
+				}
+			}
+		}
+
+		#{class(menu-icon)} {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			&,
+			&::before,
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				left: 50%;
+				height: css-var(menu-bar-h);
+				width: css-var(menu-bar-w);
+				background-color: css-var(menu-bar-fg);
+				transition: time(default);
+			}
+
+			&::before {
+				transform: translate(-50%, -200%);
+			}
+
+			&::after {
+				transform: translate(-50%, 200%);
+			}
+		}
+
+		&#{expanded(true)} {
+			#{class(menu-icon)} {
+				background: transparent;
+
+				&::before {
+					transform: translate(-50%, 0) rotate(45deg);
+				}
+
+				&::after {
+					transform: translate(-50%, 0) rotate(-45deg);
+				}
+			}
+		}
+	}
+
+	#{id(wrapper)} {
+		nav {
+			flex-grow: 1;
+			height: auto;
+			overflow: visible;
+			background: css-var(bg);
+
+			@include break(xl) {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			&> :last-child {
+				margin-bottom: 0;
+			}
+
+			&>ul {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				overflow: visible;
+
+				@include break(md) {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					align-items: center;
+					justify-content: space-evenly;
+					width: 100%;
+				}
+			}
+		}
+
+		a {
+			display: flex;
+		}
+
+		button {
+			border: none;
+		}
+
+		a,
+		button {
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			padding: 0.5rem;
+			margin: 0.5rem 0;
+			border-radius: css-var(header-link-br);
+			font-family: css-var(font-text), css-var(font-backups) !important;
+			font-size: 3em;
+			text-align: center;
+			color: css-var(header-link-fg);
+			background: css-var(glow-0);
+			transition-property: color, background;
+			transition-duration: time(default);
+
+			@include break(xs) {
+				padding: 1rem 1.5rem;
+
+				i {
+					font-size: 0.5em;
+				}
+			}
+
+			@include states(hover, focus) {
+				background-color: css-var(header-link-bg-hover);
+				color: css-var(header-link-fg-hover);
+			}
+
+			@include states(mint-active) {
+				text-decoration: underline;
+			}
+		}
+
+		ul {
+			list-style: none;
+			margin-top: 0;
+			margin-bottom: 1rem;
+			padding-left: 0;
+
+			li {
+				&:last-child {
+					margin-bottom: 0;
+
+					ul {
+						margin-bottom: 0 !important;
+					}
+				}
+			}
+		}
+	}
+
+	#{class(buttons)} {
+		flex-wrap: nowrap;
+		flex-shrink: 0;
+		justify-content: flex-end;
+		margin-left: auto;
+		overflow: visible;
+	}
+
+	#{class(dropdown)} {
+		background: css-var(header-bg);
+
+		button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-width: css-var(header-h);
+			height: css-var(header-h);
+			padding: calc(css-var(header-h) / 2);
+		}
+
+		li {
+			padding: calc(css-var(header-h) / 2);
+			line-height: 1;
+			cursor: pointer;
+		}
+	}
+
+	#{$has-controls}:not(#{controls(wrapper)}) {
+		&+ul {
+			display: flex;
+			flex-direction: column;
+			height: 0;
+			overflow: hidden;
+			transition: height time(default), margin time(default);
+		}
+
+		&#{$has-expanded}:not(#{expanded(true)}) {
+			&+ul {
+				margin: 0;
+			}
+		}
+	}
+}

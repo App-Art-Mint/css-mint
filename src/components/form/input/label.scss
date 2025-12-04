@@ -1,0 +1,31 @@
+/// label.scss - Label styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/selector' as *;
+
+/// Label Styles
+#{class(label)} {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+	#{class(error)} {
+		line-height: 0;
+		filter: opacity(0);
+		transition: filter 0.3s;
+
+		&#{class(show)} {
+			filter: opacity(1);
+		}
+	}
+}

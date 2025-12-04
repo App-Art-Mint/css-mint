@@ -1,0 +1,27 @@
+/// edit-info.scss - Edit info form styles
+/// @author App Art Mint LLC
+///
+/// @group Form
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/selector' as *;
+
+/// Edit info form styles
+#{class(edit-info)} {
+    &:not(#{class(editing)}) {
+        input, textarea {
+            background: transparent;
+            border: none;
+            color: css-var(fg);
+			resize: none;
+        }
+    }
+
+    #{class(btns)} {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+}

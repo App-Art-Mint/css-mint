@@ -1,0 +1,13 @@
+/// input.scss - Input styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Input Styles
+input {
+	&[type="file"],
+	&::file-selector-button {
+		cursor: pointer;
+	}
+}

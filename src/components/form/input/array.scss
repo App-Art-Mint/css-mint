@@ -1,0 +1,24 @@
+/// array.scss - Array input styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/selector' as *;
+
+/// Array Input Styles
+#{class(array-item)} {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+
+	:first-child {
+		flex-grow: 1;
+	}
+
+	:last-child {
+		flex-shrink: 0;
+	}
+}

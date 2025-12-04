@@ -1,11 +1,11 @@
-/// _table.scss - Table styles
+/// table.scss - Table styles
 /// @author App Art Mint LLC
 ///
 /// @group Widget
 @charset 'utf-8';
 
 /// Imports
-@use '../../util' as *;
+@use '../../util/selector' as *;
 
 /// Table
 #{class(table)} {
@@ -14,10 +14,8 @@
 		overflow-y: auto;
 	}
 
-	&.mat-mdc-table {
-		thead {
-			background: css-var(back);
-		}
+	thead {
+		background: css-var(bg);
 	}
 
     #{class(actions)} {

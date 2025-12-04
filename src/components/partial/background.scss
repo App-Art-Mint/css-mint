@@ -1,0 +1,43 @@
+/// background.scss - Static background styles
+/// @author App Art Mint LLC
+/// 
+/// @group Partial
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+/// Background Styles
+
+:root {
+	@include css-var(bg-blur, 10vw);
+	@include css-var(bg-blur-active, 0.15vw);
+}
+
+#{class(bg)} {
+	display: block;
+	opacity: 0;
+	height: 0;
+	width: 0;
+	z-index: -1;
+	transform: none !important;
+}
+
+#{class(background)} {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	z-index: 0;
+	filter: opacity(0) blur(css-var(bg-blur));
+	transition: filter 1000ms ease-out;
+
+	&.active {
+		filter: opacity(1) blur(css-var(bg-blur-active));
+	}
+}

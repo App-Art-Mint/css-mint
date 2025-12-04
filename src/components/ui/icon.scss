@@ -1,0 +1,73 @@
+/// icon.scss - Icon styles
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/selector' as *;
+
+i {
+    &.fa-envelope {
+        transform: translateY(5%);
+    }
+}
+
+a {
+	color: css-var(link-c);
+	transition-duration: time(default);
+	transition-property: color, background-color;
+
+	@include states(hover, focus, active, mint-active) {
+		color: css-var(link-c-hover);
+
+		.fa-facebook,
+		.fa-square-facebook {
+			color: css-var(c-facebook);
+		}
+
+		.fa-instagram {
+			color: css-var(c-instagram);
+		}
+
+		.fa-twitter {
+			color: css-var(c-twitter);
+		}
+
+		.fa-youtube {
+			color: css-var(c-youtube);
+		}
+
+		.fa-spotify {
+			color: css-var(c-spotify);
+		}
+
+		.fa-apple {
+			color: css-var(c-apple-music);
+		}
+
+		.fa-soundcloud {
+			color: css-var(c-soundcloud);
+		}
+
+		.fa-bandcamp {
+			color: css-var(c-bandcamp);
+		}
+
+		.fa-github {
+			color: css-var(c-bw-0);
+		}
+
+		.fa-bitcoin {
+			color: css-var(c-btc);
+		}
+
+		.fa-ethereum {
+			color: css-var(c-eth);
+		}
+
+		.fa-vimeo {
+			color: css-var(c-venmo);
+		}
+	}
+}

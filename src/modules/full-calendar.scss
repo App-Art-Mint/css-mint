@@ -1,0 +1,60 @@
+/// full-calendar.scss - FullCalendar styles
+/// @author App Art Mint LLC
+/// 
+/// @group Modules
+@charset 'utf-8';
+@use '../util/break' as *;
+@use '../util/selector' as *;
+
+.fc {
+	--fc-page-bg-color: #{css-var(c-brand-6)};
+
+	.fc-toolbar {
+		flex-wrap: wrap;
+		justify-content: space-around;
+		gap: 1rem;
+
+		&-title {
+			@include break-max(sm) {
+				font-size: 1.25rem;
+			}
+		}
+	}
+
+	.fc-timegrid {
+		&-divider {
+			padding: 0;
+		}
+		&-slot-minor {
+			border-top-style: groove;
+		}
+	}
+
+	.fc-list-table {
+		--fc-list-event-hover-bg-color: #{css-var(c-brand-4)};
+
+		@include break-max(sm) {
+			word-break: normal;
+		}
+
+		.fc-list-event-time {
+			@include break-max(xs) {
+				white-space: normal;
+			}
+		}
+	}
+
+	.fc-v-event {
+		.fc-event-title {
+			@include break(sm) {
+				font-size: 0.8em;
+			}
+		}
+	}
+}
+
+thead {
+	.fc-scroller {
+		overflow: hidden !important;
+	}
+}

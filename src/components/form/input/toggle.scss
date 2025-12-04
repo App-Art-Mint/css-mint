@@ -1,4 +1,12 @@
-@use '../../../util' as *;
+/// toggle.scss - Toggle styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/break' as *;
+@use '../../../util/selector' as *;
 
 :root {
 	@include css-var(check-s, 1);

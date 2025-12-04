@@ -1,0 +1,64 @@
+/// grid.scss - Grid styles
+/// @author App Art Mint LLC
+///
+/// @group Section
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/selector' as *;
+
+:root {
+	@include css-var(flex-gap, calc(css-var(gap) * 2));
+}
+
+#{class(flex)} {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	gap: css-var(flex-gap);
+
+	&#{class(row)} {
+		&-reverse {
+			flex-direction: row-reverse;
+		}
+	}
+
+	&#{class(column)} {
+		flex-direction: column;
+
+		&-reverse {
+			flex-direction: column-reverse;
+		}
+	}
+	
+	&#{class(wrap)} {
+		flex-wrap: wrap;
+
+		&-reverse {
+			flex-wrap: wrap-reverse;
+		}
+	}
+
+	&#{class(center)} {
+		justify-content: center;
+	}
+
+	&#{class(end)} {
+		justify-content: flex-end;
+	}
+
+	@each $justify in between, around, evenly {
+		&#{class($justify)} {
+			justify-content: space-#{$justify};
+		}
+	}
+
+	&#{class(align)} {
+		@each $align in start, end {
+			&-#{$align} {
+				align-items: flex-#{$align};
+			}
+		}
+	}
+}

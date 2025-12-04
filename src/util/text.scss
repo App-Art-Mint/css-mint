@@ -3,6 +3,7 @@
 ///
 /// @group UI
 @charset 'utf-8';
+@use './selector' as *;
 
 /// Selector for all headers
 /// @group Mixins

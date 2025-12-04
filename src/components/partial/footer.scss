@@ -1,0 +1,169 @@
+/// footer.scss - Footer styles
+/// @author App Art Mint LLC
+/// 
+/// @group Components
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
+@use '../../util/time' as *;
+
+:root {
+	@include css-var-ref(footer-bg, c-bg);
+	@include css-var-ref(footer-heel-bg, c-brand-6);
+	@include css-var-ref(footer-heel-fg, c-fg);
+	@include css-var-ref(footer-shadow-c, shadow-c);
+	@include css-var-ref(footer-shadow-s, shadow-s);
+}
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(footer-heel-bg, c-brand-4);
+	}
+}
+
+#{class(footer)} {
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+    background: css-var(footer-bg);
+	box-shadow: css-var(footer-shadow-s) css-var(footer-shadow-c);
+	transition: transform time(default);
+	z-index: 999;
+	overflow: hidden;
+
+	&#{class(hide)} {
+		display: flex;
+		transform: translateY(100%);
+		transition: transform time(instant);
+	}
+
+	* {
+		max-width: 100%;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	&-content {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+
+		@include break(sm) {
+			flex-direction: row;
+			align-items: flex-start;
+		}
+
+		&>p {
+			margin: 0 auto;
+			text-align: center;
+			align-self: center;
+
+			a {
+				display: block;
+			}
+		}
+
+		[label="Footer"] {
+			width: 100%;
+			margin: auto;
+
+			@include break(sm) {
+				width: auto;
+			}
+
+			&>ul {
+				flex-direction: column;
+				flex-wrap: wrap;
+				justify-content: space-around;
+				text-align: center;
+
+				@include break(xs) {
+					flex-direction: row;
+				}
+
+				&>ul {
+					li:last-child {
+						#{class(pill)} {
+							margin-bottom: 0;
+						}
+					}
+				}
+			}
+
+			#{class(pill)} {
+				margin-bottom: 0.5rem;
+			}
+		}
+	}
+
+	&-heel {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		padding: 0.4rem 1rem;
+        color: css-var(footer-heel-fg);
+		background: css-var(footer-heel-bg);
+		text-align: center;
+
+		@include break(sm) {
+			flex-direction: row;
+		}
+		
+		& > * {
+			width: 100%;
+		}
+
+		p {
+			@include break(sm) {
+				text-align: left;
+			}
+		}
+	}
+
+	&-social {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	&-message {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+
+		@include break(xs) {
+			flex-wrap: nowrap;
+		}
+
+		@include break(sm) {
+			justify-content: flex-end;
+		}
+
+		&>#{class(pill)} {
+			margin: 0 0.25rem;
+		}
+
+		&>* {
+			margin: 0 0.5rem;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}

@@ -1,0 +1,52 @@
+/// landing.scss - Landing styles
+/// @author App Art Mint LLC
+///
+/// @group Section
+@charset 'utf-8';
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
+
+:root {
+	#{class(landing)} {
+		&.swiper {
+			max-width: 100vw;
+
+			.swiper-slide {
+				padding: 0;
+			}
+		}
+	}
+}
+
+#{class(landing)} {
+	top: css-var(p-exit);
+	left: css-var(p-exit);
+	width: css-var(p-exit-w);
+
+	#{class(border)}, #{class(frame)} {
+		border: none;
+		padding: 0;
+	}
+
+	#{class(section-full)} {
+		align-items: center;
+		top: 0;
+		left: 0;
+		width: 100%;
+		margin: 0;
+		min-height: calc(100vh - css-var(header-h));
+		padding: css-var(p-clamp);
+
+		iframe, video {
+			position: absolute;
+
+			& + * {
+				#{class(grid)} {
+					@include break(lg) {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}

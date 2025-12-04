@@ -1,0 +1,20 @@
+/// dropdown.scss - Dropdown styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/break' as *;
+@use '../../../util/selector' as *;
+
+/// Dropdown Styles
+#{class(dropdown)} {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	
+	@include break(xs) {
+		gap: 1rem;
+	}
+}

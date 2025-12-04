@@ -1,0 +1,75 @@
+/// global.scss - Global styles
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use '../util/selector' as *;
+
+:root {
+	@include css-var(root-bg-s, cover);
+	@include css-var(root-bg-img, none);
+	@include css-var(root-bg-pos, center);
+	@include css-var(root-bg-filter, none);
+}
+
+* {
+	&,
+	&::before,
+	&::after {
+		box-sizing: border-box;
+	}
+}
+
+html {
+	overflow-x: hidden;
+}
+
+html,
+body {
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
+	scroll-behavior: smooth;
+}
+
+body {
+	color: css-var(c-fg);
+	background-color: css-var(c-bg);
+
+	&#{class(fixed)} {
+		main {
+			min-height: 100vh;
+			min-height: 100dvh;
+			padding-top: css-var(header-h);
+		}
+	}
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
+	min-height: calc(100vh - css-var(header-h));
+	min-height: calc(100dvh - css-var(header-h));
+	padding-left: css-var(pad-clamp);
+	padding-right: css-var(pad-clamp);
+	overflow: hidden;
+	z-index: 999;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: css-var(root-bg-img);
+		background-size: css-var(root-bg-s);
+		background-position: css-var(root-bg-pos);
+		filter: css-var(root-bg-filter);
+		z-index: -1;
+	}
+}

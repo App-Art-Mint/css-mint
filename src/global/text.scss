@@ -1,0 +1,93 @@
+/// text.scss - Text styles
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:map';
+@use '../util/break' as *;
+@use '../util/selector' as *;
+@use '../util/text' as *;
+
+/// Text Styles
+$font-min: (h1: 15vw, h2: 12vw, h3: 10vw, h4: 8vw, h5: 7vw, h6: 6vw, p: 1rem);
+$font-mobile: (h1: 2.5rem, h2: 2rem, h3: 1.75rem, h4: 1.5rem, h5: 1.25rem, h6: 1.125rem, p: 1rem);
+$font-desktop: (h1: 3rem, h2: 2.5rem, h3: 2rem, h4: 1.75rem, h5: 1.5rem, h6: 1.25rem, p: 1.125rem);
+
+:root {
+	@include css-var(font-text, sans-serif);
+	@include css-var(font-title, serif);
+	@include css-var(font-backups, (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'));
+	@include css-var(font-title-backups, (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'));
+	@include css-var(font-h, 1.25);
+
+    @each $tag in map.keys($font-min) {
+        @include css-var(font-min-#{$tag}, map.get($font-min, $tag));
+    }
+
+    @each $tag in map.keys($font-mobile) {
+        @include css-var(font-mobile-#{$tag}, map.get($font-mobile, $tag));
+    }
+
+    @each $tag in map.keys($font-desktop) {
+        @include css-var(font-desktop-#{$tag}, map.get($font-desktop, $tag));
+    }
+}
+
+html, body {
+    font-family: css-var(font-text), css-var(font-backups);
+    font-size: min(css-var(font-min-p), css-var(font-mobile-p));
+
+    @include break(xs) {
+        font-size: css-var(font-mobile-p);
+    }
+
+    @include break(md) {
+        font-size: css-var(font-desktop-p);
+    }
+}
+
+p {
+    line-height: css-var(font-h);
+}
+
+@include headers () {
+    font-family: css-var(font-title), css-var(font-title-backups);
+    line-height: 1;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+@each $tag in map.keys($font-min) {
+    #{$tag}, #{class($tag)} {
+        margin: 1rem 0;
+        font-size: min(css-var(font-min-#{$tag}), css-var(font-mobile-#{$tag}));
+
+        @include break(xs) {
+            font-size: css-var(font-mobile-#{$tag});
+        }
+
+        @include break(md) {
+            font-size: css-var(font-desktop-#{$tag});
+        }
+    }
+}
+
+#{class(upper)} {
+	text-transform: uppercase;
+}
+
+#{class(disclaim)} {
+    font-size: 0.875em;
+
+    @include break-max(xs) {
+        text-align: center;
+    }
+}

@@ -16,11 +16,11 @@
 /// @prop {Number} $break.lg [1200] - Large: large desktops, landscape tablets
 /// @prop {Number} $break.xl [1440] - Extra-Large: larger desktops
 $break: (
-	xs: 30,
-	sm: 48,
-	md: 64,
-	lg: 75,
-	xl: 90,
+	xs: 480,
+	sm: 768,
+	md: 1024,
+	lg: 1200,
+	xl: 1440,
 ) !default;
 
 /// Returns the requested breakpoint value as rem
@@ -33,7 +33,7 @@ $break: (
 		@error 'The break function requires one of the following values: #{map.keys($break)}';
 	}
 
-	@return map.get($break, $key) * 1rem;
+	@return map.get($break, $key) * 1px;
 }
 
 /// Wraps the provided content in a media query

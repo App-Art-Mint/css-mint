@@ -1,0 +1,130 @@
+/// chat.scss - Chatbot styles
+/// @author App Art Mint LLC
+///
+/// @group Components
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
+
+:root {
+	@include css-var-ref(chat-user, c-bg-1);
+	@include css-var-ref(chat-bot, c-brand-1);
+}
+
+#{class(chatbot)} {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: flex-end;
+	position: relative;
+	gap: 1rem;
+	min-height: calc(100vh - css-var(header-h));
+	min-height: calc(100dvh - css-var(header-h));
+
+	@include break(xs) {
+		min-height: unset;
+	}
+
+	#{class(output)} {
+		display: flex;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: calc(100% - 75px);
+		overflow-y: auto;
+	}
+
+	#{class(chat)} {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		width: 100%;
+		min-height: 100%;
+		padding: 1rem;
+		font-size: 1.125rem;
+		overflow-x: hidden;
+
+		&::before {
+			content: '';
+			flex-grow: 1;
+		}
+
+		p {
+			align-self: flex-start;
+			margin: 0;
+			color: #000;
+
+			@include break(xs) {
+				max-width: 75%;
+			}
+
+			&:nth-child(even) {
+				align-self: flex-end;
+
+				span {
+					background-color: css-var(chat-bot);
+
+					&::before {
+						left: unset;
+						right: 0;
+						transform: translate(-5%, 90%) skew(50deg, 10deg);
+						border-color: css-var(chat-bot) transparent transparent transparent;
+					}
+				}
+			}
+
+			span {
+				display: block;
+				position: relative;
+				padding: 1rem;
+				margin-bottom: 2rem;
+				background-color: css-var(chat-user);
+				border-radius: 0.5rem;
+
+				&::before {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					transform: translate(5%, 90%) skew(-50deg, 10deg);
+					width: 0;
+					height: 0;
+					border: 0.5rem solid;
+					border-color: css-var(chat-user) transparent transparent transparent;
+				}
+			}
+		}
+	}
+
+	#{class(input)} {
+		position: relative;
+		width: 100%;
+		max-width: 550px;
+		margin: 0 auto;
+
+		input {
+			font-size: 1.25rem;
+			padding-right: 47px;
+		}
+
+		button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 100%;
+			padding: 0 1rem;
+			border-top-right-radius: 1rem;
+			border-bottom-right-radius: 1rem;
+			border: none;
+			transition: all 0.3s ease-in-out;
+
+			@include states(hover, focus) {
+				background: css-var(c-fg) !important;
+				color: css-var(c-bg);
+			}
+		}
+	}
+}

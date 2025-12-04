@@ -1,0 +1,26 @@
+/// themes.scss - Styles for ui theming
+/// @author App Art Mint LLC
+///
+/// @group Themes
+@charset 'utf-8';
+
+/// Imports
+@use '../util/selector' as *;
+
+@each $theme in success, danger, warning, info {
+	#{class(theme-#{$theme})} {
+		background-color: css-var(c-#{$theme}-2);
+		border-color: css-var(c-#{$theme}-4);
+	}
+}
+
+#{class(theme)} {
+	&-dark {
+		@each $theme in success, danger, warning, info {
+			#{class(theme-#{$theme})} {
+				background-color: css-var(c-#{$theme}-7);
+				border-color: css-var(c-#{$theme}-5);
+			}
+		}
+	}
+}

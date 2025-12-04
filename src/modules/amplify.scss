@@ -1,0 +1,44 @@
+/// amplify.scss - Amplify styles
+/// @author App Art Mint LLC
+/// 
+/// @group Modules
+@charset 'utf-8';
+@use '../util/selector' as *;
+@use '../components/ui/button';
+@use '../components/widget/card';
+
+:root:root {
+	@include css-var-ref(--amplify-colors-background-error, c-glow-0);
+	@include css-var-ref(--amplify-colors-border-primary, c-brand-5);
+	@include css-var-ref(--amplify-colors-border-focus, c-brand-4);
+	@include css-var-ref(--amplify-colors-font-hover, c-brand-3);
+	@include css-var-ref(--amplify-colors-font-interactive, c-brand-5);
+	@include css-var-ref(--amplify-colors-font-primary, c-fg);
+	@include css-var-ref(--amplify-colors-font-secondary, c-brand-6);
+	@include css-var-ref(--amplify-colors-font-error, c-danger-5);
+	@include css-var-ref(--amplify-colors-font-warning, c-warning-5);
+	@include css-var-ref(--amplify-colors-font-success, c-success-5);
+	@include css-var-ref(--amplify-colors-font-info, c-info-5);
+	@include css-var-ref(--amplify-components-fieldcontrol-color, --amplify-colors-font-primary);
+
+	@include css-var-ref(--amplify-border-widths-small, bw);
+
+	[data-amplify-authenticator] {
+		[data-amplify-container] {
+			@extend #{class(card)};
+	
+			[data-amplify-router] {
+				@extend #{class(content)};
+			}
+		}
+	}
+	
+	[amplify-button] {
+		@extend #{class(btn)};
+		margin: auto;
+	}
+	
+	.amplify-icon {
+		display: block;
+	}
+}

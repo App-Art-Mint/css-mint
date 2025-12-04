@@ -5,14 +5,142 @@
 @charset 'utf-8';
 
 /// Imports
-@use '../../util' as *;
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
 
 :root {
-	@include css-var-ref(grid-gap, gap);
+	@include css-var(grid-gap, calc(css-var(gap) * 2));
 	@include css-var-ref(grid-fit-w, xs);
 }
 
+@mixin grid-2 {
+	@include break(sm) {
+		grid-template-columns: repeat(12, 1fr);
+
+		& > * {
+			grid-column: span 6;
+		}
+		
+		& > :last-child:nth-child(odd) {
+			grid-column: span 12;
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+@mixin grid-3 {
+	@include break(lg) {
+		grid-template-columns: repeat(12, 1fr);
+
+		& > * {
+			grid-column: span 4;
+		}
+
+		& > :last-child:nth-child(odd) {
+			grid-column: span 4;
+			width: 100%;
+		}
+
+		& > :last-child:nth-child(#{'3n+1'}) {
+			grid-column: 4 / span 6;
+		}
+
+		& > :last-child:nth-child(#{'3n+2'}) {
+			grid-column: 7 / span 6;
+		}
+
+		& > :nth-last-child(2):nth-child(#{'3n+1'}) {
+			grid-column: 1 / span 6;
+		}
+	}
+}
+
+@mixin grid-4 {
+	@include break(xl) {
+		grid-template-columns: repeat(12, 1fr);
+
+		& > * {
+			grid-column: span 3;
+		}
+
+		& > :last-child:nth-child(odd),
+		& > :last-child:nth-child(#{'3n+1'}),
+		& > :last-child:nth-child(#{'3n+2'}),
+		& > :nth-last-child(2):nth-child(#{'3n+1'}) {
+			grid-column: span 3;
+			width: 100%;
+		}
+
+		& > :last-child:nth-child(#{'4n+1'}) {
+			grid-column: 4 / span 6;
+		}
+
+		& > :last-child:nth-child(#{'4n+2'}) {
+			grid-column: 7 / span 6;
+		}
+
+		& > :nth-last-child(2):nth-child(#{'4n+1'}) {
+			grid-column: 1 / span 6;
+		}
+
+		& > :last-child:nth-child(#{'4n+3'}) {
+			grid-column: 9 / span 4;
+		}
+
+		& > :nth-last-child(2):nth-child(#{'4n+2'}) {
+			grid-column: 5 / span 4;
+		}
+
+		& > :nth-last-child(3):nth-child(#{'4n+1'}) {
+			grid-column: 1 / span 4;
+		}
+	}
+}
+
+/// Grid styles
 #{class(grid)} {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: css-var(grid-gap);
+	width: 100%;
+	margin-top: css-var(grid-gap);
+	margin-bottom: css-var(grid-gap);
+
+	&#{class('1')} {
+		& > * {
+			grid-column: span 1 !important;
+		}
+	}
+
+	&#{class('2')} {
+		@include grid-2;
+	}
+
+	&#{class('3')} {
+		@include grid-2;
+		@include grid-3;
+	}
+
+	&#{class('4')} {
+		@include grid-2;
+		@include grid-3;
+		@include grid-4;
+	}
+
+	#{class(portrait)},
+	& > :has(#{class(portrait)}) {
+		grid-row: span 2;
+	}
+
+	#{class(landscape)},
+	& > :has(#{class(landscape)}) {
+		@include break(sm) {
+			grid-column: span 12;
+		}
+	}
+
 	&-fit {
 		display: grid;
 		grid-template-columns: repeat(minmax(min(css-var(grid-fit-w), 100%), 1fr));

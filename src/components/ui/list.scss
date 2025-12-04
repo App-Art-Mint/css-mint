@@ -1,0 +1,32 @@
+/// list.scss - List styles
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/selector' as *;
+
+nav {
+	a {
+		display: block;
+		text-decoration: none;
+	}
+
+	ul {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		& > li > ul {
+			flex-direction: column;
+		}
+	}
+}
+
+#{class(list)} {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

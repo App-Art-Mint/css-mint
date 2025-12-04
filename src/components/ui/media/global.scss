@@ -1,0 +1,13 @@
+/// global.scss - Global media styles
+/// @author App Art Mint LLC
+///
+/// @group Media
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/selector' as *;
+
+img, video {
+	width: 100%;
+	height: auto;
+}

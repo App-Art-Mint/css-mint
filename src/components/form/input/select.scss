@@ -1,0 +1,15 @@
+/// select.scss - Select styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/break' as *;
+
+/// Select Styles
+select {
+	@include break(xs) {
+		width: auto;
+	}
+}

@@ -1,0 +1,101 @@
+/// structure.scss - Structure styles
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:map';
+@use '../util/box' as *;
+@use '../util/break' as *;
+@use '../util/selector' as *;
+
+/// Structure styles
+#{class(p)} {
+	@include box-util(padding, 1rem);
+	@include break-util(padding, 0.5rem, 0);
+
+	@include break(xs) {
+		@include break-util(padding, 1rem, 0);
+	}
+}
+
+#{class(m)} {
+	@include box-util(margin, 1rem);
+	@include break-util(margin, 0.5rem, 0);
+
+	@include break(xs) {
+		@include break-util(margin, 1rem, 0);
+	}
+}
+
+#{class(hide)} {
+	@include break-util(display, initial, none);
+}
+
+#{class(max)} {
+	@each $size in map.keys($break) {
+		&-#{$size} {
+			width: 100%;
+			max-width: break($size);
+			
+			&:not(#{class(left)}) {
+				margin-left: auto;
+			}
+
+			&:not(#{class(right)}) {
+				margin-right: auto;
+			}
+		}
+	}
+}
+
+#{class(half-w)} {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#{class(center)} {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	&-down {
+		&, & * {
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+	}
+}
+
+#{class(fit)} {
+	width: fit-content;
+	height: fit-content;
+
+	&:not(#{class(left)}) {
+		margin-left: auto;
+	}
+
+	&:not(#{class(right)}) {
+		margin-right: auto;
+	}
+}
+
+#{class(left)} {
+	float: left;
+}
+
+#{class(right)} {
+	float: right;
+}
+
+#{class(full-page)} {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: calc(100vh - css-var(header-h));
+	min-height: calc(100dvh - css-var(header-h));
+}

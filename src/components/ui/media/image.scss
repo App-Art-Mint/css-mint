@@ -1,11 +1,11 @@
 /// image.scss - Image styles
 /// @author App Art Mint LLC
 ///
-/// @group UI
+/// @group Media
 @charset 'utf-8';
 
 /// Imports
-@use '../../util' as *;
+@use '../../../util/selector' as *;
 
 :root {
     @include css-var-ref(img-shadow-c, shadow-c);

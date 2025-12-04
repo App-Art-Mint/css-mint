@@ -1,18 +1,18 @@
-/// _panel.scss - Panel styles
+/// panel.scss - Panel styles
 /// @author App Art Mint LLC
 ///
 /// @group Widget
 @charset 'utf-8';
 
 /// Imports
-@use 'sass:math';
-@use '../../util' as *;
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
 
 /// Panel Styles
 #{class(panel)} {
 	&#{class(right)} {
-		#{class(panel-wrapper)} {
-			top: css-var(header-height);
+		#{class(panel-wrap)} {
+			top: css-var(header-h);
 			right: -100%;
 			left: unset;
 
@@ -23,7 +23,7 @@
 	}
 
 	&#{class(bottom)} {
-		#{class(panel-wrapper)} {
+		#{class(panel-wrap)} {
 			top: unset;
 			bottom: -100%;
 
@@ -35,8 +35,8 @@
 	}
 
 	&#{class(left)} {
-		#{class(panel-wrapper)} {
-			top: css-var(header-height);
+		#{class(panel-wrap)} {
+			top: css-var(header-h);
 			left: -100%;
 
 			&#{class(open)} {
@@ -46,7 +46,7 @@
 	}
 
 	&#{class(tray)} {
-		#{class(panel-wrapper)} {
+		#{class(panel-wrap)} {
 			gap: 1rem;
 
 			@include break(sm) {
@@ -55,30 +55,30 @@
 		}
 	}
 
-	#{class(panel-wrapper)} {
+	#{class(panel-wrap)} {
 		display: flex;
 		flex-direction: column;
 		position: fixed;
 		top: -100%;
 		left: 0;
 		width: 100%;
-		height: calc(100vh - css-var(header-height));
-		height: calc(100dvh - css-var(header-height));
+		height: calc(100vh - css-var(header-h));
+		height: calc(100dvh - css-var(header-h));
 		z-index: -2;
-		background: css-var(header-back);
+		background: css-var(header-bg);
 		transition-duration: time(default);
 		transition-property: top, right, bottom, left;
 		overflow: auto;
 
 		&#{class(open)} {
-			top: css-var(header-height);
+			top: css-var(header-h);
 		}
 
 		nav {
 			flex-grow: 1;
 			height: auto;
 			overflow: visible;
-			background: css-var(back);
+			background: css-var(bg);
 
 			@include break(xl) {
 				display: flex;
@@ -86,7 +86,7 @@
 				justify-content: center;
 			}
 
-			&> :last-child {
+			& > :last-child {
 				margin-bottom: 0;
 			}
 		}

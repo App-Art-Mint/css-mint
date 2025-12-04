@@ -1,0 +1,33 @@
+/// link.scss - Link styles
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/break' as *;
+@use '../../util/selector' as *;
+@use '../../util/time' as *;
+
+:root {
+	@include css-var(link-c, c-brand-4);
+	@include css-var(link-c-hover, c-accent-2);
+}
+
+a {
+	color: css-var(link-c);
+	transition-duration: time(default);
+	transition-property: color, background-color;
+
+	@include states(hover, focus, active, mint-active) {
+		color: css-var(link-c-hover);
+	}
+
+	&[href^='mailto:'],
+	&[href^='tel:'],
+	&[href^='sms:'] {
+		@include break(xs) {
+			white-space: nowrap;
+		}
+	}
+}

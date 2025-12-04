@@ -1,0 +1,154 @@
+/// texture.scss - Texture styles
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:list';
+@use 'sass:math';
+@use '../util/selector' as *;
+@use '../util/break' as *;
+
+/// Texture Mixin
+$texture-bc: null !default;
+$texture-bg: null !default;
+$texture-bi: null !default;
+$texture-alt-bg: null !default;
+
+:root {
+    @include css-var(texture-bg, $texture-bg);
+    @include css-var(texture-bg-s, cover);
+    @include css-var(texture-bg-pos, top);
+    @include css-var(texture-blend, normal);
+    @include css-var(texture-filter, none);
+    @include css-var(texture-opacity, 1);
+    @include css-var(texture-alt-bg-s, cover);
+    @include css-var(texture-alt-bg-pos, center);
+    @include css-var(texture-alt-blend, normal);
+    @include css-var(texture-alt-mask, none);
+    @include css-var(texture-alt-opacity, 1);
+    @include css-var(texture-p, 1rem);
+    @include css-var(texture-bw, 1.25rem);
+    @include css-var(texture-bc, $texture-bc);
+    @include css-var(texture-bi, $texture-bi);
+    @include css-var(texture-bis, 42 42);
+    @include css-var(texture-bir, round);
+    @include css-var(texture-bst, solid);
+}
+
+@mixin mint-texture () {
+    position: relative;
+	background-color: css-var(bg);
+    
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    &::before {
+        opacity: css-var(texture-opacity);
+        background-image: css-var(texture-bg);
+        background-size: css-var(texture-bg-s);
+        background-position: css-var(texture-bg-pos);
+        mix-blend-mode: css-var(texture-blend);
+        filter: css-var(texture-filter);
+    }
+
+    &::after {
+        opacity: css-var(texture-alt-opacity);
+        background-size: css-var(texture-alt-bg-s);
+        background-position: css-var(texture-alt-bg-pos);
+        mask-image: css-var(texture-alt-mask);
+        mix-blend-mode: css-var(texture-alt-blend);
+        z-index: 1;
+    }
+
+    & > * {
+        position: relative;
+        z-index: 10;
+    }
+}
+
+/// Border Mixin
+@mixin mint-border () {
+	padding: math.div(css-var(texture-p), 2) + css-var(texture-bw);
+	border-image-source: css-var(texture-bi);
+	border-image-slice: css-var(texture-bis);
+	border-image-repeat: css-var(texture-bir);
+	border-image-width: css-var(texture-bw);
+	border-style: css-var(texture-bst);
+
+    @include break(sm) {
+        padding: css-var(texture-p) + css-var(texture-bw);
+    }
+}
+
+/// Texture Styles
+#{class(texture)} {
+    @if $texture-bg {
+        @include mint-texture();
+    }
+}
+
+/// Border Styles
+#{class(border)} {
+    @extend #{class(texture)};
+    @if $texture-bi {
+        @include mint-border();
+    } @else if $texture-bc {
+        border: css-var(texture-bw) css-var(texture-bst) css-var(texture-bc);
+    }
+}
+
+#{class(frame)} {
+    height: fit-content;
+	background-color: css-var(card-bg);
+
+    @extend #{class(border)};
+    @if $texture-bi {
+        padding: css-var(texture-bw);
+    } @else if $texture-bc {
+        padding: 0;
+    }
+}
+
+#{class(card)} {
+	#{class(content)} {
+		@extend #{class(border)};
+	}
+
+    &-grid {
+        #{class(image)} {
+            @extend #{class(border)};
+            position: absolute;
+        }
+    }
+}
+
+/// Alt Texture Styles
+@if $texture-alt-bg and list.length($texture-alt-bg) > 0 {
+    @for $num from 1 through list.length($texture-alt-bg) {
+        #{class(texture-#{$num})} {
+            #{class(content)} {
+                &::after {
+                    background-image: url(#{list.nth($texture-alt-bg, $num)});
+                }
+            }
+        }
+    }
+}
+
+/// Overlay texture
+#{class(overlay)} {
+	#{class(border)}, #{class(texture)} {
+		&::before {
+			z-index: 100;
+		}
+	}
+}

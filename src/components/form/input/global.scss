@@ -1,0 +1,18 @@
+/// global.scss - Global input styles
+/// @author App Art Mint LLC
+///
+/// @group Input
+@charset 'utf-8';
+
+/// Imports
+@use '../../../util/selector' as *;
+
+/// Global Input Styles
+input,
+select,
+textarea {
+	width: 100%;
+	padding: 0.5rem;
+	border: 2px solid css-var(c-bw-8);
+	border-radius: css-var(br);
+}

@@ -14,19 +14,36 @@
 	@include shades(c-glow, rgba(255, 255, 255, 0));
 	@include shades(c-shadow, rgba(0, 0, 0, 0));
 
-	/// Brand Colors
+	/// Application Colors
 	@include shades(c-brand, hsl(220, 35%, 50%));
 	@include shades(c-accent, hsl(248, 39%, 50%));
 	@include shades(c-success, hsl(120, 62%, 50%));
 	@include shades(c-danger, hsl(0, 54%, 50%));
 	@include shades(c-warning, hsl(37, 100%, 50%));
 	@include shades(c-info, hsl(201, 50%, 50%));
+
+	/// Brand Colors
+	@include css-var(c-amazon, #F90);
+	@include css-var(c-apple-music, #fc3c44);
+	@include css-var(c-apple, #DDD);
+	@include css-var(c-bandcamp, #629aa9);
+	@include css-var(c-btc, #FF9900);
+	@include css-var(c-eth, #3C3C3D);
+	@include css-var(c-facebook, #3b5998);
+	@include css-var(c-google-play, #f55a34);
+	@include css-var(c-instagram, #8a3ab9);
+	@include css-var(c-soundcloud, #f26f23);
+	@include css-var(c-spotify, #84bd00);
+	@include css-var(c-twitter, #1da1f2);
+	@include css-var(c-venmo, #008CFF);
+	@include css-var(c-youtube, #F00);
 }
 
 /// App Colors
 :root {
 	@include css-var-ref(c-fg, c-bw-8);
 	@include css-var-ref(c-bg, c-bw-1);
+	@include css-var-ref(shadow-c, c-shadow-2);
 }
 
 /// App Themes
@@ -34,5 +51,6 @@
 	&-dark {
 		@include css-var-ref(c-fg, c-bw-1);
 		@include css-var-ref(c-bg, c-bw-8);
+		@include css-var-ref(shadow-c, c-glow-2);
 	}
 }

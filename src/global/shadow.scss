@@ -1,0 +1,20 @@
+/// shadow.scss - Shadow styles
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use '../util/selector' as *;
+
+#{class(glow)} {
+	box-shadow: 0 0 2rem -0.5rem css-var(glow-2);
+}
+
+#{class(shadow)} {
+	box-shadow: 0 0 2rem -0.5rem css-var(shadow-2);
+}
+
+#{class(no-glow)} {
+	box-shadow: none !important;
+}

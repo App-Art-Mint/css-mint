@@ -1,0 +1,214 @@
+/// _animations.scss - Global animations
+/// @author App Art Mint LLC
+/// 
+/// @group Animations
+@charset 'utf-8';
+
+/// Imports
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@use '../util/selector' as *;
+@use '../util/time' as *;
+
+/// Animations
+@keyframes #{prefix(spin)} {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes #{prefix(spin-centered)} {
+	0% {
+		transform: rotate(0deg) translate(-50%, -50%);
+	}
+
+	100% {
+		transform: rotate(360deg) translate(-50%, -50%);
+	}
+}
+
+@keyframes #{prefix(pulse)} {
+	0% {
+		opacity: 0;
+	}
+
+	75% {
+		opacity: 0.75;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes #{prefix(stretch-in)} {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.25);
+	}
+
+	70% {
+		transform: scale(1.15);
+	}
+
+	100% {
+		transform: scale(1.2);
+	}
+}
+
+@keyframes #{prefix(stretch-out)} {
+	0% {
+		transform: scale(1.2);
+	}
+
+	25% {
+		transform: scale(0.9);
+	}
+
+	50% {
+		transform: scale(1.05);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes #{prefix(stretch-tilt-in)} {
+    0% {
+        transform: scale(0.5);
+        rotate: -15deg;
+    }
+    90% {
+        transform: scale(1.25);
+        rotate: 5deg;
+    }
+    100% {
+        transform: scale(1);
+		rotate: 0deg;
+    }
+}
+
+/// Animation classes
+#{class(fall-in)} {
+    filter: opacity(0%);
+    transform: translateY(-100px);
+    transition: all time(slower) ease-out, box-shadow time(slower) time(slow) ease-out !important;
+    pointer-events: none;
+    z-index: -1;
+
+    &#{class(show)}:not(#{class(loading)}) {
+        filter: opacity(100%);
+        transform: translateY(0%);
+        pointer-events: auto;
+        z-index: 1;
+    }
+
+    &:not(#{(class(show))}), &#{class(loading)} {
+        box-shadow: 0 0 0 0 transparent !important;
+    }
+
+    &#{class(fast)} {
+        transition: all time(faster), box-shadow time(faster) time(faster) !important;
+    }
+}
+
+#{class(shine)} {
+    position: relative;
+    overflow: hidden;
+
+    @include states(hover, focus, active, mint-active) {
+        &::after {
+            transition-duration: time(default);
+            transform: translate(100%, -100%);
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translate(-100%, 100%);
+        background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+        transition: transform time(fast) ease-out;
+    }
+}
+
+#{class(spin)} {
+	animation: #{prefix(spin)} 1s linear infinite;
+
+	@for $i from 1 through 5 {
+		&-#{$i} {
+			animation-duration: #{$i}s;
+		}
+	}
+
+	&-hover {
+		$animation: #{prefix(spin)} 1s ease-in-out forwards;
+		@include states(hover, focus) {
+			animation: $animation;
+		}
+
+		&-icon {
+			@include states(hover, focus) {
+				i {
+					animation: $animation;
+				}
+			}
+		}
+	}
+}
+
+#{class(pulse-out)} {
+	animation: #{prefix(pulse)} 0.75s ease-in-out forwards;
+}
+
+#{class(stretch)} {
+	animation: #{prefix(stretch-out)} 0.5s ease forwards;
+	@include states(hover, focus) {
+		animation: #{prefix(stretch-in)} 0.75s ease forwards;
+	}
+
+	&-img {
+		img {
+			animation: #{prefix(stretch-out)} 0.5s ease forwards;
+		}
+
+		@include states(hover, focus) {
+			img {
+				animation: #{prefix(stretch-in)} 0.75s ease forwards;
+			}
+		}
+	}
+
+	&-icon {
+		i {
+			animation: #{prefix(stretch-out)} 0.5s ease forwards;
+		}
+
+		@include states(hover, focus) {
+			i {
+				animation: #{prefix(stretch-in)} 0.75s ease forwards;
+			}
+		}
+	}
+
+	&-in {
+		animation: #{prefix(stretch-out)} 0.5s ease forwards;
+	}
+
+	&-tilt-in {
+		animation: #{prefix(stretch-tilt-in)} 0.75s ease-in-out forwards;
+	}
+}
