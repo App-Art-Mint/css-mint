@@ -36,7 +36,7 @@
 /// @param {Color} $color - the color to generate variations for
 /// @param {Number} $number - the number of variations to generate
 /// @output css variables for different shades of the source color
-@mixin shades ($name, $color, $number: 10) {
+@mixin shades ($name, $color, $number: 11) {
 	@if (meta.type-of($name) != 'string') {
 		@error 'The shades mixin requires a string for the $name argument.';
 	}
@@ -51,12 +51,12 @@
 
 	@if (color.alpha($color) != 1) {
 		@for $i from 0 through $number - 1 {
-			$amount: math.div($i, $number);
+			$amount: math.div($i, $number - 1);
 			@include css-var(#{$name}-#{$i}, color.change($color, $alpha: $amount));
 		}
 	} @else {
 		@for $i from 0 through $number - 1 {
-			$amount: math.div($i, $number) * 100%;
+			$amount: math.div($i, $number - 1) * 100%;
 			@include css-var(#{$name}-#{$i}, color.change($color, $lightness: $amount));
 		}
 	}
