@@ -22,14 +22,14 @@ $header-break: sm;
 
 	@include css-var(menu-bar-h, 0.4rem);
 	@include css-var(menu-bar-w, calc(css-var(menu-bar-h) * 8));
-	@include css-var(menu-btn-br, br);
 	@include css-var(menu-btn-p, calc(css-var(menu-bar-h) * 1.5));
-	@include css-var(menu-btn-fg, c-fg);
-	@include css-var(menu-btn-fg-hover, header-link-fg-hover);
-	@include css-var(menu-btn-bg, c-shadow-6);
-	@include css-var(menu-btn-bg-hover, header-link-bg-hover);
-	@include css-var(menu-btn-shadow-c, c-shadow-c);
-	@include css-var(menu-btn-shadow-s, c-shadow-s);
+	@include css-var-ref(menu-btn-fg, c-fg);
+	@include css-var-ref(menu-btn-fg-hover, header-link-fg-hover);
+	@include css-var-ref(menu-btn-bg, c-shadow-6);
+	@include css-var-ref(menu-btn-bg-hover, header-link-bg-hover);
+	@include css-var-ref(menu-btn-shadow-c, c-shadow-c);
+	@include css-var-ref(menu-btn-shadow-s, c-shadow-s);
+	@include css-var-ref(menu-btn-br, br);
 }
 
 #{class(theme)} {
