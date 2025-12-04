@@ -16,8 +16,8 @@
 	@include css-var(check-fs, 0.5rem);
 	@include css-var-ref(check-br, br);
 	@include css-var-ref(check-bc, btn-bc);
-	@include css-var-ref(check-bg, btn-bg);
-	@include css-var-ref(check-bg-on, c-brand-4);
+	@include css-var-ref(check-bg, c-brand-4);
+	@include css-var-ref(check-handle-bg, c-brand-4);
 }
 
 #{class(toggle)} {
@@ -26,17 +26,6 @@
 	gap: 1rem;
 	width: fit-content;
 	cursor: pointer;
-	
-	div {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.5rem;
-
-		@include break(xs) {
-			flex-direction: row;
-		}
-	}
 
 	@for $i from 1 through 10 {
 		&#{class(#{$i})} {
@@ -61,7 +50,7 @@
 		&:checked {
 			& + span {
 				left: calc(100% - (css-var(check-h) - css-var(check-p)) * css-var(check-s));
-				background-color: css-var(check-bg-on);
+				background-color: css-var(check-bc);
 				filter: grayscale(0);
 
 				i {
@@ -86,7 +75,7 @@
 			transform: translateX(0);
 			width: $handle-size;
 			height: $handle-size;
-			background-color: css-var(check-bg);
+			background-color: css-var(check-handle-bg);
 			border-radius: calc(css-var(check-br) * css-var(check-s));
 			filter: grayscale(1);
 			transition: filter 300ms, background-color 300ms, left 300ms;
