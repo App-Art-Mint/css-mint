@@ -13,7 +13,7 @@ $header-break: sm;
 
 :root {
 	@include css-var(header-h, 4rem);
-	@include css-var-ref(header-bg, c-brand-2);
+	@include css-var-ref(header-bg, c-brand-4);
 	@include css-var-ref(header-fg, c-fg);
 	@include css-var-ref(header-link-br, br);
 	@include css-var-ref(header-link-fg, c-fg);
@@ -34,8 +34,7 @@ $header-break: sm;
 
 #{class(theme)} {
 	&-dark {
-		@include css-var-ref(header-bg, c-brand-4);
-		@include css-var-ref(header-link-bg-hover, c-glow-5);
+		@include css-var-ref(header-bg, c-brand-2);
 	}
 }
 
