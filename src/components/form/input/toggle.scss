@@ -17,7 +17,6 @@
 	@include css-var-ref(check-br, br);
 	@include css-var-ref(check-bc, btn-bc);
 	@include css-var-ref(check-bg, c-brand-4);
-	@include css-var-ref(check-handle-bg, c-brand-4);
 }
 
 #{class(toggle)} {
@@ -75,7 +74,7 @@
 			transform: translateX(0);
 			width: $handle-size;
 			height: $handle-size;
-			background-color: css-var(check-handle-bg);
+			background-color: css-var(check-bc);
 			border-radius: calc(css-var(check-br) * css-var(check-s));
 			filter: grayscale(1);
 			transition: filter 300ms, background-color 300ms, left 300ms;
