@@ -12,12 +12,12 @@
 	@include css-var(btn-ph, calc(css-var(gap) * 4));
 	@include css-var-ref(btn-br, br);
 	@include css-var-ref(btn-bw, bw);
-	@include css-var-ref(btn-bc, c-brand-4);
+	@include css-var-ref(btn-bc, c-brand-2);
 	@include css-var-ref(btn-fg, c-fg);
 	@include css-var-ref(btn-fg-hover, c-bg);
 	@include css-var-ref(btn-fg-alt, btn-bc);
 	@include css-var-ref(btn-fg-alt-hover, btn-fg-hover);
-	@include css-var-ref(btn-bg, c-brand-2);
+	@include css-var-ref(btn-bg, c-brand-5);
 	@include css-var-ref(btn-bg-hover, btn-bc);
 	@include css-var-ref(btn-bg-alt, c-glow-0);
 	@include css-var-ref(btn-bg-alt-hover, c-accent-2);
@@ -29,8 +29,8 @@
 
 #{class(theme)} {
 	&-dark {
-		@include css-var-ref(btn-bg, c-brand-5);
-		@include css-var-ref(btn-bc, c-brand-2);
+		@include css-var-ref(btn-bg, c-brand-2);
+		@include css-var-ref(btn-bc, c-brand-4);
 	}
 }
 

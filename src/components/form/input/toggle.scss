@@ -15,8 +15,9 @@
 	@include css-var(check-bw, 0.125rem);
 	@include css-var(check-fs, 0.5rem);
 	@include css-var-ref(check-br, br);
-	@include css-var-ref(check-bc, c-brand-2);
-	@include css-var-ref(check-bg, c-brand-5);
+	@include css-var-ref(check-bc, btn-bc);
+	@include css-var-ref(check-bg, btn-bg);
+	@include css-var-ref(check-bg-checked, c-brand-4);
 }
 
 #{class(toggle)} {
