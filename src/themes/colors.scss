@@ -41,16 +41,16 @@
 
 /// App Colors
 :root {
-	@include css-var-ref(c-fg, c-bw-8);
-	@include css-var-ref(c-bg, c-bw-1);
+	@include css-var-ref(c-fg, c-bw-1);
+	@include css-var-ref(c-bg, c-bw-9);
 	@include css-var-ref(shadow-c, c-shadow-2);
 }
 
 /// App Themes
 #{class(theme)} {
 	&-dark {
-		@include css-var-ref(c-fg, c-bw-1);
-		@include css-var-ref(c-bg, c-bw-8);
+		@include css-var-ref(c-fg, c-bw-9);
+		@include css-var-ref(c-bg, c-bw-1);
 		@include css-var-ref(shadow-c, c-glow-2);
 	}
 }
