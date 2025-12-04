@@ -15,9 +15,28 @@
 	@include css-var(check-bw, 0.125rem);
 	@include css-var(check-fs, 0.5rem);
 	@include css-var-ref(check-br, br);
+	@include css-var-ref(check-bc, c-brand-2);
+	@include css-var-ref(check-bg, c-brand-5);
 }
 
 #{class(toggle)} {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: fit-content;
+	cursor: pointer;
+	
+	div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+
+		@include break(xs) {
+			flex-direction: row;
+		}
+	}
+
 	@for $i from 1 through 10 {
 		&#{class(#{$i})} {
 			@include css-var(check-s, #{$i});
@@ -26,29 +45,62 @@
 }
 
 #{class(check)} {
+	position: relative;
+	display: inline-block;
+	flex-shrink: 0;
 	height: calc((css-var(check-h) + css-var(check-bw) * 2) * css-var(check-s));
 	width: calc((css-var(check-h) - css-var(check-p) + css-var(check-bw)) * css-var(check-s) * 2);
-	border: calc(css-var(check-bw) * css-var(check-s)) solid css-var(brand-2);
+	border: calc(css-var(check-bw) * css-var(check-s)) solid css-var(check-bc);
 	border-radius: calc(css-var(check-br) * css-var(check-s));
+	background-color: css-var(check-bg);
+	cursor: pointer;
 
 	[type="checkbox"] {
+		display: none;
 		&:checked {
 			& + span {
 				left: calc(100% - (css-var(check-h) - css-var(check-p)) * css-var(check-s));
+				background-color: css-var(check-bc);
+				filter: grayscale(0);
+
+				i {
+					opacity: 0;
+
+					&:first-child {
+						opacity: 1;
+					}
+				}
 			}
 		}
 
 		& + span {
 			$handle-size: calc((css-var(check-h) - css-var(check-p) * 2) * css-var(check-s));
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
 			top: calc(css-var(check-p) * css-var(check-s));
 			left: calc(css-var(check-p) * css-var(check-s));
 			transform: translateX(0);
 			width: $handle-size;
 			height: $handle-size;
 			border-radius: calc(css-var(check-br) * css-var(check-s));
+			filter: grayscale(1);
+			transition: filter 300ms, background-color 300ms, left 300ms;
 
 			i {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				color: css-var(back);
 				font-size: calc(css-var(check-fs) * css-var(check-s));
+				transition: opacity delay(default);
+
+				&:first-child {
+					opacity: 0;
+				}
 			}
 		}
 	}
