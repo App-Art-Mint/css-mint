@@ -29,6 +29,7 @@
 
 #{class(theme)} {
 	&-dark {
+		@include css-var-ref(btn-fg, c-fg);
 		@include css-var-ref(btn-bg, c-brand-2);
 	}
 }
