@@ -9,7 +9,7 @@
 :root {
 	@include css-var(card-p, calc(css-var(gap) * 8));
 	@include css-var(card-logo-s, 4rem);
-	@include css-var-ref(card-r, br);
+	@include css-var-ref(card-br, br);
 	@include css-var-ref(card-shadow-s, shadow-s);
 	@include css-var-ref(card-shadow-c, shadow-c);
 	@include css-var-ref(card-bg, c-bw-8);
@@ -28,7 +28,7 @@
 	height: 100%;
 	max-width: 100%;
 	margin: 0;
-	border-radius: css-var(card-r);
+	border-radius: css-var(card-br);
 	box-shadow: css-var(card-shadow-s) css-var(card-shadow-c);
 
 	@include break(sm) {
@@ -104,7 +104,7 @@
 				width: calc(50% + css-var(card-p));
 				height: fit-content;
 				margin-right: calc(css-var(card-p) * -2);
-				border-radius: css-var(card-r);
+				border-radius: css-var(card-br);
 
 				img {
 					height: 100%;
@@ -116,7 +116,7 @@
 				height: fit-content;
 				width: calc(50% + css-var(card-p));
 				margin-top: calc(2 * css-var(card-p));
-				border-radius: css-var(card-r);
+				border-radius: css-var(card-br);
 				box-shadow: css-var(card-shadow-s) css-var(card-shadow-c);
 			}
 		}
@@ -158,6 +158,7 @@
 		position: relative;
 		padding: css-var(card-p);
 		background: css-var(card-bg);
+		border-radius: css-var(card-br);
 		width: 100%;
 		overflow: hidden;
 

@@ -20,7 +20,7 @@ $header-break: sm;
 	@include css-var-ref(header-link-fg-hover, c-bg);
 	@include css-var-ref(header-link-bg-hover, c-shadow-5);
 
-	@include css-var(menu-bar-h, 0.4rem);
+	@include css-var(menu-bar-h, 0.3rem);
 	@include css-var(menu-bar-w, calc(css-var(menu-bar-h) * 8));
 	@include css-var(menu-btn-p, calc(css-var(menu-bar-h) * 1.5));
 	@include css-var-ref(menu-btn-fg, c-fg);
