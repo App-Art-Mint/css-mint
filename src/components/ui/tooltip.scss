@@ -21,6 +21,13 @@
 	@include css-var(tooltip-arrow-s, 0.5rem);
 }
 
+#{class(theme)} {
+    &-dark {
+        @include css-var-ref(tooltip-fg, c-fg);
+        @include css-var-ref(tooltip-bg, c-bg);
+    }
+}
+
 #{class(tooltip)} {
     position: absolute;
     max-width: css-var(tooltip-max-w);
