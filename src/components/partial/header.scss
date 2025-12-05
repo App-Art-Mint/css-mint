@@ -58,7 +58,7 @@ body {
 
 	&#{class(expand)} {
 		@include break($header-break) {
-			#{class(buttons)} {
+			#{class(btns)} {
 				width: auto;
 
 				#{controls(wrapper)} {
@@ -245,7 +245,7 @@ body {
 		justify-content: flex-end;
 		height: 100%;
 
-		& > :not(#{class(buttons)}) {
+		& > :not(#{class(btns)}) {
 			a {
 				color: css-var(header-link-fg);
 				text-decoration: none;
@@ -438,7 +438,7 @@ body {
 		}
 	}
 
-	#{class(buttons)} {
+	#{class(btns)} {
 		flex-wrap: nowrap;
 		flex-shrink: 0;
 		justify-content: flex-end;

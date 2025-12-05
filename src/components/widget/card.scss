@@ -68,7 +68,7 @@
 		}
 
 		@mixin buttons {
-			#{class(buttons)} {
+			#{class(btns)} {
 				justify-content: center;
 			}
 		}
@@ -288,7 +288,7 @@
 			justify-content: flex-end;
 			background: css-var(shadow-0);
 
-			#{class(buttons)} {
+			#{class(btns)} {
 				margin-top: 0 !important;
 			}
 		}
@@ -331,7 +331,7 @@
 			}
 		}
 
-		#{class(buttons)} {
+		#{class(btns)} {
 			margin-top: auto;
 
 			#{class(btn)} {

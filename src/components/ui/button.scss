@@ -280,7 +280,7 @@ p {
 }
 
 /// A list of buttons
-#{class(buttons)} {
+#{class(btns)} {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -304,7 +304,7 @@ p {
         }
     }
 
-    #{class(buttons)} {
+    #{class(btns)} {
         #{class(pill)} {
             width: 100%;
         }
@@ -313,7 +313,7 @@ p {
 
 #{class(grid)}#{class('3')},
 #{class(grid)}#{class('4')} {
-	#{class(buttons)} {
+	#{class(btns)} {
 		& > * {
 			@include break(xs) {
 				width: 100%;
