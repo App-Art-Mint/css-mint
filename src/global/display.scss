@@ -1,0 +1,15 @@
+/// global.scss - Global styles
+/// @author App Art Mint LLC
+///
+/// @group Global
+@charset 'utf-8';
+
+/// Imports
+@use '../util/break' as *;
+@use '../util/selector' as *;
+
+#{class(display)} {
+	&-block {
+		@include break-util(display, block);
+	}
+}

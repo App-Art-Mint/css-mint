@@ -31,3 +31,17 @@ a {
 		}
 	}
 }
+
+/// Buttons styled as links
+#{class(link)} {
+	border: none;
+	background: none;
+	text-decoration: underline;
+	color: css-var(link-c);
+	transition: color 0.3s ease;
+	cursor: pointer;
+
+	@include states(hover, focus, active, mint-active) {
+		color: css-var(link-c-hover);
+	}
+}
