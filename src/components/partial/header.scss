@@ -56,14 +56,10 @@ body {
 	z-index: 1000;
 	height: css-var(header-h);
 
-	&#{class(expand)} {
+	#{class(expand)} {
 		@include break($header-break) {
-			#{class(btns)} {
-				width: auto;
-
-				#{controls(wrapper)} {
-					display: none;
-				}
+			#{controls(wrapper)} {
+				display: none;
 			}
 
 			#{id(wrapper)} {
@@ -93,6 +89,7 @@ body {
 						justify-content: flex-end;
 						flex-wrap: nowrap;
 						overflow: visible;
+						gap: 1rem;
 
 						&>li {
 							position: relative;
@@ -121,14 +118,14 @@ body {
 									font-size: $arrow-size;
 									position: absolute;
 									top: 50%;
-									transform: translateY(-50%);
+									transform: translate(-50%, -50%);
 									margin-left: $arrow-margin;
 									transition: transform time(default);
 								}
 
 								@include states(hover, focus, expanded) {
 									&::after {
-										transform: translateY(-50%) rotate(90deg);
+										transform: translate(-50%, -50%) rotate(90deg);
 									}
 								}
 							}
@@ -155,7 +152,7 @@ body {
 		}
 	}
 
-	&#{class(spread)} {
+	#{class(spread)} {
 		@include break-max($header-break) {
 			#{id(wrapper)} {
 				#{$has-controls} {

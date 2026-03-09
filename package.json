@@ -1,7 +1,7 @@
 {
 	"name": "@appartmint/css-mint",
 	"author": "App Art Mint LLC",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"type": "module",
 	"license": "MIT",
 	"description": "Styles by App Art Mint",
@@ -48,6 +48,7 @@
 		"@types/node": "^24.10.0",
 		"cross-replace": "^0.2.0",
 		"glob": "^11.0.3",
+		"npm-check-updates": "^19.6.3",
 		"npm-run-all2": "^8.0.4",
 		"rimraf": "^6.1.0",
 		"sass": "^1.93.3",
