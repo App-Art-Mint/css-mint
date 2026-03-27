@@ -60,8 +60,13 @@ app-root {
 	}
 }
 
-.cdk-overlay-container {
-	.mat-mdc-select-panel {
-		background: css-var(c-brand-4);
+.cdk {
+	&-overlay-container {
+		.mat-mdc-select-panel {
+			background: css-var(c-brand-4);
+		}
+	}
+	&-overlay-pane {
+		pointer-events: none;
 	}
 }
