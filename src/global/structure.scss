@@ -99,3 +99,10 @@
 	min-height: calc(100vh - css-var(header-h));
 	min-height: calc(100dvh - css-var(header-h));
 }
+
+#{class(scroller)} {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow-y: auto;
+}
