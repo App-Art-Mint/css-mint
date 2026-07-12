@@ -1,7 +1,7 @@
 {
 	"name": "@appartmint/css-mint",
 	"author": "App Art Mint LLC",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"type": "module",
 	"license": "MIT",
 	"description": "Styles by App Art Mint",
@@ -38,12 +38,12 @@
 		"version": "npm i && git add -A",
 		"postversion": "git push && git push --tags && cross-replace gh release create \"v$npm_package_version\" --generate-notes",
 		"prepare": "run-s build",
+		"clean": "rimraf dist",
 		"build": "run-p build:*",
 		"build:dev": "sass src/index.scss dist/index.css",
 		"build:prod": "sass src/index.scss dist/index.min.css --style compressed",
 		"build:modules": "tsx scripts/build-modules.ts",
-		"clean": "rimraf dist",
-		"yalc": "yalc publish",
+		"yalc:publish": "yalc publish",
 		"check:updates": "npm-check-updates"
 	},
 	"devDependencies": {
