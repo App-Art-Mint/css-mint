@@ -11,6 +11,7 @@
 :root {
 	@include css-var-ref(chat-user, c-bg-1);
 	@include css-var-ref(chat-bot, c-brand-1);
+	@include css-var-ref(chat-error, c-danger-6);
 }
 
 #{class(chatbot)} {
@@ -46,6 +47,10 @@
 		&::before {
 			content: '';
 			flex-grow: 1;
+		}
+
+		&-error {
+			color: css-var(chat-error);
 		}
 
 		p {
