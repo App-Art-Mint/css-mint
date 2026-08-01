@@ -10,7 +10,7 @@
 /// Background Styles
 
 :root {
-	@include css-var(bg-blur, 10vw);
+	@include css-var(bg-blur, 2vw);
 	@include css-var(bg-blur-active, 0.15vw);
 }
 
@@ -37,7 +37,7 @@
 	z-index: 0;
 	pointer-events: none;
 	filter: opacity(0) blur(css-var(bg-blur));
-	transition: filter 1000ms ease-out;
+	transition: filter 500ms ease-out;
 
 	&.active {
 		filter: opacity(1) blur(css-var(bg-blur-active));

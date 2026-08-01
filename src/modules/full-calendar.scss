@@ -6,6 +6,7 @@
 @use '../util/break' as *;
 @use '../util/selector' as *;
 
+/// THESE DONT WORK ANYMORE IN FULLCALENDAR 7
 .fc {
 	--fc-page-bg-color: #{css-var(c-brand-6)};
 
