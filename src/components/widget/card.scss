@@ -276,7 +276,7 @@
 					height: 100%;
 					opacity: 0.75;
 					mask-image: none;
-					background: linear-gradient(0deg, black, rgba(0,0,0,70%) 66%, css-var(shadow-0));
+					background: linear-gradient(0deg, black, rgba(0,0,0,70%) 66%, css-var(c-shadow-0));
 					transition: opacity time(default) ease-in-out;
 					z-index: -1;
 				}
@@ -307,7 +307,7 @@
 	
 		#{class(content)} {
 			justify-content: flex-end;
-			background: css-var(shadow-0);
+			background: css-var(c-shadow-0);
 
 			#{class(btns)} {
 				margin-top: 0 !important;

@@ -6,7 +6,6 @@
 
 /// Imports
 @use 'sass:list';
-@use 'sass:math';
 @use '../util/selector' as *;
 @use '../util/break' as *;
 
@@ -39,7 +38,7 @@ $texture-alt-bg: null !default;
 
 @mixin mint-texture () {
     position: relative;
-	background-color: css-var(bg);
+	background-color: css-var(c-bg);
     
     &::before, &::after {
         content: '';
@@ -77,7 +76,7 @@ $texture-alt-bg: null !default;
 
 /// Border Mixin
 @mixin mint-border () {
-	padding: math.div(css-var(texture-p), 2) + css-var(texture-bw);
+	padding: calc(#{css-var(texture-p)} / 2 + #{css-var(texture-bw)});
 	border-image-source: css-var(texture-bi);
 	border-image-slice: css-var(texture-bis);
 	border-image-repeat: css-var(texture-bir);
@@ -85,7 +84,7 @@ $texture-alt-bg: null !default;
 	border-style: css-var(texture-bst);
 
     @include break(sm) {
-        padding: css-var(texture-p) + css-var(texture-bw);
+        padding: calc(#{css-var(texture-p)} + #{css-var(texture-bw)});
     }
 }
 

@@ -8,11 +8,11 @@
 @use '../util/selector' as *;
 
 #{class(glow)} {
-	box-shadow: 0 0 2rem -0.5rem css-var(glow-2);
+	box-shadow: 0 0 2rem -0.5rem css-var(c-glow-2);
 }
 
 #{class(shadow)} {
-	box-shadow: 0 0 2rem -0.5rem css-var(shadow-2);
+	box-shadow: 0 0 2rem -0.5rem css-var(c-shadow-2);
 }
 
 #{class(no-glow)} {

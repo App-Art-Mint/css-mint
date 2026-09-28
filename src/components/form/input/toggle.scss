@@ -7,6 +7,7 @@
 /// Imports
 @use '../../../util/break' as *;
 @use '../../../util/selector' as *;
+@use '../../../util/time' as *;
 
 :root {
 	@include css-var(check-s, 1);
@@ -84,9 +85,9 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				color: css-var(back);
+				color: css-var(c-bg);
 				font-size: calc(css-var(check-fs) * css-var(check-s));
-				transition: opacity delay(default);
+				transition: opacity time(default);
 
 				&:first-child {
 					opacity: 0;

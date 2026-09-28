@@ -75,6 +75,19 @@ $sub-menu-buttons: #{'button'}#{$has-controls};
 /// @type String
 $sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};
 
+/// Negates a provided CSS-selector
+/// @group Functions
+///
+/// @param {String} $base - the CSS-selector to negate
+/// @return {String} - a negated CSS-selector
+@function neg ($base) {
+	@if (meta.type-of($base) != 'string') {
+		@error 'The neg function requires a string value.';
+	}
+
+	@return ':not(#{$base})';
+}
+
 /// Prefixes the provided string with the library name if it isn't already
 /// @group Functions
 ///

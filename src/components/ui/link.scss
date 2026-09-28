@@ -10,8 +10,8 @@
 @use '../../util/time' as *;
 
 :root {
-	@include css-var(link-c, c-brand-4);
-	@include css-var(link-c-hover, c-accent-2);
+	@include css-var-ref(link-c, c-brand-4);
+	@include css-var-ref(link-c-hover, c-accent-2);
 }
 
 a {

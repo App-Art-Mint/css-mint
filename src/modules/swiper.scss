@@ -5,8 +5,8 @@ $arrows-offset: 1rem;
 $arrows-size: 2rem;
 
 :root {
-	@include css-var-ref(--swiper-navigation-color, fore);
-	@include css-var-ref(--swiper-pagination-color, brand);
+	@include css-var-ref(--swiper-navigation-color, c-fg);
+	@include css-var-ref(--swiper-pagination-color, c-brand-5);
 	@include css-var(--swiper-navigation-size, $arrows-size);
 
 	.swiper {
