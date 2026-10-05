@@ -1,7 +1,7 @@
 {
 	"name": "@appartmint/css-mint",
 	"author": "App Art Mint LLC",
-	"version": "2.0.11",
+	"version": "3.0.0",
 	"type": "module",
 	"license": "MIT",
 	"description": "Styles by App Art Mint",
@@ -31,8 +31,7 @@
 	"exports": {
 		".": "./dist/index.css",
 		"./*": "./dist/*.css",
-		"./scss/*": "./src/*.scss",
-		"./scss/*/": "./src/*/index.scss"
+		"./scss/*": "./src/*.scss"
 	},
 	"scripts": {
 		"version": "npm i --package-lock-only && git add -A",

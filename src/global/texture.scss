@@ -90,19 +90,13 @@ $texture-alt-bg: null !default;
 
 /// Texture Styles
 #{class(texture)} {
-    @if $texture-bg {
-        @include mint-texture();
-    }
+    @include mint-texture();
 }
 
 /// Border Styles
 #{class(border)} {
     @extend #{class(texture)};
-    @if $texture-bi {
-        @include mint-border();
-    } @else if $texture-bc {
-        border: css-var(texture-bw) css-var(texture-bst) css-var(texture-bc);
-    }
+    @include mint-border();
 }
 
 #{class(frame)} {
@@ -110,11 +104,7 @@ $texture-alt-bg: null !default;
 	background-color: css-var(card-bg);
 
     @extend #{class(border)};
-    @if $texture-bi {
-        padding: css-var(texture-bw);
-    } @else if $texture-bc {
-        padding: 0;
-    }
+    padding: css-var(texture-bw);
 }
 
 #{class(card)} {

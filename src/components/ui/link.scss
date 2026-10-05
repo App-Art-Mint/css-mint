@@ -14,6 +14,13 @@
 	@include css-var-ref(link-c-hover, c-accent-2);
 }
 
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(link-c, c-brand-8);
+		@include css-var-ref(link-c-hover, c-accent-7);
+	}
+}
+
 a {
 	color: css-var(link-c);
 	transition-duration: time(default);

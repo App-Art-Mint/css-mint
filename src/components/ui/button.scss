@@ -31,6 +31,8 @@
 	&-dark {
 		@include css-var-ref(btn-fg, c-fg);
 		@include css-var-ref(btn-bg, c-brand-2);
+		@include css-var-ref(btn-fg-alt, c-brand-9);
+		@include css-var-ref(btn-fg-alt-hover, c-fg);
 	}
 }
 
