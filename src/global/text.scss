@@ -50,24 +50,17 @@ html, body {
 
 p {
     line-height: css-var(font-h);
+    margin: 0;
 }
 
 @include headers () {
     font-family: css-var(font-title), css-var(font-title-backups);
     line-height: 1;
-
-	&:first-child {
-		margin-top: 0;
-	}
-
-	&:last-child {
-		margin-bottom: 0;
-	}
+    margin: 0;
 }
 
 @each $tag in map.keys($font-min) {
     #{$tag}, #{class($tag)} {
-        margin: 1rem 0;
         font-size: min(css-var(font-min-#{$tag}), css-var(font-mobile-#{$tag}));
 
         @include break(xs) {

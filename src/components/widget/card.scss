@@ -165,6 +165,7 @@
 		border-radius: css-var(card-br);
 		width: 100%;
 		overflow: hidden;
+		z-index: 10;
 
 		& > * {
 			margin-top: 0;
