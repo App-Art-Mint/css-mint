@@ -37,7 +37,9 @@ $header-break: sm;
 		@include css-var-ref(header-bg, c-brand-2);
 		@include css-var-ref(header-fg, c-fg);
 		@include css-var-ref(header-link-fg, c-fg);
+		@include css-var-ref(header-link-fg-hover, c-bg);
 		@include css-var-ref(menu-btn-fg, c-fg);
+		@include css-var-ref(menu-btn-fg-hover, header-link-fg-hover);
 	}
 }
 

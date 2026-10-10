@@ -12,6 +12,12 @@
     @include css-var-ref(img-shadow-s, shadow-s);
 }
 
+#{class(theme)} {
+    &-dark {
+        @include css-var-ref(img-shadow-c, shadow-c);
+    }
+}
+
 /// A basic image
 #{class(image)} {
 

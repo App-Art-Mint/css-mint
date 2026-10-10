@@ -14,6 +14,17 @@
 	@include css-var-ref(--mat-paginator-container-text-color, c-fg);
 }
 
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(--mat-table-background-color, c-bg);
+		@include css-var-ref(--mat-paginator-container-background-color, c-bg);
+		@include css-var-ref(--mat-table-row-item-label-text-color, c-fg);
+		@include css-var-ref(--mat-table-header-headline-color, c-fg);
+		@include css-var-ref(--mat-table-header-subheadline-color, c-fg);
+		@include css-var-ref(--mat-paginator-container-text-color, c-fg);
+	}
+}
+
 body {
 	&#{class(ready)} {
 		app-root {

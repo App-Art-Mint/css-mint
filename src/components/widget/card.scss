@@ -18,6 +18,7 @@
 #{class(theme)} {
 	&-dark {
 		@include css-var-ref(card-bg, c-bw-2);
+		@include css-var-ref(card-shadow-c, shadow-c);
 	}
 }
 

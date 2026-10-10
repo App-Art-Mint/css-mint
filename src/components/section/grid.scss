@@ -10,6 +10,7 @@
 
 :root {
 	@include css-var(grid-gap, calc(css-var(gap) * 2));
+	@include css-var(grid-gap-section, calc(css-var(gap) * 10));
 	@include css-var-ref(grid-fit-w, xs);
 }
 
@@ -107,6 +108,12 @@
 	width: 100%;
 	margin-top: css-var(grid-gap);
 	margin-bottom: css-var(grid-gap);
+
+	&#{class(section)} {
+		gap: css-var(grid-gap-section);
+		margin-top: css-var(grid-gap-section);
+		margin-bottom: css-var(grid-gap-section);
+	}
 
 	&#{class('2')} {
 		@include grid-2;

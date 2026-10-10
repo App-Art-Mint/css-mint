@@ -27,3 +27,9 @@ $arrows-size: 2rem;
 		}
 	}
 }
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(--swiper-navigation-color, c-fg);
+	}
+}

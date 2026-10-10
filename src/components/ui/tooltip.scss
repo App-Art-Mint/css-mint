@@ -25,6 +25,7 @@
     &-dark {
         @include css-var-ref(tooltip-fg, c-fg);
         @include css-var-ref(tooltip-bg, c-bg);
+        @include css-var-ref(tooltip-shadow-c, shadow-c);
     }
 }
 

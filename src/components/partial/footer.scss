@@ -19,6 +19,9 @@
 
 #{class(theme)} {
 	&-dark {
+		@include css-var-ref(footer-bg, c-bg);
+		@include css-var-ref(footer-heel-fg, c-fg);
+		@include css-var-ref(footer-shadow-c, shadow-c);
 		@include css-var-ref(footer-heel-bg, c-brand-4);
 	}
 }

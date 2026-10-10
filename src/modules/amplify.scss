@@ -42,3 +42,10 @@
 		display: block;
 	}
 }
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(--amplify-colors-font-primary, c-fg);
+		@include css-var-ref(--amplify-components-fieldcontrol-color, --amplify-colors-font-primary);
+	}
+}
