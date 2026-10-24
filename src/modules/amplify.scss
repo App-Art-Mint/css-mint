@@ -22,6 +22,7 @@
 	@include css-var-ref(--amplify-components-fieldcontrol-color, --amplify-colors-font-primary);
 
 	@include css-var-ref(--amplify-border-widths-small, bw);
+	--amplify-components-authenticator-form-padding: 0;
 
 	[data-amplify-authenticator] {
 		[data-amplify-container] {
@@ -52,8 +53,7 @@
 
 .account-auth-recaptcha-disclaimer {
 	margin: 0;
-	padding: 0 var(--amplify-components-authenticator-form-padding, 2rem)
-		var(--amplify-components-authenticator-form-padding, 2rem);
+	padding: 0 var(--amplify-components-authenticator-form-padding, 2rem);
 	font-size: 0.75rem;
 	line-height: 1.4;
 }
