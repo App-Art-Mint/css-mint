@@ -22,7 +22,6 @@
 	@include css-var-ref(--amplify-components-fieldcontrol-color, --amplify-colors-font-primary);
 
 	@include css-var-ref(--amplify-border-widths-small, bw);
-	--amplify-components-authenticator-form-padding: 0;
 
 	[data-amplify-authenticator] {
 		[data-amplify-container] {
@@ -32,8 +31,12 @@
 				@extend #{class(content)};
 			}
 		}
+
+		[data-amplify-form] {
+			padding: 0;
+		}
 	}
-	
+
 	[amplify-button] {
 		@extend #{class(btn)};
 		margin: auto;
