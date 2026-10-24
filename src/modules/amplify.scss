@@ -49,3 +49,11 @@
 		@include css-var-ref(--amplify-components-fieldcontrol-color, --amplify-colors-font-primary);
 	}
 }
+
+.account-auth-recaptcha-disclaimer {
+	margin: 0;
+	padding: 0 var(--amplify-components-authenticator-form-padding, 2rem)
+		var(--amplify-components-authenticator-form-padding, 2rem);
+	font-size: 0.75rem;
+	line-height: 1.4;
+}
