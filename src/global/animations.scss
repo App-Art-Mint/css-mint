@@ -162,7 +162,8 @@
 
 		&-icon {
 			@include states(hover, focus) {
-				i {
+				i,
+				svg.mint-icon {
 					animation: $animation;
 				}
 			}
@@ -193,12 +194,14 @@
 	}
 
 	&-icon {
-		i {
+		i,
+		svg.mint-icon {
 			animation: #{prefix(stretch-out)} 0.5s ease forwards;
 		}
 
 		@include states(hover, focus) {
-			i {
+			i,
+			svg.mint-icon {
 				animation: #{prefix(stretch-in)} 0.75s ease forwards;
 			}
 		}
