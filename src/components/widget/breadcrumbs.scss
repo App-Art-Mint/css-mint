@@ -1,0 +1,45 @@
+/// breadcrumbs.scss - Breadcrumb styles
+/// @author App Art Mint LLC
+///
+/// @group Widget
+@charset 'utf-8';
+
+/// Imports
+@use '../../util' as *;
+
+:root {
+	@include css-var(breadcrumbs-btn-pv, 0.125rem);
+	@include css-var(breadcrumbs-btn-ph, 0.4rem);
+	@include css-var-ref(breadcrumbs-btn-bg-hover, c-shadow-2);
+}
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(breadcrumbs-btn-bg-hover, c-glow-2);
+	}
+}
+
+#{class(breadcrumbs)} {
+	#{class(btn)} {
+		min-width: 0;
+		padding: css-var(breadcrumbs-btn-pv) css-var(breadcrumbs-btn-ph);
+		line-height: 1.3;
+		color: css-var(c-fg);
+		background: transparent;
+		border-color: transparent;
+		text-decoration-line: underline;
+		text-decoration-color: css-var(breadcrumbs-btn-bg-hover);
+		text-underline-offset: 0.18em;
+		transition-property: color, background-color, border-color, text-decoration-color;
+
+		&:hover,
+		&:focus-visible,
+		&:active,
+		&#{class(active)} {
+			color: css-var(c-fg);
+			background: css-var(breadcrumbs-btn-bg-hover);
+			border-color: transparent;
+			text-decoration-color: transparent;
+		}
+	}
+}
