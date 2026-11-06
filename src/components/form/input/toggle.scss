@@ -53,7 +53,7 @@
 				background-color: css-var(check-bc);
 				filter: grayscale(0);
 
-				i {
+				i, svg {
 					opacity: 0;
 
 					&:first-child {
@@ -80,7 +80,7 @@
 			filter: grayscale(1);
 			transition: filter 300ms, background-color 300ms, left 300ms;
 
-			i {
+			i, svg {
 				position: absolute;
 				top: 50%;
 				left: 50%;
