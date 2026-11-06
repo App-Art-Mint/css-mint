@@ -110,7 +110,7 @@
 			& > #{class(image)} {
 				width: calc(50% + css-var(card-p));
 				height: fit-content;
-				margin-right: calc(css-var(card-p) * -2);
+				margin-right: calc(css-var(card-p) * -1);
 				border-radius: css-var(card-br);
 
 				img {
