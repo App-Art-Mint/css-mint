@@ -11,7 +11,7 @@
 	@include css-var(p-max, calc(css-var(gap) * 8));
 	@include css-var(p-val, 1vw);
 	@include css-var(p-clamp, clamp(css-var(p-min), css-var(p-val), css-var(p-max)));
-	@include css-var(p-exit, clamp(calc(css-var(p-min) * -1), calc(css-var(p-val) * -1), calc(css-var(p-max) * -1)));
+	@include css-var(p-exit, calc(css-var(p-clamp) * -1));
 	@include css-var(p-exit-w, clamp(calc(100% + css-var(p-min) * 2), calc(100% + css-var(p-val) * 2), calc(100% + css-var(p-max) * 2)));
 
 	/// Shadows

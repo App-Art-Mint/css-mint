@@ -6,7 +6,6 @@
 
 /// Imports
 @use 'sass:list';
-@use 'sass:selector';
 @use 'sass:meta';
 @use 'sass:string';
 
@@ -290,38 +289,44 @@ $sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};
 		}
 	}
 
-	$selectors: ();
-
 	@if (list.index($states, 'hover') != null) {
-		$selectors: list.append($selectors, selector.append(&, ':hover'));
+		&:hover {
+			@content;
+		}
 	}
 
 	@if (list.index($states, 'focus') != null) {
-		$selectors: list.append($selectors, selector.append(&, ':focus-visible'));
+		&:focus-visible {
+			@content;
+		}
 	}
 
 	@if (list.index($states, 'active') != null) {
-		$selectors: list.append($selectors, selector.append(&, ':active'));
+		&:active {
+			@content;
+		}
 	}
 
 	@if (list.index($states, 'mint-active') != null) {
-		$selectors: list.append($selectors, selector.append(&, class(active)));
+		&#{class(active)} {
+			@content;
+		}
 	}
 
 	@if (list.index($states, 'visited') != null) {
-		$selectors: list.append($selectors, selector.append(&, ':visited'));
+		&:visited {
+			@content;
+		}
 	}
 
 	@if (list.index($states, 'disabled') != null) {
-		$selectors: list.append($selectors, selector.append(&, ':disabled'));
+		&:disabled {
+			@content;
+		}
 	}
 
 	@if (list.index($states, 'expanded') != null) {
-		$selectors: list.append($selectors, selector.append(&, expanded(true)));
-	}
-
-	@at-root {
-		#{$selectors} {
+		&#{expanded(true)} {
 			@content;
 		}
 	}
