@@ -15,12 +15,14 @@
 /// @prop {Number} $break.md [1024] - Medium: small desktops, large tablets
 /// @prop {Number} $break.lg [1200] - Large: large desktops, landscape tablets
 /// @prop {Number} $break.xl [1440] - Extra-Large: larger desktops
+/// @prop {Number} $break.xxl [2048] - Extra-extra-large: wide desktops
 $break: (
 	xs: 480,
 	sm: 768,
 	md: 1024,
 	lg: 1200,
 	xl: 1440,
+	xxl: 2048,
 ) !default;
 
 /// Returns the requested breakpoint value as rem
