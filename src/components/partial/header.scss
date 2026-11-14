@@ -145,6 +145,13 @@ body {
 								left: 50%;
 								transform: translateX(-50%);
 								background-color: css-var(header-bg);
+								z-index: 10;
+							}
+
+							button#{$has-controls}#{$has-expanded}#{expanded(true)} + ul {
+								height: auto !important;
+								overflow: visible !important;
+								display: flex !important;
 							}
 						}
 					}
@@ -479,6 +486,11 @@ body {
 			height: 0;
 			overflow: hidden;
 			transition: height time(default), margin time(default);
+		}
+
+		&#{expanded(true)} + ul {
+			height: auto;
+			overflow: visible;
 		}
 
 		&#{$has-expanded}:not(#{expanded(true)}) {

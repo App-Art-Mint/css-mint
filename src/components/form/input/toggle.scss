@@ -15,7 +15,6 @@
 	@include css-var(check-h, 1.5rem);
 	@include css-var(check-bw, 0.125rem);
 	@include css-var(check-fs, 0.5rem);
-	/// Pill shape; not tied to site `--mint-br` (often square on marketing layouts).
 	@include css-var(check-br, 1rem);
 	@include css-var-ref(check-bc, btn-bc);
 	@include css-var-ref(check-bg, c-brand-4);
