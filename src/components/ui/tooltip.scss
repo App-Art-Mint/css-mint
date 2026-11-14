@@ -7,9 +7,12 @@
 /// Imports
 @use '../../util' as *;
 
+$tooltip-arrow-outline: calc(css-var(tooltip-arrow-s) + 0.1rem);
+
 :root {
 	@include css-var-ref(tooltip-fg, c-fg);
 	@include css-var-ref(tooltip-bg, c-bg);
+	@include css-var-ref(tooltip-bc, c-accent);
 	@include css-var-ref(tooltip-r, br);
 	@include css-var-ref(tooltip-shadow-c, shadow-c);
 	@include css-var-ref(tooltip-shadow-s, shadow-s);
@@ -22,107 +25,160 @@
 }
 
 #{class(theme)} {
-    &-dark {
-        @include css-var-ref(tooltip-fg, c-fg);
-        @include css-var-ref(tooltip-bg, c-bg);
-        @include css-var-ref(tooltip-shadow-c, shadow-c);
-    }
+	&-dark {
+		@include css-var-ref(tooltip-fg, c-fg);
+		@include css-var-ref(tooltip-bg, c-bg);
+		@include css-var-ref(tooltip-bc, c-accent);
+		@include css-var-ref(tooltip-shadow-c, shadow-c);
+	}
 }
 
 #{class(tooltip)} {
-    position: absolute;
-    max-width: css-var(tooltip-max-w);
-    border-radius: css-var(tooltip-r);
-    padding: css-var(tooltip-p);
-    opacity: 0;
-    color: css-var(tooltip-fg);
-    background: css-var(tooltip-bg);
-    box-shadow: css-var(tooltip-shadow-c) css-var(tooltip-shadow-s);
-    font-size: css-var(tooltip-font-s);
-    line-height: css-var(tooltip-line-h);
-    transition: opacity 0.3s;
+	position: absolute;
+	max-width: css-var(tooltip-max-w);
+	border: 2px solid css-var(tooltip-bc);
+	border-radius: css-var(tooltip-r);
+	padding: css-var(tooltip-p);
+	opacity: 0;
+	color: css-var(tooltip-fg);
+	background: css-var(tooltip-bg);
+	box-shadow: css-var(tooltip-shadow-c) css-var(tooltip-shadow-s);
+	font-size: css-var(tooltip-font-s);
+	line-height: css-var(tooltip-line-h);
+	transition: opacity 0.3s;
 	user-select: none;
 	pointer-events: none;
-    white-space: nowrap;
+	white-space: nowrap;
 
-    &#{class(top)}, &#{class(bottom)} {
-        &::after {
-            border-left: solid css-var(tooltip-arrow-s) transparent;
-            border-right: solid css-var(tooltip-arrow-s) transparent;
-        }
-    }
-    &#{class(left)}, &#{class(right)} {
-        &::after {
-            border-top: solid css-var(tooltip-arrow-s) transparent;
-            border-bottom: solid css-var(tooltip-arrow-s) transparent;
-        }
-    }
+	&#{class(top)}, &#{class(bottom)} {
+		&::after {
+			border-left: solid css-var(tooltip-arrow-s) transparent;
+			border-right: solid css-var(tooltip-arrow-s) transparent;
+		}
 
-    &#{class(top)} {
-        bottom: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
-        left: 50%;
-        transform: translateX(-50%);
+		&::before {
+			border-left: solid $tooltip-arrow-outline transparent;
+			border-right: solid $tooltip-arrow-outline transparent;
+		}
+	}
 
-        &::after {
-            bottom: calc(-1 * css-var(tooltip-arrow-s) + 1px);
-            left: 50%;
-            transform: translateX(-50%);
-            border-top: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
-        }
-    }
-    &#{class(left)} {
-        right: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
-        top: 50%;
-        transform: translateY(-50%);
+	&#{class(left)}, &#{class(right)} {
+		&::after {
+			border-top: solid css-var(tooltip-arrow-s) transparent;
+			border-bottom: solid css-var(tooltip-arrow-s) transparent;
+		}
 
-        &::after {
-            right: calc(-1 * css-var(tooltip-arrow-s) + 1px);
-            top: 50%;
-            transform: translateY(-50%);
-            border-left: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
-        }
-    }
-    &#{class(bottom)} {
-        top: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
-        left: 50%;
-        transform: translateX(-50%);
+		&::before {
+			border-top: solid $tooltip-arrow-outline transparent;
+			border-bottom: solid $tooltip-arrow-outline transparent;
+		}
+	}
 
-        &::after {
-            top: calc(-1 * css-var(tooltip-arrow-s) + 1px);
-            left: 50%;
-            transform: translateX(-50%);
-            border-bottom: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
-        }
-    }
-    &#{class(right)} {
-        left: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
-        top: 50%;
-        transform: translateY(-50%);
+	&#{class(top)} {
+		bottom: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+		left: 50%;
+		transform: translateX(-50%);
 
-        &::after {
-            left: calc(-1 * css-var(tooltip-arrow-s) + 1px);
-            top: 50%;
-            transform: translateY(-50%);
-            border-right: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
-        }
-    }
+		&::before {
+			bottom: calc(-1 * css-var(tooltip-arrow-s) + 2px);
+			left: 50%;
+			transform: translateX(-50%);
+			border-top: solid $tooltip-arrow-outline css-var(tooltip-bc);
+		}
 
-    &::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-    }
+		&::after {
+			bottom: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+			left: 50%;
+			transform: translateX(-50%);
+			border-top: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+		}
+	}
 
-    &ped {
+	&#{class(left)} {
+		right: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+		top: 50%;
+		transform: translateY(-50%);
+
+		&::before {
+			right: calc(-1 * css-var(tooltip-arrow-s) + 2px);
+			top: 50%;
+			transform: translateY(-50%);
+			border-left: solid $tooltip-arrow-outline css-var(tooltip-bc);
+		}
+
+		&::after {
+			right: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+			top: 50%;
+			transform: translateY(-50%);
+			border-left: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+		}
+	}
+
+	&#{class(bottom)} {
+		top: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+		left: 50%;
+		transform: translateX(-50%);
+
+		&::before {
+			top: calc(-1 * css-var(tooltip-arrow-s) + 2px);
+			left: 50%;
+			transform: translateX(-50%);
+			border-bottom: solid $tooltip-arrow-outline css-var(tooltip-bc);
+		}
+
+		&::after {
+			top: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+			left: 50%;
+			transform: translateX(-50%);
+			border-bottom: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+		}
+	}
+
+	&#{class(right)} {
+		left: calc(100% + css-var(tooltip-arrow-s) + css-var(tooltip-dist));
+		top: 50%;
+		transform: translateY(-50%);
+
+		&::before {
+			left: calc(-1 * css-var(tooltip-arrow-s) + 2px);
+			top: 50%;
+			transform: translateY(-50%);
+			border-right: solid $tooltip-arrow-outline css-var(tooltip-bc);
+		}
+
+		&::after {
+			left: calc(-1 * css-var(tooltip-arrow-s) + 1px);
+			top: 50%;
+			transform: translateY(-50%);
+			border-right: solid css-var(tooltip-arrow-s) css-var(tooltip-bg);
+		}
+	}
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 0;
+	}
+
+	&::before {
+		z-index: 0;
+	}
+
+	&::after {
+		z-index: 1;
+	}
+
+	&ped {
 		display: inline-flex;
-        position: relative;
-        width: fit-content;
+		position: relative;
+		width: fit-content;
 
-        @include states(hover) {
-            #{class(tooltip)} {
-                opacity: 1;
-            }
-        }
-    }
+		@include states(hover) {
+			#{class(tooltip)} {
+				opacity: 1;
+			}
+		}
+	}
 }
