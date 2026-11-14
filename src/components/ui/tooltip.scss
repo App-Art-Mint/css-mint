@@ -12,7 +12,7 @@ $tooltip-arrow-outline: calc(css-var(tooltip-arrow-s) + 0.1rem);
 :root {
 	@include css-var-ref(tooltip-fg, c-fg);
 	@include css-var-ref(tooltip-bg, c-bg);
-	@include css-var-ref(tooltip-bc, c-accent);
+	@include css-var-ref(tooltip-bc, c-accent-5);
 	@include css-var-ref(tooltip-r, br);
 	@include css-var-ref(tooltip-shadow-c, shadow-c);
 	@include css-var-ref(tooltip-shadow-s, shadow-s);
@@ -30,6 +30,7 @@ $tooltip-arrow-outline: calc(css-var(tooltip-arrow-s) + 0.1rem);
 		@include css-var-ref(tooltip-bg, c-bg);
 		@include css-var-ref(tooltip-bc, c-accent);
 		@include css-var-ref(tooltip-shadow-c, shadow-c);
+		@include css-var-ref(tooltip-bc, c-accent-6);
 	}
 }
 
