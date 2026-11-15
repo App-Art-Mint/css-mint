@@ -35,7 +35,7 @@
 	box-shadow: css-var(footer-shadow-s) css-var(footer-shadow-c);
 	transition: transform time(default);
 	z-index: 999;
-	overflow: hidden;
+	//overflow: hidden; /* removed for charity garden */
 
 	&#{class(hide)} {
 		display: flex;
