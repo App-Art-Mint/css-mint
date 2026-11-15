@@ -29,8 +29,7 @@
 #{class(footer)} {
 	display: flex;
 	flex-direction: column;
-	width: calc(100% - css-var(p-exit) * 2);
-	margin-left: css-var(p-exit);
+	width: 100%;
     background: css-var(footer-bg);
 	box-shadow: css-var(footer-shadow-s) css-var(footer-shadow-c);
 	transition: transform time(default);
