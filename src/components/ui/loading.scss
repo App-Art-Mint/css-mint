@@ -1,0 +1,102 @@
+/// loading.scss - Loading indicator styles
+/// @author App Art Mint LLC
+///
+/// @group UI
+@charset 'utf-8';
+
+/// Imports
+@use '../../util/selector' as *;
+@use '../../util/time' as *;
+
+:root {
+	@include css-var(loading-bar-h, 1.5rem);
+	@include css-var(loading-bar-r, 999px);
+	@include css-var(loading-bar-mb, 1rem);
+	@include css-var-ref(loading-bar-fg, c-fg);
+	@include css-var-ref(loading-bar-text-shadow, c-bg);
+}
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(loading-bar-fg, c-fg);
+		@include css-var-ref(loading-bar-text-shadow, c-bg);
+	}
+}
+
+@keyframes mint-loading-bar-shimmer {
+	from {
+		background-position: 200% 0, 0 0;
+	}
+
+	to {
+		background-position: -100% 0, 0 0;
+	}
+}
+
+/// Percentage loading bar
+#{class(loading-bar-percent)} {
+	display: grid;
+	gap: 0.25rem;
+	min-width: 0;
+	margin-bottom: css-var(loading-bar-mb);
+
+	&-label {
+		text-align: center;
+		overflow-wrap: anywhere;
+	}
+
+	&-track {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: css-var(loading-bar-h);
+		border-radius: css-var(loading-bar-r);
+		overflow: hidden;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				90deg,
+				css-var(c-brand-4),
+				css-var(c-accent-5),
+				color-mix(in srgb, css-var(c-brand-7) 0%, transparent)
+			);
+			opacity: 0.35;
+		}
+	}
+
+	&-fill {
+		position: absolute;
+		inset: 0 auto 0 0;
+		border-radius: inherit;
+		background:
+			linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 35%) 50%, transparent 100%) 0 0 / 50% 100% no-repeat,
+			linear-gradient(90deg, css-var(c-accent-3), css-var(c-accent-7));
+		animation: mint-loading-bar-shimmer 1.5s linear infinite;
+		transition: width time(default) ease-out;
+	}
+
+	&-value {
+		position: relative;
+		color: css-var(loading-bar-fg);
+		font-size: 0.875em;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		line-height: 1;
+		text-shadow: 0 0 0.25rem css-var(loading-bar-text-shadow), 0 0 0.125rem css-var(loading-bar-text-shadow);
+	}
+
+	&#{class(complete)} #{class(loading-bar-percent-fill)} {
+		animation: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&-fill {
+			animation: none;
+			transition: none;
+		}
+	}
+}
