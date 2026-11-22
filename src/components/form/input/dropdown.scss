@@ -7,14 +7,87 @@
 /// Imports
 @use '../../../util/break' as *;
 @use '../../../util/selector' as *;
+@use '../../../util/time' as *;
+
+/// Room around the menu so the clip-path reveal doesn't cut off its shadow
+$dropdown-shadow-room: 2rem;
+
+:root {
+	@include css-var-ref(dropdown-bg, c-bg);
+	@include css-var-ref(dropdown-r, br);
+	@include css-var-ref(dropdown-shadow-c, shadow-c);
+	@include css-var-ref(dropdown-shadow-s, shadow-s);
+	@include css-var(dropdown-dist, 0rem);
+}
+
+#{class(theme)} {
+	&-dark {
+		@include css-var-ref(dropdown-bg, c-bg);
+		@include css-var-ref(dropdown-shadow-c, shadow-c);
+	}
+}
 
 /// Dropdown Styles
 #{class(dropdown)} {
+	position: relative;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	
 	@include break(xs) {
 		gap: 1rem;
+	}
+
+	#{class(dropdown-trigger)} {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+
+	&-arrow {
+		flex-shrink: 0;
+		transition: transform time(default);
+	}
+
+	#{class(dropdown-trigger)}#{expanded(true)} #{class(dropdown-arrow)} {
+		transform: rotate(180deg);
+	}
+
+	> [role='menu'] {
+		position: absolute;
+		top: calc(100% + #{css-var(dropdown-dist)});
+		left: 0;
+		z-index: 99999;
+		min-width: 100%;
+		margin: 0;
+		border-radius: css-var(dropdown-r);
+		background: css-var(dropdown-bg);
+		box-shadow: css-var(dropdown-shadow-c) css-var(dropdown-shadow-s);
+		clip-path: inset(
+			(-$dropdown-shadow-room) (-$dropdown-shadow-room) (-$dropdown-shadow-room) (-$dropdown-shadow-room)
+		);
+		visibility: visible;
+		transition: clip-path time(default) ease-out, visibility 0s;
+
+		&#{hidden(true)} {
+			clip-path: inset(0 (-$dropdown-shadow-room) 100% (-$dropdown-shadow-room));
+			visibility: hidden;
+			pointer-events: none;
+			transition: clip-path time(default) ease-in, visibility 0s time(default);
+		}
+
+		#{class(btn)} {
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&-arrow,
+		> [role='menu'],
+		> [role='menu']#{hidden(true)} {
+			transition: none;
+		}
 	}
 }
