@@ -74,12 +74,25 @@
 			}
 		}
 
-		[label="Footer"] {
+		[aria-label="Footer"] {
 			width: 100%;
 			margin: auto;
 
 			@include break(sm) {
 				width: auto;
+				margin: 0;
+			}
+
+			ul {
+				gap: 0.5rem;
+			}
+
+			li {
+				display: contents;
+			}
+
+			a {
+				width: 100%;
 			}
 
 			&>ul {
@@ -87,22 +100,11 @@
 				flex-wrap: wrap;
 				justify-content: space-around;
 				text-align: center;
+				gap: 1rem;
 
 				@include break(xs) {
 					flex-direction: row;
 				}
-
-				&>ul {
-					li:last-child {
-						#{class(pill)} {
-							margin-bottom: 0;
-						}
-					}
-				}
-			}
-
-			#{class(pill)} {
-				margin-bottom: 0.5rem;
 			}
 		}
 	}
