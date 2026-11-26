@@ -8,15 +8,53 @@
 @use '../../util/selector' as *;
 
 i {
-    &.fa-envelope {
-        transform: translateY(5%);
-    }
+	&.fa-envelope {
+		transform: translateY(5%);
+	}
 }
 
 a {
 	color: css-var(link-c);
 	transition-duration: time(default);
 	transition-property: color, background-color;
+
+	/// Instagram: one glyph (::before) + one gradient clone (::after).
+	/// Crossfade opacity only — no background on the <i> itself.
+	.fa-instagram {
+		position: relative;
+
+		&::before {
+			position: relative;
+			z-index: 1;
+			transition: opacity time(default);
+		}
+
+		&::after {
+			content: var(--fa);
+			font: inherit;
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 0;
+			opacity: 0;
+			background-image: radial-gradient(
+				circle at 30% 107%,
+				#fdf497 0%,
+				#fdf497 5%,
+				#fd5949 45%,
+				#d6249f 60%,
+				#285aeb 90%
+			);
+			background-clip: text;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+			pointer-events: none;
+			transition: opacity time(default);
+		}
+	}
 
 	@include states(hover, focus, active, mint-active) {
 		color: css-var(link-c-hover);
@@ -27,7 +65,13 @@ a {
 		}
 
 		.fa-instagram {
-			color: css-var(c-instagram);
+			&::before {
+				opacity: 0;
+			}
+
+			&::after {
+				opacity: 1;
+			}
 		}
 
 		.fa-twitter {
